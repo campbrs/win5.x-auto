@@ -152,10 +152,6 @@ IF %IT_OSVer% == 2003 (
 	start /wait %systemdrive%\tempinst\WIN2003_SP1\ENU_Q832483_MDAC_x86.EXE /T:%TEMP% /C:"%TEMP%\dahotfix.exe /q /n" /Q 2>> %IT_OUTPUT%
 )
 
-rem Nortel Client - driver signing breaks install after cmdlines
-IF %IT_APP_AVPN% == 1 (
-	start /wait %systemdrive%\tempinst\ACN_NORTEL\setup.exe
-)
 
 echo Setup post reboot OS GUI installs (after os install) >> %IT_OUTPUT% 
 call %systemdrive%\tempinst\scripts\general\HFRunOnceEx01.cmd
