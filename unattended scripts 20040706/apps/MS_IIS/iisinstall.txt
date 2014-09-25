@@ -1,0 +1,28 @@
+[Components]
+    aspnet = on
+    BitsServerExtensionsISAPI = off
+    BitsServerExtensionsManager = off
+    fp_extensions = off
+    fp_vdir_deploy = off
+    iisdbg = off
+    iis_asp = off
+    iis_common = on
+    iis_ftp = on
+    iis_inetmgr = on
+    iis_internetdataconnector = off
+    iis_nntp = off
+    iis_nntp_docs = off 
+    iis_serversideincludes = off
+    iis_smtp = on
+    iis_smtp_docs = off 
+    iis_webadmin = off
+    iis_webdav = off
+    iis_www = on
+    iis_www_vdir_scripts = off
+    indexsrv_system = on
+    inetprint = off
+    netcis = off
+
+[InternetServer]
+    PathFTPRoot=%DataRoot%\iis\ftp
+    PathWWWRoot=%DataRoot%\iis\http

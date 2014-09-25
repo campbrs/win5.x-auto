@@ -1,0 +1,219 @@
+;SetupMgrTag
+[Data]
+    AutoPartition=1
+    MsDosInitiated="0"
+    UnattendedInstall="Yes"
+
+[Unattended]
+    UnattendMode=FullUnattended
+    OemSkipEula=Yes
+    OemPreinstall=Yes
+    TargetPath=WIN2003
+    UnattendSwitch="yes"
+    Repartition=No
+    WaitForReboot="No"
+
+[GuiUnattended]
+    AdminPassword=start123
+    EncryptedAdminPassword=No
+    AutoLogon=Yes
+    AutoLogonCount=1
+    OEMSkipRegional=1
+    OemSkipWelcome=1
+    TimeZone=10
+    ServerWelcome=No
+
+[UserData]
+    ProductKey=
+    FullName=“name”
+    OrgName=“org”
+    ComputerName=TESTUNATTEND
+
+[Display]
+    BitsPerPel=16
+    Xresolution=1024
+    YResolution=768
+    Vrefresh=72
+
+[LicenseFilePrintData]
+    AutoMode=PerSeat
+
+[TapiLocation]
+    CountryCode=1
+    AreaCode=303
+
+[RegionalSettings]
+    LanguageGroup=1
+
+[GuiRunOnce]
+
+[Identification]
+;    JoinDomain=DOMAIN
+;    DomainAdmin=test
+;    DomainAdminPassword=test
+
+[Shell]
+    DefaultStartPanelOff=Yes
+
+[Proxy]
+    Proxy_Enable=0
+
+[URL]
+    Home_Page=http://www.google.com
+    NoWelcome=1
+
+[Networking]
+    InstallDefaultComponents=Yes
+
+[NetOptionalComponents]
+    Beacon = 0
+    DHCPServer = 0
+    DNS = 0
+    IAS = 0
+    ILS = 0
+    LPDSVC = 0
+    macPrint = 0
+    macSrv = 0
+    netcm = 0
+    netmontools = 0
+    simptcp = 0
+    SNMP = 1
+    WINS = 0
+
+[Components]
+    ; Install Accesibility Options
+    accessopt = off
+
+    ; Install AutoUpdate
+    autoUpdate = on
+
+    ; Install NetOptionalComponents
+    netoc = on
+
+    ; Install App Server Console
+    appsrv_console = on
+
+    ; COM+ and Distributed Transataction Cordinater Network Access
+    complusnetwork = on
+    dtcnetwork = on
+
+    ; IE, Outlook Express, Windows Messenger, Windows Media Player Visual Access Components
+    IEAccess = on
+    OEaccess = off
+    WMaccess = off
+    WMPocm = off
+
+    ; Accessories
+    calc = on
+    cdplayer = off
+    chat = off
+    charmap = on
+    clipbook = On
+    dialer = Off
+    deskpaper = off
+    fax = off
+    hypertrm = on
+    media_clips = off
+    media_utopia = off
+    mousepoint = off
+    msnexplr = off
+    mswordpad = on
+    paint = on
+    rec = off
+    templates = off
+    vol = off
+
+    ; games
+    freecell = off
+    hearts = off
+    minesweeper = off
+    solitaire = off
+    spider = off
+    pinball = off
+    zonegames = off
+
+    ; Windows Media Services
+    wms = off
+    wms_admin_asp = off
+    wms_admin_mmc = off
+    wms_isapi = off
+    wms_server = off
+
+    ; Certificate Services
+    certsrv = off
+    certsrv_client = off
+    certsrv_server = off
+
+    ; Cluster Services
+    cluster = off
+
+    ; iis settings
+    aspnet = on
+    BitsServerExtensionsISAPI = off
+    BitsServerExtensionsManager = off
+    fp_extensions = off
+    fp_vdir_deploy = off
+    iis_asp = off
+    iis_common = off
+    iis_ftp = off
+    iis_inetmgr = off
+    iis_internetdataconnector = off
+    iis_nntp = off
+    iis_serversideincludes = off
+    iis_smtp = off
+    iis_webadmin = off
+    iis_webdav = off
+    iis_www = off
+    iis_www_vdir_scripts = off
+    indexsrv_system = on
+    inetprint = off
+    netcis = off
+
+    ; Micrsoft Message Queueing
+    msmq_ADIntegrated = off
+    msmq_Core = off
+    msmq_HTTPSupport = off
+    msmq_LocalStorage = off
+    msmq_MQDSService = off
+    msmq_RoutingSupport = off
+    msmq_TriggersService = off
+
+    ; Object Packager
+    objectpkg = off
+
+    ; POP3 Server
+    pop3Admin = off
+    pop3Service = off
+    pop3Srv = off
+
+    ; RIS services
+    reminst = off
+
+    ; OCM update Root certificates
+    rootautoupdate = on
+
+    ; Remote Storage Allows use of Tape drives as extensions to NTFS volumes
+    rstorage = off
+
+    ; terminal Services server Win2000 - note - licenseserver has diff syntax
+;    tsEnable = on
+;    tsKeyboardDrivers = off
+;    tsPrinterDrivers = off
+;    tsClients = off
+;    licenseserver = 0
+;    applicationserver = 0
+
+    ; terminal services server win2003 - note - licenseserver has diff syntax
+    terminalserver = on
+    tswebclient = on
+    licenseserver = off
+
+
+    ; WMI SNMP Provider
+    wbemsnmp = on
+
+[InternetServer]
+    pathftproot = e:\data\iis\ftp
+    pathwwwroot = e:\data\iis\http
+
+

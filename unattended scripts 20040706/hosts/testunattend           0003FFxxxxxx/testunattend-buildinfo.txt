@@ -1,0 +1,90 @@
+; DON'T USE TABS OR SPACES!!!
+
+[system Specific]
+; 2000, XP, or 2003
+HstName=testunattend
+IT_OSVer=XP
+IT_OSDir=WINXP_PRO_EN
+IT_UsrName=Accenture
+IT_OrgName=Accenture
+
+; Disk partition
+IT_NumParts=2
+; Sizes in GB
+IT_DiskPart1Size=8
+IT_DiskPart2Size=
+
+IT_OSMP=c:
+
+IT_RunOnceTerm=2
+IT_DIRECTX=1
+
+
+
+; applications
+; ********** general apps *************
+; Windows Media Player 9
+IT_APP_WMP9=1
+
+; Adobe Reader
+IT_APP_ADBE=1
+
+
+; 7ZIP
+IT_APP_7ZIP=1
+
+; WinRAR
+IT_APP_WRAR=1
+
+; Sun Java
+IT_APP_JAVA=1
+
+; Active Perl from Windows Resource Kit
+IT_APP_PERL=1
+
+; Open SSH - not working
+IT_APP_OSSH=0
+
+;************ workstation applications **********
+; Microsoft Office
+IT_APP_OFFC=1
+
+; Ad-Aware
+IT_APP_ADAW=1
+
+; Microsoft Virtual PC - not working - unknown
+IT_APP_VTPC=0
+
+; Trilian
+IT_APP_TRIL=1
+
+
+; Personal Applications
+; BitTorrent Plugin - not working - can't kill popups - pauses on popoup
+IT_APP_TORR=0
+
+
+
+; ********** Server Applications *****************
+
+; Internet Information Services
+IT_APP_MIIS=0
+
+; SQL Server
+IT_APP_MSQL=0
+
+; Docent
+IT_APP_DCNT=0
+
+
+[MS Office]
+IT_OffVer=2003
+
+[SQL Server]
+IT_SQLVer=2000
+IT_SQLType=ENT
+IT_SQLSPVer=SP3a
+
+[DOCENT]
+IT_DCNTVer=6_5
+

@@ -1,0 +1,11 @@
+; DON'T USE TABS OR SPACES!!! 
+; Can't use env vars :( - will have toi write a perl parser to do this - Batch is too limited!!!!
+; lines with semicolons are ommited
+
+[Standard]
+; Setting up Dirs
+
+; Network Install Repository
+IT_InsShareMP=x:
+IT_InsShare=\\10.1.1.1\install
+IT_InsSharePWD=start123
