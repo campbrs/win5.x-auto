@@ -63,7 +63,7 @@ goto return_diskpartcu
     IF %%A.%%B EQU 172.30 (
        set NETWORK_NUM=%%A.%%B
     ) ELSE (
-       IF %%A.%%B EQU 192.168 (
+       IF %%A.%%B EQU 66.77 (
           set NETWORK_NUM=%%A.%%B
        ) ELSE (
           echo %%A.%%B Not in production or test environment no routes needed >> %IT_OUTPUT%
@@ -84,6 +84,8 @@ goto return_diskpartcu
   route -p add %NETWORK_NUM%.1.0 mask 255.255.255.0 %router_ip% 2>> %IT_OUTPUT%
   route -p add %NETWORK_NUM%.2.0 mask 255.255.255.0 %router_ip% 2>> %IT_OUTPUT%
   route -p add %NETWORK_NUM%.158.0 mask 255.255.255.0 %router_ip% 2>> %IT_OUTPUT%
+  route -p add 63.150.159.0 mask 255.255.255.0 %router_ip% 2>> %IT_OUTPUT%
+  route -p add 170.248.126.200 mask 255.255.255.255 %router_ip% 2>> %IT_OUTPUT%
 
 goto return_routeadd
 
@@ -150,6 +152,10 @@ IF %IT_OSVer% == 2003 (
 	start /wait %systemdrive%\tempinst\WIN2003_SP1\ENU_Q832483_MDAC_x86.EXE /T:%TEMP% /C:"%TEMP%\dahotfix.exe /q /n" /Q 2>> %IT_OUTPUT%
 )
 
+rem Nortel Client - driver signing breaks install after cmdlines
+IF %IT_APP_AVPN% == 1 (
+	start /wait %systemdrive%\tempinst\ACN_NORTEL\setup.exe
+)
 
 echo Setup post reboot OS GUI installs (after os install) >> %IT_OUTPUT% 
 call %systemdrive%\tempinst\scripts\general\HFRunOnceEx01.cmd
