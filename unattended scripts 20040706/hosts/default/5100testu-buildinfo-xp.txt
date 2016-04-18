@@ -4,8 +4,8 @@
 ; 2000, XP, or 2003
 IT_OSVer=XP
 IT_OSDir=WINXP_PRO_EN
-IT_UsrName=Accenture
-IT_OrgName=Accenture
+IT_UsrName=uname
+IT_OrgName=oname
 
 ; Disk partition
 IT_NumParts=2
