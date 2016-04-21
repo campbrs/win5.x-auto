@@ -1,0 +1,180 @@
+<!--
+  
+      Program:		setswapfile
+      Version:		0.5 
+      Date:		11/11/2005
+      Creation Date:	11/11/2005
+   
+      Arguments:        See Display Usage Function
+   
+      Description:
+
+      Revision History: 0.5      11/11/2005 First Version
+-->
+<job>
+   <runtime>
+      <description>This script can be used to modify the system swap file settings.</description>
+      <named
+          name="drive"
+          helpstring= "Drive to place the swap file on (defaults to %SystemDrive%)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="minratio"
+          helpstring= "Minimum Ratio of size to memory (defaults to 1.0)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="maxratio"
+          helpstring= "Maximum Ratio of size to memory (defaults to 1.5)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="system"
+          helpstring= "System name where to set the swap file (defaults to localhost)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="DPE"
+          helpstring= "Disable Paging Executive - causes the OS kernal to run in real memory"
+          type = "simple"
+          required="false"
+      />
+      <named
+          name="printonly"
+          helpstring= "Don't update only Print the drive letter, the min size, max size"
+          type = "simple"
+          required="false"
+      />
+      <named
+          name="q"
+          helpstring= "Quiet mode (no output)"
+          type = "simple"
+          required="false"
+      />
+    <example>
+Example(s):
+setswapfile.wsf /drive:d /minratio:0.5 /maxratio:2.0
+setswapfile.wsf /drive:d /minratio:1.0 /maxratio:1.5
+    </example>
+  </runtime>
+  
+ <!--
+   Add needed includes
+  -->
+
+  <script language="JScript" src="include/jlibIO.js"></script>
+  <script language="JScript" src="include/jlibHelper.js"></script>
+  <script language="JScript" src="include/jlibSystem.js"></script>
+  <script language="JScript" src="include/jlibRegistry.js"></script>
+
+  <script language="JScript">
+  /*\
+   *  Function:		jArgParser
+   *  Version:		0.1
+   *  Date:		1/11/2005
+   *
+   *  sInput:
+   *  Output:		Parsed Arg Object (note: if no args are passed just the initialized object is passed out)
+   *
+   *  Description:	Function to parse arguments passed into the host script.
+   *  
+  \*/
+
+  function jArgParser(oConfig) {
+    var objFS = new ActiveXObject("Scripting.FileSystemObject");
+    var oWinCmd = new ActiveXObject("WScript.Shell");
+    var PROCENV = oWinCmd.Environment("PROCESS");
+    var strSYSTEMDRIVE = PROCENV("SYSTEMDRIVE");
+
+    var sInput;
+
+    // The following code should be customized per application
+
+    // 2000 = 2195; XP = 2600; 2003 = 3790
+    var strOSVer = oWinCmd.RegRead("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\CurrentBuildNumber");
+
+    if ( strOSVer == "2195" ) oConfig["OSVer"] = "2000";
+    if ( strOSVer == "2600" ) oConfig["OSVer"] = "XP";
+    if ( strOSVer == "3790" ) oConfig["OSVer"] = "2003";
+
+    oConfig["Loaded"] = true;
+    oConfig["Drive"] = strSYSTEMDRIVE.replace(":","");
+    oConfig["MinRatio"] = 1.0;
+    oConfig["MaxRatio"] = 1.5;
+    oConfig["System"] = "localhost";
+    oConfig["PrintOnly"] = false;
+    oConfig["Quiet"] = false;
+
+    // Read in Arguments
+
+    // if specified set the drive to use as the swap file
+    if ( WScript.Arguments.Named.Exists("drive") )
+      oConfig["Drive"] = WScript.Arguments.Named("drive");
+
+    // if specified get the minratio
+    if ( WScript.Arguments.Named.Exists("minratio") )
+      oConfig["MinRatio"] = WScript.Arguments.Named("minratio");
+
+    // if specified get the maxratio
+    if ( WScript.Arguments.Named.Exists("maxratio") )
+      oConfig["MaxRatio"] = WScript.Arguments.Named("maxratio");
+
+    // if specified get the system
+    if ( WScript.Arguments.Named.Exists("system") )
+      oConfig["System"] = WScript.Arguments.Named("system");
+
+    // if specified get the DEP
+    if ( WScript.Arguments.Named.Exists("DEP") )
+      oConfig["DisablePagingExecutive"] = true;
+
+    // if specified get the printonly
+    if ( WScript.Arguments.Named.Exists("printonly") )
+      oConfig["PrintOnly"] = true;
+
+    // see if quiet mode
+    if ( WScript.Arguments.Named.Exists("q") )
+      oConfig["Quiet"] = true;
+
+    return (oConfig);
+  }
+  </script>
+
+  <script language="JScript">
+  function jMainProgram()
+  {
+    var numSystemMemoryMB;
+    var oConfig = new Object();
+    var numMinSize, numMaxSize;
+
+    oConfig = jArgParser(oConfig);
+    numSystemMemoryMB = Math.round(jGetPhysicalMemorySize(oConfig["System"]) / 1024) + 1;
+
+    numMinSize = numSystemMemoryMB * oConfig["MinRatio"];
+    numMaxSize = numSystemMemoryMB * oConfig["MaxRatio"];
+
+    if ( oConfig["PrintOnly"] )
+    {
+      WScript.Echo (oConfig["Drive"] + " " + numMinSize + " " + numMaxSize);
+    }
+    else
+    {
+      jRegSetValue(oConfig["System"], HKLM, "SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management", 
+                   "PagingFiles", REG_MULTI_SZ, oConfig["Drive"] + ":\pagefile.sys " + numMinSize + " " + numMaxSize);
+      if ( oConfig["DisablePagingExecutive"] )
+      {
+        jRegSetValue(oConfig["System"], HKLM, "SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management", 
+                     "DisablePagingExecutive", REG_DWORD, 0);
+      }
+    }
+  }
+  </script>
+
+  <script>
+  jMainProgram();
+  </script>
+</job>

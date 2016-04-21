@@ -1,0 +1,590 @@
+/*\
+ *	Program:	preinstall.js
+ *	Version:	5.0beta2
+ *	Rev Date:	08/22/2005
+ * 	Create Date:	10/08/2004
+ *	Created by:	Richard Campbell
+ *
+ *	Inputs:		
+ *	Outputs:	
+ *
+ *	Description:	
+ *
+ *
+ *	Rev History:
+ *                    5.0beta2.1 11/05 
+ *                    5.0beta2   08/05 Bug Fixing, Config File Support, Service Pack Tweaks
+ *                                    - Fixed bugs in the 5.0beta version to allow for OS builds to function as well as 4.5 version
+ *                                    - Added Data Execute Prevention (DEP) setup support for Win 2003 SP1 and Win XP SP2
+ *                                    - Moved Version dependent logic from the OS Unattend Answer File Generation procedure into the LoadConfig procedure
+ *                    5.0beta	 05/05 Commented, Extensable, Workstation Support
+ *                                    - Robust commenting added to all functions
+ *                                    - moved all configuration parameters from Global Variables to a config object based model
+ *                                    - replaced hardecoded Service pack images with SP detection based on src file/dir name
+ *                                    - exteneded OS selection menu to be more automated
+ *                                    - Added in Windows XP and Windows 2000 Pro support (workstation support) - this was in original network based batch versions (pre 1.0)
+ *                                    - Moved all OS level configuration to a single function (in anticipation of creating a config file)
+ *                                    - Re-established completely customizable partitioning with some logical assumptions (part of the pre 1.0 versions) - versions 1.0 - 4.5 all had hardecoded partitioning (3 partitions, c: = 6GB, d: = 10GB, e: = rest)
+ *			4.5	 03/05 Fixed all network Autoconfiguration support - including Adding to Domain
+ *			4.3	 02/05 Fixed DNS, DHCP support (Auto network config support broken - since version 3.0)
+ *			4.0	 12/04 Rolled in WinPE2004 with WMI Support - Added following functions:
+ *					EnumRegKey
+ *					GetRegValue
+ *					GetVirtMemRng
+ *					GetNICConfig
+ *					GetNumHardDisks
+ *					Dir
+ *			3.4	 11/04 Added Win2K3 Textmode HDD driver support
+ *			3.3	 11/04 Added xCopy, Unrar, xCopyUnrar Functions
+ *			3.2	 11/04 Added hardening support
+ *			3.1	 11/04 Added OS Patch Support
+ *			3.0	 11/04 Converted to JScript
+ *			2.1	 10/04 Added Win2K Textmode HDD driver support
+ *			2.0	 10/04 Support for Windows 2000 (multi OS Support added)
+ *			1.1	 10/04 Added Network Autoconfiguration support (DHCP, DNS)
+ *			1.0	 10/04 Written in Batch - first CD based version - supports only Win2k3
+ *                  pre 1.0      11/03 - 06/04 Network based original group of scripts
+\*/
+
+// Define Constants
+HKCR=0x80000000;	//HKEY_CLASSES_ROOT
+HKCU=0x80000001;	//HKEY_CURRENT_USER
+HKLM=0x80000002;	//HKEY_LOCAL_MACHINE
+HKU=0x80000003;	    //HKEY_USERS
+HKCC=0x80000005;	//HKEY_CURRENT_CONFIG
+
+var SFN = WScript.ScriptFullName.split("\\");
+var ScriptName = SFN.pop();
+var ScriptPath = SFN.join("\\");
+
+var WinCmd = new ActiveXObject("WScript.Shell");
+var fso = new ActiveXObject("Scripting.FileSystemObject");
+
+var MassStrg=null;
+
+
+
+
+/*\
+ * 	Function:	loadConfig
+ *	Build Date:	2005/05/03
+ *      Written by:	Richard Campbell
+ *
+ *	Inputs:		configFile	 - String - config File
+ *	Outputs:	configObj	 - Object - Application configuration object contains many other objects used
+ *						    to build the various answer files, etc
+ *
+ *	Description:	loads external configuration file and merges the data with t
+ *
+ *	Version Info:	1.0.0	- 2005/05/03 - initial hardcoded version
+ *
+\*/
+
+function loadConfig() {
+  var configObj = new Object();
+  var splitFQDN = null;
+
+  configObj["installParams"] = new Object();
+  configObj["installParams"]["ComputerName"] = "localhost";
+
+
+  // Get NIC parameters
+  configObj["NIC"] = getNICConfig(configObj["installParams"]["ComputerName"]);
+
+
+  // Define OS specific paramters
+  configObj["OSinfo"] = getOS2Install(SYSTEMDRIVE + "\\os");
+  configObj["OSinfo"]["FQDN"] = getFQDN(configObj["NIC"]);
+    if (configObj["OSinfo"]["FQDN"] != null) {
+    splitFQDN = configObj["OSinfo"]["FQDN"].split(".");
+    if (splitFQDN.length != 0) {
+      configObj["OSinfo"]["hostname"] = splitFQDN.shift();
+      configObj["OSinfo"]["dnsdomain"] = splitFQDN.join(".");
+      configObj["OSinfo"]["machineObjectOU"] = "OU=servers,DC=" + splitFQDN.join(",DC=");
+      configObj["OSinfo"]["machineDN"] = "CN=" + configObj["OSinfo"]["hostname"] + "," + configObj["OSinfo"]["machineObjectOU"];
+    }
+  }
+
+  configObj["OSinfo"]["targetPath"]="WINDOWS";
+  configObj["OSinfo"]["domainAdminUser"]="add2domain";
+  configObj["OSinfo"]["domainAdminPswd”]=“password”;
+  configObj["OSinfo"]["localAdminPswd”]=“password”;
+  configObj["OSinfo"]["machineObjectOU"]="OU=servers";
+  configObj["OSinfo"]["homePage"]="http://www.google.com";
+  configObj["OSinfo"]["ownerName”]=“\”own\””;
+  configObj["OSinfo"]["orgName”]=“\”org\””;
+  configObj["OSinfo"]["timeZone”]=“8”;					
+  configObj["OSinfo"]["countryCode"]="1";				// 1  = USA
+  configObj["OSinfo"]["areaCode”]=“555”;
+  
+  configObj["OSinfo"]["VirtMemRng"]=getVirtMemRng(configObj["installParams"]["ComputerName"], 1.5);
+
+  configObj["OSinfo"]["VirtMemLoc"]="d:\\";
+
+  //Define General Installation parameters
+
+  configObj["installParams"]["preTempPath"] = "z:\\";
+//  configObj["installParams"]["preTempPath"] = "c:\\tempinst\\";
+  configObj["installParams"]["postTempPath"] = "c:\\tempinst\\";
+
+  configObj["installParams"]["OSinstallSrcBasePath"] = "d:\\install\\os\\";
+  configObj["installParams"]["AppsinstallSrcBasePath"] = "d:\\install\\apps\\";
+
+  configObj["installParams"]["OSinstallSrcPath"] = configObj["installParams"]["OSinstallSrcBasePath"] + configObj["OSinfo"]["osLabel"] + "\\";
+  configObj["installParams"]["AFPreDiskPart"] = configObj["installParams"]["preTempPath"] + "afprediskpart.txt";
+  configObj["installParams"]["AFPostDiskPart"] = "afpostdiskpart.txt";
+  configObj["installParams"]["AFOSUnattend"] = configObj["installParams"]["postTempPath"] + "osafunattend.txt";
+  configObj["installParams"]["cmdlines"] =  configObj["installParams"]["OSinstallSrcPath"] + "\\i386\\$OEM$\\cmdlines.txt";
+  configObj["installParams"]["RunOnce00"] = configObj["installParams"]["postTempPath"] + "runonce00.cmd";
+  configObj["installParams"]["RunOnce01"] = configObj["installParams"]["postTempPath"] + "runonce01.cmd";
+
+
+  // Customizations to OS Answer File (i.e. unnattend.txt)
+
+  // Add SetupData into the unattend Answer File - required for DEP or other boot.ini configuration
+  configObj["installParams"]["AFOS_sec_SetupData"] = true;
+  configObj["OSinfo"]["OSLoadOptionsVar"] = "";
+
+
+  // Support for Data Execution Prevention (DEP) configuration (currently) - currently only supported in Win 2003 SP1 and later or Win XP SP2 and later
+  if      ( ( configObj["OSinfo"]["majorOSVer"] == "2003" ) && ( configObj["OSinfo"]["servicePack"] >= 1 ) )
+  {
+    configObj["OSinfo"]["OSLoadOptionsVar"] += "/noexecute=OptIn ";   // Use Optin - Only Windows OS binaries are monitored
+  }
+  else if ( ( configObj["OSinfo"]["majorOSVer"] == "XP" ) && ( configObj["OSinfo"]["servicePack"] >= 2 ) )
+  {
+    configObj["OSinfo"]["OSLoadOptionsVar"] += "/noexecute=OptIn ";   // Use Optin - Only Windows OS binaries are monitored
+  }
+
+
+  // Identify installed controllers
+  configObj["diskControllers"] = getDiskControllers(configObj["installParams"]["ComputerName"]);
+
+  // Define the partitioning specifications
+  configObj["partsSpec"] = new Array();
+
+  if ( configObj["OSinfo"]["systemClass"] == "server" ) {
+    configObj["partsSpec"][0] = new Object();
+    configObj["partsSpec"][0]["size"] = 6;
+    configObj["partsSpec"][0]["letter"] = "c";
+    configObj["partsSpec"][0]["format"] = "ntfs";
+    configObj["partsSpec"][0]["label"] = "os";
+    configObj["partsSpec"][0]["dirs"] = Array ( "c:\\tempinst" );
+
+    configObj["partsSpec"][1] = new Object();
+    configObj["partsSpec"][1]["size"] = 12;
+    configObj["partsSpec"][1]["letter"] = "d";
+    configObj["partsSpec"][1]["format"] = "ntfs";
+    configObj["partsSpec"][1]["label"] = "scratch";
+    configObj["partsSpec"][1]["dirs"] = Array ( "d:\\install",
+                                                "d:\\install\\os",
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["osLabel"],
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["osLabel"] + "\\I386",
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["osLabel"] + "\\I386\\$OEM$",
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["addonPack"],
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["patchPack"],
+                                                "d:\\install\\apps",
+                                                "d:\\install\\tools",
+                                                "d:\\temp" );
+
+    configObj["partsSpec"][2] = new Object();
+    configObj["partsSpec"][2]["size"] = "$";
+    configObj["partsSpec"][2]["letter"] = "e";
+    configObj["partsSpec"][2]["format"] = "ntfs";
+    configObj["partsSpec"][2]["label"] = "apps-data";
+    configObj["partsSpec"][2]["dirs"] = Array ( "e:\\apps",
+                                                "e:\\data",
+                                                "e:\\data\\backup",
+                                                "e:\\data\\backup\\archive",
+                                                "e:\\data\\downloads",
+                                                "e:\\logs",
+                                                "e:\\logs\\iis",
+                                                "e:\\logs\\security",
+                                                "e:\\scripts",
+                                                "e:\\scripts\\backup",
+                                                "e:\\scripts\\system",
+                                                "e:\\scripts\\security",
+                                                "e:\\tools",
+                                                "e:\\tools\\system",
+                                                "e:\\tools\\security",
+                                                "e:\\tools\\debug" );
+  } else {
+    configObj["partsSpec"][0] = new Object();
+    configObj["partsSpec"][0]["size"] = 8;
+    configObj["partsSpec"][0]["letter"] = "c";
+    configObj["partsSpec"][0]["format"] = "ntfs";
+    configObj["partsSpec"][0]["label"] = "os";
+    configObj["partsSpec"][0]["dirs"] = Array ( "c:\\tempinst" );
+
+    configObj["partsSpec"][1] = new Object();
+    configObj["partsSpec"][1]["size"] = "*";
+    configObj["partsSpec"][1]["letter"] = "d";
+    configObj["partsSpec"][1]["format"] = "ntfs";
+    configObj["partsSpec"][1]["label"] = "apps-data";
+    configObj["partsSpec"][1]["dirs"] = Array ( "d:\\install",
+                                                "d:\\install\\os",
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["osLabel"],
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["osLabel"] + "\\I386",
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["osLabel"] + "\\I386\\$OEM$",
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["addonPack"],
+                                                "d:\\install\\os\\" + configObj["OSinfo"]["patchPack"],
+                                                "d:\\install\\apps",
+                                                "d:\\install\\tools",
+                                                "d:\\temp",
+                                                "d:\\apps",
+                                                "d:\\data",
+                                                "d:\\data\\backup",
+                                                "d:\\data\\backup\\archive",
+                                                "d:\\data\\downloads",
+                                                "d:\\logs",
+                                                "d:\\logs\\iis",
+                                                "d:\\logs\\security",
+                                                "d:\\scripts",
+                                                "d:\\scripts\\backup",
+                                                "d:\\scripts\\system",
+                                                "d:\\scripts\\security",
+                                                "d:\\tools",
+                                                "d:\\tools\\system",
+                                                "d:\\tools\\security",
+                                                "d:\\tools\\debug" );
+  }
+
+  // Define the CD/DVD-ROM specifications
+  configObj["romsSpec"] = new Array();
+
+  configObj["romsSpec"][0] = new Object();
+  configObj["romsSpec"][0]["letter"] = "r";
+
+
+  return (configObj);
+}
+
+
+
+/*\
+ * 	Function:	getOS2Install
+ *	Build Date:	2005/05/01
+ *      Written by:	Richard Campbell
+ *
+ *	Inputs:		osPath		 - String - Path to directory where OS files are stored
+ *	Outputs:	filelist or null - Array of strings - list of all files in the path provided including path information or null if path does not exist or dir empty
+ *
+ *	Description:	Checks to see what OS's are avail and asks user to select which OS to install
+ *
+ *	Version Info:	2.0.0	- 2005/05/01 - Complete rewrite allowing for much more expandible options including XP/Windows 2000 Pro selections and all Service Pack Support
+ *			1.0.0	- 2004/12    - original Version (named GetOSVers) 
+ *
+\*/
+
+function getOS2Install(osPath) {
+  var dirList = dir(osPath, true);
+  var i, input, lOSVer = 0;
+  var menuText, currMajVer, currMinVer, currClass, productKey;
+  var menu = new Array();
+  var re_OS = /WIN(XP|2000|2003)_[A-Z]{3}_[A-Z]{2}(_SP\d)*/;
+  var re_OSSPa = /.*WIN(XP|2000|2003)_[A-Z]{3}_[A-Z]{2}_SP/;
+  var re_OSSPb = /\.(rar|RAR)/;
+
+  // BUILD MENU ENTRIES OFF OS DIR
+
+
+  if (dirList == null) {
+    return (null);
+  }
+
+  j = 0;
+
+  //For all files and directories see if they are an OS and if so add to menu
+  for (i = 0; i < dirList.length; i++) {
+    productKey = "";
+    servicePack = 0;
+
+    // Verify file is an OS File or Dir
+    if (re_OS.test(dirList[i])) {
+      foundOS = true;
+    } else
+      foundOS = false;
+
+    // Identify Major OS Version
+    if (/XP/.test(dirList[i])) {
+      menuText = "Windows XP";
+      currMajVer = "XP";
+      productKey = "";
+    } else if (/2000/.test(dirList[i])) {
+      menuText = "Windows 2000";
+      currMajVer = "2000";
+      // productKey not needed as the installation src has been modified to ignore
+    } else if (/2003/.test(dirList[i])) {
+      menuText = "Windows 2003 Server";
+      currMajVer = "2003";
+      productKey = "";
+    } else
+      foundOS = false;
+
+
+    // Identify Minor OS Version
+    if (/PRO/.test(dirList[i])) {
+      menuText += " Professional";
+      currMinVer = "PRO";
+      currClass = "workstation";     
+    } else if (/ADV/.test(dirList[i])) {
+      menuText += " Advanced Server";
+      currMinVer = "ADV";
+      currClass = "server";
+    } else if ( /SRV/.test(dirList[i]) && (currMajVer != "2003") ) {
+      menuText += " Server";
+      currMinVer = "SRV";
+      currClass = "server";
+    } else if (/STD/.test(dirList[i])) {
+      menuText += ": Standard Edition";
+      currMinVer = "STD";
+      currClass = "server";
+    } else if (/ENT/.test(dirList[i])){
+      menuText += ": Enterprise Edition";
+      currMinVer = "ENT";
+      currClass = "server";
+    } else if (/WEB/.test(dirList[i])){
+      menuText += ": Web Edition";
+      currMinVer = "WEB";
+      currClass = "server";
+    } else
+      foundOS = false;
+      
+      
+    //Identify Service Pack
+    if (re_OSSPa.test(dirList[i])) {
+      servicePack = dirList[i].replace(re_OSSPa,"").replace(re_OSSPb,"");
+      menuText = menuText + ", w/ Service Pack " + servicePack;
+    }
+
+
+    // if Found OS add entry to menu 
+    if (foundOS) {
+      menu[j] = new Object();
+      menu[j]["text"] = menuText;
+      menu[j]["majorOSVer"] = currMajVer;
+      menu[j]["minorOSVer"] = currMinVer;
+      menu[j]["servicePack"] = servicePack;  
+      menu[j]["systemClass"] = currClass;
+      menu[j]["productKey"] = productKey;
+      menu[j]["osLabel"] = dirList[i].match(re_OS)[0];
+      menu[j]["fileDirName"] = dirList[i];
+      menu[j]["oemPack"] = "WIN" + currMajVer + "_$OEM$";
+      menu[j]["addonPack"] = "WIN" + currMajVer + "_ADDONS";
+      if (servicePack == 0)
+        menu[j]["patchPack"] = "WIN" + currMajVer + "_PATCH";
+      else
+        menu[j]["patchPack"] = "WIN" + currMajVer + "_PATCH_SP" + servicePack;
+
+      j++;
+    }
+  }
+    
+
+  // DISPLAY MENU AND PROMPT FOR INPUT
+  validInput = false;
+
+  if (j !=  0) {
+    while (! validInput) {
+
+      // Display Menu
+      WScript.Echo ("\nSelect OS to Install");
+      for (i = 0; i < menu.length; i++) WScript.StdOut.WriteLine((i+1) + ". " + menu[i]["text"]);
+      WScript.StdOut.Write("Enter Selection: ");
+      input = WScript.StdIn.Readline();
+
+      // if provided number and the number is within range of the menu accept input
+      if ((/^\d+$/.test(input)) && ((input > 0) && (input < (menu.length+1)))) {
+        validInput = true;
+      }
+    }
+
+    return (menu[input-1]);
+  } else
+    return (null);
+}
+
+
+
+
+
+
+/*\
+ * 	Function:	getFQDN
+ *	Version:	2.0.1
+ *	Build Date:	2005/05/02
+ *      Written by:	Richard Campbell
+ *
+ *	Inputs:		nic 		- Array of Objects - Contains all installed NIC's in system's configurations
+ *	Outputs:	FQDN2		- String - Fully Qualified Domain Name
+ *
+ *	Description:	Determines FQDN by through reverse DNS lookups by first using default routing to locate DNS 
+ *                      server, then various known static routes to locate DNS server, and then if still can't resolve the IP to
+ *                        name the user is prompted to enter in the FQDN manually.
+ *
+ *	Version Info:	2.0.1	- 2005/05/02 - Commenting, code cleanup, NIC object persistent route support
+ *			2.0.0	- 2005/02    - Complete overhaul allowing for setting known static routes to get a connection to the DNS server
+ *			1.0.0   - 2004/11    - basic version allowing simple NS lookup and then if not known prompt user for FQDN
+ *
+\*/
+
+function getFQDN(nic) {
+  var IPAddress = null;
+  var rName = null;
+  var FQDN = null;
+  var FQDN2 = null;
+  var re2 = /\S+$/;
+  var i, j, octets;
+  var pRoute;
+
+  // try and find what the FQDN is through reverse NS lookups using various routes
+  for (i = 0; i < nic.length; i++) {
+    FQDN = null;
+
+    // if the current adapter has an IP address lets try and determine it's FQDN
+    if (nic[i]["IPAddress"] != null) {
+
+      // See if we can get the FQDN through a simple reverse Lookup
+      rName = shExec("cmd /c nslookup " + nic[i]["IPAddress"][0] + " 2> NUL | find \"Name:\"");
+      FQDN = rName.StdOut.Readline().match(re2);
+
+      // if FQDN is still not known and we are in known environment try known static routes for alt paths to DNS Server and then a reverse lookup
+      if ((FQDN == null) && (nic[i]["PersistentRoutes"] != null)) {
+        for (j = 0; j < nic[i]["PersistentRoutes"].length; j++) {
+    
+          // if FQDN still not known try Static Route j
+          if (FQDN == null) {
+            pRoute = nic[i]["PersistentRoutes"][j].split(",");
+            shExec("cmd /c route add " + pRoute[0] + " mask " + pRoute[1] + " " + pRoute[2] + " metric " + pRoute[3]);
+            rName = shExec("cmd /c nslookup " + nic[i]["IPAddress"][0] + " 2> NUL | find \"Name:\"");
+            FQDN = rName.StdOut.Readline().match(re2);
+            shExec("cmd /c route delete " + pRoute[0] + " mask " + pRoute[1]);
+          }
+        }
+
+        rName = shExec("cmd /c nslookup " + nic[i]["IPAddress"][0] + " 2> NUL | find \"Name:\"");
+        FQDN = rName.StdOut.Readline().match(re2);
+      }  
+
+
+      // if FQDN is still not known check and see if default gateway is known and DNS servers are set
+      if ((FQDN == null) && (nic[i]["DNSServerSearchOrder"] != null) && (nic[i]["DefaultIPGateway"] != null)) {
+        for (j = 0; j < nic[i]["DNSServerSearchOrder"].length; j++) {
+
+          // if FQDN still not known - set static route to default gateway for DNS servers and try again and then remove the static route
+          if (FQDN == null) {
+            shExec("cmd /c route add " + nic[i]["DNSServerSearchOrder"][j] + " mask 255.255.255.255 " + nic[i]["DefaultIPGateway"][0]);
+            rName = shExec("cmd /c nslookup " + nic[i]["IPAddress"][0] + " 2> NUL | find \"Name:\"");
+            FQDN = rName.StdOut.Readline().match(re2);
+            shExec("cmd /c route delete " + nic[i]["DNSServerSearchOrder"][j] + " mask 255.255.255.255");
+          }
+        }
+      }
+
+      //  if FQDN found then print it out and terminate loop
+      if (FQDN != null) {
+        WScript.echo ("FQDN: " + FQDN);
+        FQDN2 = FQDN[0];
+        i = nic.length;
+      }
+    }
+  }
+
+  // if FQDN still not known prompt user to enter FQDN
+  if (FQDN == null) {   
+    WScript.StdOut.Writeline ("\nEnter in the Fully Qualified Domain Name (i.e. test.dude.net): ");
+    FQDN2 = WScript.StdIn.Readline();
+  }
+  return (FQDN2);
+}
+
+
+
+
+
+
+/**********************************************************************************************************************************************\
+|                                                ANSWER FILE GENERATION SECTION BEGIN                                                          |
+\**********************************************************************************************************************************************/
+
+
+/**********************************************************************************************************************************************\
+|                                    OPERATING SYSTEM INSTALLATION ANSWER FILE GENERATION SECTION BEGIN                                        |
+\**********************************************************************************************************************************************/
+
+
+/**********************************************************************************************************************************************\
+|                                                 ANSWER FILE GENERATION SECTION END                                                           |
+\**********************************************************************************************************************************************/
+
+
+
+function installOS() {
+  var OSVer;
+  var oExec;
+  var configObj;
+  var PROCENV = WinCmd.Environment("PROCESS");
+
+  SYSTEMDRIVE = PROCENV("SYSTEMDRIVE");
+
+//  WScript.Sleep(30000);
+
+  WScript.StdOut.Writeline ("Warning: You are about to wipe the current machine, all data will be lost!");
+
+  configObj = loadConfig();
+
+
+  WScript.Echo ("\nPartitioning Drives...");
+  genAFDiskPart(configObj);
+
+//  return(1);
+
+  shExec("diskpart /s " + configObj["installParams"]["AFPreDiskPart"]);
+
+  WScript.Echo("\nFormatting Drives and Creating Directories...");
+  for (i = 0; i < configObj["partsSpec"].length; i++) {
+     // WScript.Echo ("Formating Partition " + i);
+     shExec("cmd /c format " + configObj["partsSpec"][i]["letter"] + ": /q /y /fs:" + configObj["partsSpec"][i]["format"] + "  /v:" + configObj["partsSpec"][i]["label"]);
+     mkDirs(configObj["partsSpec"][i]["dirs"]);
+  }
+
+  WScript.StdOut.Writeline ("\nCopying Scripts and answer files for Post Installation...");
+  xCopy(SYSTEMDRIVE + "\\scripts", configObj["installParams"]["postTempPath"]);
+  xCopy(configObj["installParams"]["preTempPath"], configObj["installParams"]["postTempPath"]);
+
+
+  WScript.StdOut.Writeline ("\nCopying OS Install Files...");
+  xCopyUnrar(SYSTEMDRIVE + "\\os\\" + configObj["OSinfo"]["osLabel"], configObj["installParams"]["OSinstallSrcPath"]);
+  xCopyUnrar(SYSTEMDRIVE + "\\os\\" + configObj["OSinfo"]["oemPack"], configObj["installParams"]["OSinstallSrcPath"] + "\\i386\\$OEM$");
+  xCopyUnrar(SYSTEMDRIVE + "\\os\\" + configObj["OSinfo"]["addonPack"], configObj["installParams"]["OSinstallSrcBasePath"] + configObj["OSinfo"]["addonPack"]);
+  xCopyUnrar(SYSTEMDRIVE + "\\os\\" + configObj["OSinfo"]["patchPack"], configObj["installParams"]["OSinstallSrcBasePath"] + configObj["OSinfo"]["patchPack"]);
+
+  WScript.StdOut.Writeline ("\nCopying App Install Files...");
+  xCopyUnrar(SYSTEMDRIVE + "\\apps", configObj["installParams"]["AppsinstallSrcBasePath"]);
+  
+
+  WScript.StdOut.Writeline ("\nBuilding OS Install Answer File...");
+  genAFOSUnattend(configObj);
+  genCmdlines(configObj);
+  if (configObj["OSinfo"]["majorOSVer"] == "2000")   
+    genRunOnce00(configObj);
+  genRunOnce01(configObj);
+
+//  return(1);
+
+  WScript.StdOut.Writeline ("\nInstall OS...\n");
+
+  if (configObj["OSinfo"]["majorOSVer"] == "2000") {
+    shExec(configObj["installParams"]["OSinstallSrcPath"] + "\\i386\\winnt32.exe /s:" + configObj["installParams"]["OSinstallSrcPath"] + "\\i386 /syspart:" + configObj["partsSpec"][0]["letter"] + ": /noreboot /tempdrive:" + configObj["partsSpec"][0]["letter"] + ": /unattend:" + configObj["installParams"]["AFOSUnattend"] + " /makelocalsource");
+  } else {
+    shExec(configObj["installParams"]["OSinstallSrcPath"] + "\\i386\\winnt32.exe /s:" + configObj["installParams"]["OSinstallSrcPath"] + "\\i386 /syspart:" + configObj["partsSpec"][0]["letter"] + ": /dudisable /tempdrive:" + configObj["partsSpec"][0]["letter"] + ": /unattend:" + configObj["installParams"]["AFOSUnattend"] + " /makelocalsource");
+  }
+
+  shExecRoot("exit");
+
+}
+
+var Args = WScript.Arguments;
+var re = /y|Y/;
+
+if ( Args.length == 1 && re.test(Args(0)) ) installOS();

@@ -1,0 +1,284 @@
+<!--
+  
+      Program:		Install IIS
+      Version:		5.0 beta    
+      Date:		05/27/2005
+      Creation Date:	05/2002
+   
+      Arguments:		See Display Usage Function
+   
+      Description:
+
+      Revision History: 5.0beta3 11/08/2005 Added /noharden and /q command line params
+                        5.0beta2 08/28/2005 Converted to WSF file format and library based
+                        5.0beta1 05/27/2005  Adding in additional security settings
+					     - Enabling ALL logging
+   			4.1      02/03/2005  Added Comments and added ability to disable
+   					     - Virtual/Web directory deletion at the command line "-kvd"
+   			4.0      01/11/2005  Added Argument Parsing and Display Usage capabilities
+   			3.0      11/10/2004  Converted from Batch and VBScript scripts to single JScript
+   					     Provided:
+                                             - ASP Creation support
+   			2.0	10/20/2004   Added Metabase support through external VBScript scripts
+                                             Provided:
+   				             - logging settings manipulation
+   			                     - Virtual/Web Directory cleanup
+   			                     - Added Answer file creation (in batch)
+   			1.0	05/2002      Original raw Batch script created to automate IIS install
+   					     and allow for IIS to be installed in non-default directories
+  
+-->
+<job>
+   <runtime>
+      <description>This script installs and/or hardens IIS</description>
+      <named
+          name="ipath"
+          helpstring= "Install Path of based IIS (defaults to e:\data\iis)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="spath"
+          helpstring= "Path where all IIS scripts are copied (default: e:\scripts\iis)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="lpath"
+          helpstring= "Path where IIS Logs are created in (default: e:\logs\iis)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="kvd"
+          helpstring= "Keep existing Virtual directories (default: delete all)"
+          type = "simple"
+          required="false"
+      />
+      <named
+          name="noharden"
+          helpstring= "Install IIS but do not harden"
+          type = "simple"
+          required="false"
+      />
+      <named
+          name="hardenonly"
+          helpstring= "Only harden an existing IIS install"
+          type = "simple"
+          required="false"
+      />
+      <named
+          name="u"
+          helpstring= "Uninstall IIS"
+          type = "simple"
+          required="false"
+      />
+      <named
+          name="q"
+          helpstring= "Quiet Install (no output)"
+          type = "simple"
+          required="false"
+      />
+    <example>
+Example:
+
+iisinstall.wsf /ipath:c:\inetpub /lpath:"d:\log files" /kvd
+iisinstall.wsf /u
+    </example>
+  </runtime>
+  
+ <!--
+   Add needed includes
+  -->
+
+  <script language="JScript" src="include/jlibIO.js"></script>
+  <script language="JScript" src="include/jlibHelper.js"></script>
+  <script language="JScript" src="include/jlibFile.js"></script>
+  <script language="JScript" src="include/jlibIIS.js"></script>
+  <script language="VBScript" src="include/vlibIIS.vbs"></script>
+
+  <script language="JScript">
+  /*\
+   *  Function:		jArgParser
+   *  Version:		0.1
+   *  Date:		1/11/2005
+   *
+   *  sInput:
+   *  Output:		Parsed Arg Object (note: if no args are passed just the initialized object is passed out)
+   *
+   *  Description:	Function to parse arguments passed into the host script.
+   *  
+  \*/
+
+  function jArgParser(oConfig) {
+    var objFS = new ActiveXObject("Scripting.FileSystemObject");
+    var oWinCmd = new ActiveXObject("WScript.Shell");
+    var PROCENV = oWinCmd.Environment("PROCESS");
+    var sSYSTEMDRIVE = PROCENV("SYSTEMDRIVE");
+
+    var sInput;
+
+    // The following code should be customized per application
+
+    // 2000 = 2195; XP = 2600; 2003 = 3790
+    oConfig["OSBuildVer"] = oWinCmd.RegRead("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\CurrentBuildNumber");
+
+    oConfig["Loaded"] = true;
+    oConfig["KeepVDs"] = false;
+    oConfig["UNINSTALL"] = false;
+    oConfig["NoHarden"] = false;
+    oConfig["HardenOnly"] = false;
+    oConfig["Quiet"] = false;
+
+
+    // Read in Arguments
+
+    // see if the install path was specified
+    if ( WScript.Arguments.Named.Exists("ipath") ) {
+      oConfig["INSPath"] = WScript.Arguments.Named("ipath");
+    } else if (objFS.FolderExists("e:\\data")) {
+      oConfig["INSPath"] = "e:\\data\\iis";
+    } else if (objFS.FolderExists("d:\\data")) {
+      oConfig["INSPath"] = "d:\\data\\iis";
+    } else {
+      oConfig["INSPath"] = null;
+    }
+
+    // see if the script path was specified
+    if ( WScript.Arguments.Named.Exists("spath") ) {
+      oConfig["SCRPTPath"] = WScript.Arguments.Named("spath");
+    } else if (objFS.FolderExists("e:\\scripts")) {
+      oConfig["SCRPTPath"] = "e:\\scripts\\iis";
+    } else if (objFS.FolderExists("d:\\scripts")) {
+      oConfig["SCRPTPath"] = "d:\\scripts\\iis";
+    } else {
+      oConfig["SCRPTPath"] = null;
+    }
+
+    // see if the log path was specified
+    if ( WScript.Arguments.Named.Exists("lpath") ) {
+      oConfig["LOGPath"] = WScript.Arguments.Named("lpath");
+    } else if (objFS.FolderExists("e:\\logs")) {
+      oConfig["LOGPath"] = "e:\\logs\\iis";
+    } else if (objFS.FolderExists("d:\\logs")) {
+      oConfig["LOGPath"] = "d:\\logs\\iis";
+    } else {
+      oConfig["LOGPath"] = null;
+    }
+
+    // See if we want to uninstall
+    if ( WScript.Arguments.Named.Exists("u") )
+      oConfig["UNINSTALL"] = true;
+
+    // see if we want to keep the virtual directories
+    if ( WScript.Arguments.Named.Exists("kvd") )
+      oConfig["KeepVDs"] = true;
+
+    // see if no harden install
+    if ( WScript.Arguments.Named.Exists("noharden") )
+      oConfig["NoHarden"] = true;
+
+    // see if only harden iis
+    if ( WScript.Arguments.Named.Exists("hardenonly") )
+      oConfig["HardenOnly"] = true;
+
+    // see if quiet install
+    if ( WScript.Arguments.Named.Exists("q") )
+      oConfig["Quiet"] = true;
+
+    return (oConfig);
+  }
+  </script>
+
+  <script language="JScript">
+  function jMainProgram()
+  {
+    var oConfig = new Object();
+    var oWinCmd = new ActiveXObject("WScript.Shell");
+    
+    var PROCENV = oWinCmd.Environment("PROCESS");
+    var strCOMPUTERNAME = PROCENV("COMPUTERNAME");
+    var strSYSTEMROOT = PROCENV("SYSTEMROOT");
+    var strWINDIR = PROCENV("WINDIR");
+    var strTEMP = PROCENV("TEMP");
+
+    var sOSVer, sIISDWSPath, sIISROOTPath;
+
+    oConfig = jArgParser(oConfig);
+    oConfig["fileAnswerFile"] = strTEMP + "\\iisinstall.txt";
+    oConfig["IISInstalled"] = jIISPathExists("IIS://localhost");
+
+
+    // Check to see if IIS is installed and then uninstall  
+    if ( oConfig["UNINSTALL"] && ! oConfig["HardenOnly"] )
+    {
+      if ( oConfig["IISInstalled"] )
+      {
+        jPrint(oConfig, "Uninstalling IIS...");
+
+        //Build Answer File - if oConfig UNINSTALL = true then uninstall (default is false)
+        jBuildIISfileAnswerFile(oConfig["fileAnswerFile"], oConfig["INSPath"], oConfig["UNINSTALL"]);
+
+        //Install IIS
+        jShExec("sysocmgr /q /i:" + strSYSTEMROOT + "\\inf\\sysoc.inf /u:" + oConfig["fileAnswerFile"]);
+      }
+      else
+      {
+        jPrint(oConfig, "IIS not installed nothing to do...");
+      }
+    }
+
+    // install IIS if not hardening only
+    if ( ! oConfig["UNINSTALL"] && ! oConfig["HardenOnly"] )
+    {
+      if ( oConfig["IISInstalled"] )
+       jPrint(oConfig, "IIS already installed - Updating an existing IIS Install..."); 
+      else
+       jPrint(oConfig, "Installing IIS...");    
+
+      //Build Answer File - if oConfig UNINSTALL = true then uninstall (default is false)
+      jBuildIISfileAnswerFile(oConfig["fileAnswerFile"], oConfig["INSPath"], oConfig["UNINSTALL"]);
+
+      //Install IIS
+      jShExec("sysocmgr /q /i:" + strSYSTEMROOT + "\\inf\\sysoc.inf /u:" + oConfig["fileAnswerFile"]);
+
+    }
+   
+
+    // Verify that IIS has been installed or uninstalled and harden if necessary
+
+    oConfig["IISInstalled"] = jIISPathExists("IIS://localhost");  
+
+    if ( oConfig["IISInstalled"] )
+    {
+
+      if ( oConfig["UNINSTALL"] )
+      {
+        jPrint(oConfig, "ERROR(iisinstall): Failed to Uninstall IIS!!!");    
+      }
+      else
+      {
+        // Harden IIS
+        if (! oConfig["NoHarden"] )
+          jHardenIIS(oConfig);
+
+        // build support ASPs
+        jBuildBigIPASP(jIISGetHomeDir("IIS://localhost/W3SVC/1/ROOT"));
+        jBuildTestInfoASP(jIISGetHomeDir("IIS://localhost/W3SVC/1/ROOT"));
+      }
+    }
+    else if ( ! oConfig["UNINSTALL"] )
+    {
+      jPrint(oConfig, "ERROR(iisinstall): Failed to install IIS!!!");    
+    }
+  }
+  </script>
+
+
+  <script language="JScript">
+  jMainProgram();
+  </script>
+
+
+</job>
+

@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<SYSTEMBUILD>
+  <OSANSWERFILE>
+    <FileContents>
+      <Components
+        cdplayer = "on"
+        chat = "on"
+        charmap = "on"
+        clipbook = "on"
+        dialer = "on"
+        deskpaper = "on"
+        fax = "on"
+        hypertrm = "on"
+        media_clips = "on"
+        media_utopia = "on"
+        mousepoint = "on"
+        msnexplr = "on"
+        mswordpad = "on"
+        paint = "on"
+        rec = "on"
+        templates = "on"
+        vol = "on"
+        freecell = "on"
+        hearts = "on"
+        minesweeper = "on"
+        solitaire = "on"
+        spider = "on"
+        pinball = "on"
+        zonegames = "on"
+      >
+        <InternetServer>
+        </InternetServer>
+      </Components>
+    </FileContents>   
+  </OSANSWERFILE>
+</SYSTEMBUILD>
+

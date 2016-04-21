@@ -1,0 +1,547 @@
+;  -- This file contains descriptions of the MegaRAID family 
+;             of RAID Controllers
+;
+; Copyright © 2001, LSI Logic Corp.,
+[version]
+Signature="$Windows NT$"
+Class=SCSIAdapter
+ClassGUID={4D36E97B-E325-11CE-BFC1-08002BE10318}
+Provider=%DELL%
+CatalogFile=percraid.cat
+CatalogFile.ntx86=percraid.cat
+DriverVer= 07/16/2004,5.48
+
+
+[SourceDisksNames]
+1 = %disk1%,,,
+
+[SourceDisksFiles]
+mraid2k.SYS = 1
+
+[SourceDisksNames.x86]
+2 = %disk2%,,,
+
+[SourceDisksFiles.x86]
+mraid35x.sys = 2
+
+    
+[DestinationDirs]
+DefaultDestDir = 12 ; DIRID_DRIVERS
+
+
+[ControlFlags]
+;
+; Exclude the following PnP devices from Select Device list.
+;
+
+ExcludeFromSelect = PCI\VEN_8086&DEV_1960&SUBSYS_11121111
+ExcludeFromSelect = PCI\VEN_8086&DEV_1960&SUBSYS_11111111
+ExcludeFromSelect = PCI\VEN_8086&DEV_1960&SUBSYS_09A0101E
+ExcludeFromSelect = PCI\VEN_8086&DEV_1960&SUBSYS_11111028
+ExcludeFromSelect = PCI\VEN_8086&DEV_1960&SUBSYS_04671028 
+
+ExcludeFromSelect = PCI\VEN_101E&DEV_1960&SUBSYS_04711028 
+ExcludeFromSelect = PCI\VEN_101E&DEV_1960&SUBSYS_04931028 
+ExcludeFromSelect = PCI\VEN_101E&DEV_1960&SUBSYS_04751028 
+ExcludeFromSelect = PCI\VEN_101E&DEV_1960&SUBSYS_05111028 
+ExcludeFromSelect = PCI\VEN_1028&DEV_000E&SUBSYS_01231028 
+ExcludeFromSelect = PCI\VEN_1000&DEV_1960&SUBSYS_05181028 
+ExcludeFromSelect = PCI\VEN_1000&DEV_1960&SUBSYS_05201028 
+ExcludeFromSelect = PCI\VEN_1028&DEV_000F&SUBSYS_013B1028 
+ExcludeFromSelect = PCI\VEN_1028&DEV_000F&SUBSYS_014A1028 
+ExcludeFromSelect = PCI\VEN_1028&DEV_000F&SUBSYS_014C1028 
+ExcludeFromSelect = PCI\VEN_1028&DEV_000F&SUBSYS_014D1028 
+
+ExcludeFromSelect = PCI\VEN_1028&DEV_0013&SUBSYS_016C1028	
+ExcludeFromSelect = PCI\VEN_1028&DEV_0013&SUBSYS_016D1028	
+ExcludeFromSelect = PCI\VEN_1028&DEV_0013&SUBSYS_016E1028	
+ExcludeFromSelect = PCI\VEN_1028&DEV_0013&SUBSYS_016F1028	
+ExcludeFromSelect = PCI\VEN_1028&DEV_0013&SUBSYS_01701028	
+ExcludeFromSelect = PCI\VEN_1000&DEV_0408&SUBSYS_00021028	
+ExcludeFromSelect = PCI\VEN_1000&DEV_0408&SUBSYS_00011028	
+
+
+
+     
+[Manufacturer]
+%DELL%=DELL, NT.5.1, NT.5.2
+
+     
+
+[DELL]
+;
+;This section will only be installed by Windows 2000
+;
+
+;PERC 3/QC (DELL)
+%Dell471.DeviceDesc% = mraid2k_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_04711028 
+
+;PERC 3/DC (DELL)
+%Dell493.DeviceDesc% = mraid2k_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_04931028 
+
+;PERC 3/SC (DELL)
+%Dell475.DeviceDesc% = mraid2k_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_04751028 
+
+;PERC 4/Di 0123 (DELL)
+%DellROM.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_000E&SUBSYS_01231028 
+
+;PERC 4/Di 013B (DELL)
+%DellROM.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_000F&SUBSYS_013B1028 
+
+;PERC 4/Di 014A (DELL)
+%DellROM.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_000F&SUBSYS_014A1028 
+
+;PERC 4/Di 014C (DELL)
+%DellROM.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_000F&SUBSYS_014C1028 
+
+;PERC 4/Di 014D (DELL)
+%DellROM.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_000F&SUBSYS_014D1028 
+
+;PERC 4/DC (DELL)
+%Dell518.DeviceDesc% = mraid2k_Inst, PCI\VEN_1000&DEV_1960&SUBSYS_05181028 
+
+
+;PERC 4/SC (DELL)
+%Dell520.DeviceDesc% = mraid2k_Inst, PCI\VEN_1000&DEV_1960&SUBSYS_05201028 
+
+
+;CERC ATA100/4ch (DELL)
+%Dell511.DeviceDesc% = mraid2k_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_05111028 
+
+;PCI-EXPRESS
+;PERC 4e/Si (DELL)
+%DellROM1E.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_016C1028	
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_016D1028	
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_016E1028
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_016F1028
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = mraid2k_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_01701028
+
+;PERC 4e/SC (DELL)
+%Dell1.DeviceDesc% = mraid2k_Inst, PCI\VEN_1000&DEV_0408&SUBSYS_00011028	
+
+;PERC 4e/DC (DELL)
+%Dell2.DeviceDesc% = mraid2k_Inst, PCI\VEN_1000&DEV_0408&SUBSYS_00021028
+
+
+
+[mraid2k_Inst]
+CopyFiles = @mraid2k.sys
+DriverVer= 07/16/2004,5.48
+
+[mraid2k_Inst.HW]
+DelReg = LegacyScsiportValues
+     
+[mraid2k_Inst.Services]
+AddService = mraid2k, %SPSVCINST_ASSOCSERVICE%, mraid2k_Service_Inst,Miniport_EventLog_Inst
+
+[mraid2k_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER% 
+StartType      = %SERVICE_BOOT_START% 
+ErrorControl   = %SERVICE_ERROR_NORMAL% 
+ServiceBinary  = %12%\mraid2k.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+AddReg         = DriverInfoAddReg     
+AddReg         = WIN2K_CriticalDataBase
+
+;---------------------------------------------------------------------------------------
+
+[DELL.NT.5.1]
+;
+; This section will only be installed by Windows XP
+;
+
+;DELL 438
+%Dell.DeviceDesc% = NO_DRV, PCI\VEN_8086&DEV_1960&SUBSYS_11121111
+
+;DELL 466
+%Dell.DeviceDesc% = NO_DRV, PCI\VEN_8086&DEV_1960&SUBSYS_11111111
+%Dell.DeviceDesc% = NO_DRV, PCI\VEN_8086&DEV_1960&SUBSYS_09A0101E
+%Dell.DeviceDesc% = NO_DRV, PCI\VEN_8086&DEV_1960&SUBSYS_11111028
+
+;DELL 467
+%Dell467.DeviceDesc% = NO_DRV, PCI\VEN_8086&DEV_1960&SUBSYS_04671028 
+
+;PERC 3/QC (DELL)
+%Dell471.DeviceDesc% = NO_DRV, PCI\VEN_101E&DEV_1960&SUBSYS_04711028 
+
+;PERC 3/DC (DELL)
+%Dell493.DeviceDesc% = NO_DRV, PCI\VEN_101E&DEV_1960&SUBSYS_04931028 
+
+;PERC 3/SC (DELL)
+%Dell475.DeviceDesc% = NO_DRV, PCI\VEN_101E&DEV_1960&SUBSYS_04751028 
+
+;PERC 4/Di 0123 (DELL)
+%DellROM.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_000E&SUBSYS_01231028 
+
+;PERC 4/Di 013B (DELL)
+%DellROM.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_000F&SUBSYS_013B1028 
+
+;PERC 4/Di 014A (DELL)
+%DellROM.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_000F&SUBSYS_014A1028 
+
+;PERC 4/Di 014C (DELL)
+%DellROM.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_000F&SUBSYS_014C1028 
+
+;PERC 4/Di 014D (DELL)
+%DellROM.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_000F&SUBSYS_014D1028 
+
+;PERC 4/DC (DELL)
+%Dell518.DeviceDesc% = NO_DRV, PCI\VEN_1000&DEV_1960&SUBSYS_05181028 
+
+
+;PERC 4/SC (DELL)
+%Dell520.DeviceDesc% = NO_DRV, PCI\VEN_1000&DEV_1960&SUBSYS_05201028 
+
+
+;CERC ATA100/4ch (DELL)
+%Dell511.DeviceDesc% = NO_DRV, PCI\VEN_101E&DEV_1960&SUBSYS_05111028 
+
+;PCI-EXPRESS
+;PERC 4e/Si (DELL)
+%DellROM1E.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_0013&SUBSYS_016C1028	
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_0013&SUBSYS_016D1028	
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_0013&SUBSYS_016E1028
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_0013&SUBSYS_016F1028
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = NO_DRV, PCI\VEN_1028&DEV_0013&SUBSYS_01701028
+
+;PERC 4e/SC (DELL)
+%Dell1.DeviceDesc% = NO_DRV, PCI\VEN_1000&DEV_0408&SUBSYS_00011028	
+
+;PERC 4e/DC (DELL)
+%Dell2.DeviceDesc% = NO_DRV, PCI\VEN_1000&DEV_0408&SUBSYS_00021028
+
+
+[NO_DRV] ;empty section, so this INF does not support Windows XP
+
+
+;---------------------------------------------------------------------------------------
+
+[DELL.NT.5.2]
+;
+; This section will only be installed by Windows 2003
+;
+
+;DELL 438
+%Dell.DeviceDesc% = mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_11121111
+
+;DELL 466
+%Dell.DeviceDesc% = mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_11111111
+%Dell.DeviceDesc% = mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_09A0101E
+%Dell.DeviceDesc% = mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_11111028
+
+;DELL 467
+%Dell467.DeviceDesc% = mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_04671028 
+
+;PERC 3/QC (DELL)
+%Dell471.DeviceDesc% = mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_04711028 
+
+;PERC 3/DC (DELL)
+%Dell493.DeviceDesc% = mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_04931028 
+
+;PERC 3/SC (DELL)
+%Dell475.DeviceDesc% = mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_04751028 
+
+;PERC 4/Di 0123 (DELL)
+%DellROM.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_000E&SUBSYS_01231028 
+
+;PERC 4/Di 013B (DELL)
+%DellROM.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_000F&SUBSYS_013B1028 
+
+;PERC 4/Di 014A (DELL)
+%DellROM.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_000F&SUBSYS_014A1028 
+
+;PERC 4/Di 014C (DELL)
+%DellROM.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_000F&SUBSYS_014C1028 
+
+;PERC 4/Di 014D (DELL)
+%DellROM.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_000F&SUBSYS_014D1028 
+
+;PERC 4/DC (DELL)
+%Dell518.DeviceDesc% = mraid35x_Inst, PCI\VEN_1000&DEV_1960&SUBSYS_05181028 
+
+
+;PERC 4/SC (DELL)
+%Dell520.DeviceDesc% = mraid35x_Inst, PCI\VEN_1000&DEV_1960&SUBSYS_05201028 
+
+
+;CERC ATA100/4ch (DELL)
+%Dell511.DeviceDesc% = mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_05111028 
+
+;PCI-EXPRESS
+;PERC 4e/Si (DELL)
+%DellROM1E.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_016C1028	
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_016D1028	
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_016E1028
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_016F1028
+
+;PERC 4e/Di (DELL)
+%DellROM2E.DeviceDesc% = mraid35x_Inst, PCI\VEN_1028&DEV_0013&SUBSYS_01701028
+
+;PERC 4e/SC (DELL)
+%Dell1.DeviceDesc% = mraid35x_Inst, PCI\VEN_1000&DEV_0408&SUBSYS_00011028	
+
+;PERC 4e/DC (DELL)
+%Dell2.DeviceDesc% = mraid35x_Inst, PCI\VEN_1000&DEV_0408&SUBSYS_00021028
+
+
+
+[mraid35x_Inst.ntx86]
+DriverVer= 10/28/2004,6.46.2.32
+CopyFiles = @mraid35x.sys
+
+[mraid35x_Inst.ntx86.HW]
+DelReg = LegacyScsiportValues
+
+     
+[mraid35x_Inst.ntx86.Services]
+AddService = mraid35x, %SPSVCINST_ASSOCSERVICE%, mraid35x_Service_Inst,Miniport_EventLog_Inst
+
+
+
+[mraid35x_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER% 
+StartType      = %SERVICE_BOOT_START% 
+ErrorControl   = %SERVICE_ERROR_NORMAL% 
+ServiceBinary  = %12%\mraid35x.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+AddReg         = DriverInfoAddReg1     
+AddReg         = WIN2K3_CriticalDataBase
+
+
+;************************************************************* 
+;The EventLog entries are the same for all SCSI miniports. 
+[Miniport_EventLog_Inst]
+AddReg = Miniport_EventLog_AddReg
+     
+[pnpsafe_pci_addreg]
+HKR, "Parameters\PnpInterface", "5", 0x00010001, 0x00000001
+HKR, "Parameters\Device", "NumberOfRequests", 0x00010001, 0x000000BD
+HKLM,"System\CurrentControlSet\Services\Disk","TimeOutValue",0x00010001,0x00000028
+
+
+[WIN2K_CriticalDataBase]
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04931028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04931028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_05111028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_05111028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04711028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04711028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04751028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04751028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1000&dev_1960&subsys_05181028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1000&dev_1960&subsys_05181028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1000&dev_1960&subsys_05201028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1000&dev_1960&subsys_05201028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000E&subsys_01231028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000E&subsys_01231028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_013B1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_013B1028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014A1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014A1028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014C1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014C1028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014D1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014D1028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016C1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016C1028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016D1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016D1028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016E1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016E1028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016F1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016F1028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_01701028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_01701028,Service,,%Service%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1000&DEV_0408&SUBSYS_00011028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1000&DEV_0408&SUBSYS_00011028,Service,,%Service%
+     
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1000&DEV_0408&SUBSYS_00021028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1000&DEV_0408&SUBSYS_00021028,Service,,%Service%
+
+
+[WIN2K3_CriticalDataBase]
+;Windows2K3
+;--------------------------------------------------------------------------------------------------------------------------
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_11121111,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_11121111,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_11111111,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_11111111,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_09A0101E,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_09A0101E,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_11111028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_11111028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_04671028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_8086&dev_1960&subsys_04671028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04931028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04931028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_05111028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_05111028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04711028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04711028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04751028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_101E&dev_1960&subsys_04751028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1000&dev_1960&subsys_05181028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1000&dev_1960&subsys_05181028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1000&dev_1960&subsys_05201028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1000&dev_1960&subsys_05201028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000E&subsys_01231028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000E&subsys_01231028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_013B1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_013B1028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014A1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014A1028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014C1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014C1028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014D1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\pci#ven_1028&dev_000F&subsys_014D1028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016C1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016C1028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016D1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016D1028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016E1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016E1028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016F1028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_016F1028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_01701028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1028&DEV_0013&SUBSYS_01701028,Service,,%Service1%
+
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1000&DEV_0408&SUBSYS_00011028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1000&DEV_0408&SUBSYS_00011028,Service,,%Service1%
+     
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1000&DEV_0408&SUBSYS_00021028,ClassGUID,,%ClassGUID%
+HKLM,SYSTEM\CurrentControlSet\Control\CriticalDeviceDataBase\PCI#VEN_1000&DEV_0408&SUBSYS_00021028,Service,,%Service1%
+
+
+
+
+[Miniport_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,%%SystemRoot%%\System32\IoLogMsg.dll 
+HKR,,TypesSupported,%REG_DWORD%,7
+
+[LegacyScsiportValues]
+HKR,Scsiport
+
+[DriverInfoAddReg]
+; This section is added to all INFs to add registry entries for Driver Info.
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,Description,,%DriverDescription%
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,CurrentVer,,%DriverOEMVersion%
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,Ver_%DriverOEMVersion%,,%DriverVersionID%
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,BaseDriverFileName,,%BaseDriverFileName%
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,BaseDriverFileVersion,,%BaseDriverFileVersion%
+
+[DriverInfoAddReg1]
+; This section is added to all INFs to add registry entries for Driver Info.
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,Description,,%DriverDescription%
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,CurrentVer,,%DriverOEMVersion%
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,Ver_%DriverOEMVersion%,,%DriverVersionID1%
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,BaseDriverFileName,,%BaseDriverFileName1%
+HKLM,Software\InstalledOptions\%DriverOEM%\%DriverFamily%\%DriverMfgr%\%DriverProduct%,BaseDriverFileVersion,,%BaseDriverFileVersion1%
+
+
+
+[Strings]
+disk1 = "DELL PERC RAID Products for Windows 2000 Driver"
+disk2 = "DELL PERC RAID Products for Windows 2003 (32-bit) Driver"
+;---------------------Dell-----------------------------
+DELL="DELL"
+Dell467.DeviceDesc  = "Dell PERC 2/DC RAID Controller"
+Dell.DeviceDesc	    = "Dell PERC 2/SC RAID Controller" 
+Dell471.DeviceDesc  = "DELL PERC 3/QC RAID Controller" 
+Dell475.DeviceDesc  = "DELL PERC 3/SC RAID Controller" 
+Dell493.DeviceDesc  = "DELL PERC 3/DC & PERC 3/DCL RAID Controller" 
+Dell511.DeviceDesc  = "DELL CERC ATA100/4ch RAID Controller" 
+DellROM.DeviceDesc  = "DELL PERC 4/Di RAID Controller" 
+Dell518.DeviceDesc  = "DELL PERC 4/DC RAID Controller" 
+Dell520.DeviceDesc  = "DELL PERC 4/SC RAID Controller" 
+DellROM1E.DeviceDesc = "DELL PERC 4e/Si RAID Controller"	
+DellROM2E.DeviceDesc = "DELL PERC 4e/Di RAID Controller"	
+Dell1.DeviceDesc = "DELL PERC 4e/SC RAID Controller"	
+Dell2.DeviceDesc = "DELL PERC 4e/DC RAID Controller"
+
+
+
+DriverMfgr           = "LSI Logic Corp."
+DriverVersionID      = "5.48"
+DriverVersionID1      = "6.46"
+DriverOEM            ="Dell"
+DriverFamily         ="Storage"
+DriverProduct        ="PERC 4/SC; 4/DC; 4/Di; 2/SC; 2/DC; 3/SC; 3/DC; 3/QC; 4e/DC; 4e/SC; 4e/Di; 4e/Si; CERC ATA100/4ch - Device Drivers"
+DriverDescription    ="PERC Controller Support"
+DriverOEMVersion     ="A01"
+BaseDriverFileName   ="MRAID2K.SYS"
+BaseDriverFileVersion="5.48"
+BaseDriverFileName1   ="MRAID35x.SYS"
+BaseDriverFileVersion1="6.46"
+Service = "mraid2k"
+Service1 = "mraid35x"
+ClassGUID = "{4D36E97B-E325-11CE-BFC1-08002BE10318}"
+     
+;******************************************* 
+;Handy macro substitutions (non-localizable) 
+SPSVCINST_ASSOCSERVICE = 0x00000002
+SERVICE_KERNEL_DRIVER  = 1
+SERVICE_BOOT_START     = 0
+SERVICE_ERROR_NORMAL   = 1
+REG_EXPAND_SZ          = 0x00020000
+REG_DWORD              = 0x00010001

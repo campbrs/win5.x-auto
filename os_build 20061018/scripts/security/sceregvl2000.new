@@ -1,0 +1,372 @@
+; (c) Microsoft Corporation 1997-2000
+;
+; Security Configuration Template for Security Configuration Editor
+;
+; Template Name:        SCERegVl.INF
+; Template Version:     05.00.DR.0100
+;
+; Revision History
+; 0000  -	Original
+; 0100  -	Customizations by Richard Campbell - Added Terminal Services Settings
+
+[version]
+signature="$CHICAGO$"
+DriverVer=11/14/1999,5.00.2183.1
+
+[Register Registry Values]
+;
+; First field: Full Path to Registry Value
+; Second field: value type
+;        ; REG_SZ                      ( 1 )
+;        ; REG_EXPAND_SZ               ( 2 )  \\ with environment variables to expand
+;        ; REG_BINARY                  ( 3 )
+;        ; REG_DWORD                   ( 4 )
+;        ; REG_MULTI_SZ                ( 7 )
+; third field: Display Name (localizable string),
+; fourth field: Display type 0 - boolean, 1 - number, 2 - string, 3 - choices
+
+
+MACHINE\System\CurrentControlSet\Control\Lsa\AuditBaseObjects,4,%AuditBaseObjects%,0
+MACHINE\System\CurrentControlSet\Control\Lsa\CrashOnAuditFail,4,%CrashOnAuditFail%,0
+MACHINE\System\CurrentControlSet\Control\Lsa\FullPrivilegeAuditing,3,%FullPrivilegeAuditing%,0
+MACHINE\System\CurrentControlSet\Control\Lsa\LmCompatibilityLevel,4,%LmCompatibilityLevel%,3,0|%LMCLevel0%,1|%LMCLevel1%,2|%LMCLevel2%,3|%LMCLevel3%,4|%LMCLevel4%,5|%LMCLevel5%
+MACHINE\System\CurrentControlSet\Control\Lsa\RestrictAnonymous,4,%RestrictAnonymous%,3,0|%RA0%,1|%RA1%,2|%RA2%
+MACHINE\System\CurrentControlSet\Control\Lsa\SubmitControl,4,%SubmitControl%,0
+
+MACHINE\System\CurrentControlSet\Control\Print\Providers\LanMan Print Services\Servers\AddPrinterDrivers,4,%AddPrintDrivers%,0
+
+MACHINE\System\CurrentControlSet\Control\Session Manager\Memory Management\ClearPageFileAtShutdown,4,%ClearPageFileAtShutdown%, 0
+MACHINE\System\CurrentControlSet\Control\Session Manager\ProtectionMode,4,%ProtectionMode%,0
+
+MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\EnableSecuritySignature,4,%EnableSMBSignServer%,0
+MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\RequireSecuritySignature,4,%RequireSMBSignServer%,0
+; MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\EnableForcedLogOff,4,%EnableForcedLogoff%,0
+MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\AutoDisconnect,4,%AutoDisconnect%,1,%Unit-Minutes%
+
+MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters\EnableSecuritySignature,4,%EnableSMBSignRDR%,0
+MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters\RequireSecuritySignature,4,%RequireSMBSignRDR%,0
+MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters\EnablePlainTextPassword,4,%EnablePlainTextPassword%,0
+
+MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\DisablePasswordChange,4,%DisablePWChange%,0
+MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\SignSecureChannel,4,%SignSecureChannel%,0
+MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\SealSecureChannel,4,%SealSecureChannel%,0
+MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\RequireSignOrSeal,4,%SignOrSeal%,0
+MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\RequireStrongKey,4,%StrongKey%,0
+
+MACHINE\Software\Microsoft\Driver Signing\Policy,3,%DriverSigning%,3,0|%DriverSigning0%,1|%DriverSigning1%,2|%DriverSigning2%
+
+MACHINE\Software\Microsoft\Non-Driver Signing\Policy,3,%NDriverSigning%,3,0|%DriverSigning0%,1|%DriverSigning1%,2|%DriverSigning2%
+
+MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableCAD,4,%DisableCAD%,0
+MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\DontDisplayLastUserName,4,%DontDisplayLastUserName%,0
+MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption,1,%LegalNoticeCaption%,2
+MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText,1,%LegalNoticeText%,2
+MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ShutdownWithoutLogon,4,%ShutdownWithoutLogon%,0
+
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Setup\RecoveryConsole\SecurityLevel,4,%RCAdmin%,0
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Setup\RecoveryConsole\SetCommand,4,%RCSet%,0
+
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\AllocateCDRoms,1,%AllocateCDRoms%,0
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\AllocateDASD,1,%AllocateDASD%,3,0|%AllocateDASD0%,1|%AllocateDASD1%,2|%AllocateDASD2%
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\AllocateFloppies,1,%AllocateFloppies%,0
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\CachedLogonsCount,1,%CachedLogonsCount%,1,%Unit-Logons%
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\PasswordExpiryWarning,4,%PasswordExpiryWarning%,1,%Unit-Days%
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\ScRemoveOption,1,%ScRemove%,3,0|%ScRemove0%,1|%ScRemove1%,2|%ScRemove2%
+
+; delete these values from current system - Rdr in case NT4 w SCE
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\DisableCAD
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\DontDisplayLastUserName
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\LegalNoticeCaption
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\LegalNoticeText
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\ShutdownWithoutLogon
+MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\CmdConsSecurityLevel
+MACHINE\System\CurrentControlSet\Control\Print\Providers\LanMan Print Services\AddPrintDrivers
+MACHINE\System\CurrentControlSet\Services\MRxSMB\Parameters\EnableSecuritySignature
+MACHINE\System\CurrentControlSet\Services\MRxSMB\Parameters\RequireSecuritySignature
+MACHINE\System\CurrentControlSet\Services\MRxSMB\Parameters\EnablePlainTextPassword
+MACHINE\System\CurrentControlSet\Services\Rdr\Parameters\EnableSecuritySignature
+MACHINE\System\CurrentControlSet\Services\Rdr\Parameters\RequireSecuritySignature
+MACHINE\System\CurrentControlSet\Services\Rdr\Parameters\EnablePlainTextPassword
+MACHINE\Software\Microsoft\Windows\CurrentVersion\NetCache\EncryptEntireCache
+
+;=============================== RSC Customizations BEGIN===============================================================
+;================================ W2KHG Values ==========================================================================
+;================================ MSS Values ================================
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\EnableICMPRedirect,4,%EnableICMPRedirect%,0
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\SynAttackProtect,4,%SynAttackProtect%,3,0|%SynAttackProtect0%,1|%SynAttackProtect1%,2|%SynAttackProtect2%
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\EnableDeadGWDetect,4,%EnableDeadGWDetect%,0
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\EnablePMTUDiscovery,4,%EnablePMTUDiscovery%,0
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveTime,4,%KeepAliveTime%,3,150000|%KeepAliveTime0%,300000|%KeepAliveTime1%,600000|%KeepAliveTime2%,1200000|%KeepAliveTime3%,2400000|%KeepAliveTime4%,3600000|%KeepAliveTime5%,7200000|%KeepAliveTime6%
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\DisableIPSourceRouting,4,%DisableIPSourceRouting%,3,0|%DisableIPSourceRouting0%,1|%DisableIPSourceRouting1%,2|%DisableIPSourceRouting2%
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxConnectResponseRetransmissions,4,%TcpMaxConnectResponseRetransmissions%,3,0|%TcpMaxConnectResponseRetransmissions0%,1|%TcpMaxConnectResponseRetransmissions1%,2|%TcpMaxConnectResponseRetransmissions2%,3|%TcpMaxConnectResponseRetransmissions3%
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxConnectRetransmissions,4,%TcpMaxConnectRetransmissions%,1
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxDataRetransmissions,4,%TcpMaxDataRetransmissions%,1
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\PerformRouterDiscovery,4,%PerformRouterDiscovery%,0
+MACHINE\System\CurrentControlSet\Services\Tcpip\Parameters\TCPMaxPortsExhausted,4,%TCPMaxPortsExhausted%,1
+MACHINE\System\CurrentControlSet\Services\Netbt\Parameters\NoNameReleaseOnDemand,4,%NoNameReleaseOnDemand%,0
+
+MACHINE\System\CurrentControlSet\Control\FileSystem\NtfsDisable8dot3NameCreation,4,%NtfsDisable8dot3NameCreation%,0
+MACHINE\SYSTEM\CurrentControlSet\Services\Cdrom\Autorun,4,%Autorun%,0
+MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoDriveTypeAutoRun,4,%NoDriveTypeAutoRun%,3,0|%NoDriveTypeAutoRun0%,255|%NoDriveTypeAutoRun1%
+MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Security\WarningLevel,4,%WarningLevel%,3,50|%WarningLevel0%,60|%WarningLevel1%,70|%WarningLevel2%,80|%WarningLevel3%,90|%WarningLevel4%
+MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\parameters\RestrictNullSessAccess,4,%RestrictNullSessAccess%,0
+MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\parameters\Hidden,4,%HideBrowseList%,0
+MACHINE\SYSTEM\CurrentControlSet\Services\IPSEC\NoDefaultExempt,4,%NoDefaultExempt%,0
+MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\SafeDllSearchMode,4,%SafeDllSearchMode%,0
+MACHINE\Software\Policies\Microsoft\Windows\Control Panel\Desktop\BlockSendInputResets,1,%BlockSendInputResets%,0
+
+;This is actually a key, so we add a key with the right name, and then a dummy value underneath it.
+MACHINE\System\CurrentControlSet\Control\Lsa\NoLMHash\NoLMHash,4,%NoLMHash%,0
+
+MACHINE\System\CurrentControlSet\Services\NTDS\Parameters\LDAPServerIntegrity,4,%LDAPServerIntegrity%,3,1|%LDAPServer1%,2|%LDAPServer2%
+MACHINE\System\CurrentControlSet\Services\LDAP\LDAPClientIntegrity,4,%LDAPClientIntegrity%,3,0|%LDAPClient0%,1|%LDAPClient1%,2|%LDAPClient2%
+MACHINE\SYSTEM\CurrentControlSet\Services\Alerter\parameters\AlertNames,7,%AlertNames%,4
+MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\WebView,4,%WebView%,0
+
+;These settings use the bitmask controller with checkboxes, it only works when set on XP and above
+MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0\NTLMMinClientSec,4,%NTLMMinClientSec%,5,16|%NTLMIntegrity%,32|%NTLMConfidentiality%,524288|%NTLMv2Session%,536870912|%NTLM128%
+MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0\NTLMMinServerSec,4,%NTLMMinServerSec%,5,16|%NTLMIntegrity%,32|%NTLMConfidentiality%,524288|%NTLMv2Session%,536870912|%NTLM128%
+
+MACHINE\System\CurrentControlSet\Control\Session Manager\SubSystems\optional,7,%OptionalSubSystems%,4
+MACHINE\SYSTEM\ CurrentControlSet\Services\LanmanServer\parameters\NullSessionPipes,7,%NullSessionPipes%,4
+MACHINE\SYSTEM\ CurrentControlSet\Services\LanmanServer\parameters\NullSessionShares,7,%NullSessionShares%,4
+
+
+;=============================== Terminal Services ====================================================================
+; Windows 2000 only
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\MinEncryptionLevel,4,%MinEncryptionLevel%,3,1|%MinEncryptionLevel1%,2|%MinEncryptionLevel2%,3|%MinEncryptionLevel3%
+
+; win2003 only
+; MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\fDenyTSConnections,4,%fDenyTSConnections%,0
+; MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\MinEncryptionLevel,4,%MinEncryptionLevel%,3,1|%MinEncryptionLevel1%,2|%MinEncryptionLevel2%,3|%MinEncryptionLevel3%,4|%MinEncryptionLevel4%
+
+; win2000 and 2003 
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\fInheritResetBroken,4,%fInheritResetBroken%,0
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\fResetBroken,4,%fResetBroken%,3,0|%fResetBroken0%,1|%fResetBroken1%
+
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\fInheritMaxSessionTime,4,%fInheritMaxSessionTime%,0
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\MaxConnectionTime,4,%MaxConnectionTime%,3,0|%TSConnectionTime00%,60000|%TSConnectionTime01%,300000|%TSConnectionTime02%,600000|%TSConnectionTime03%,900000|%TSConnectionTime04%,1800000|%TSConnectionTime05%,3600000|%TSConnectionTime06%,7200000|%TSConnectionTime07%,10800000|%TSConnectionTime08%,86400000|%TSConnectionTime09%,172800000|%TSConnectionTime10%
+
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\fInheritMaxDisconnectionTime,4,%fInheritMaxDisconnectionTime%,0
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\MaxDisconnectionTime,4,%MaxDisconnectionTime%,3,0|%TSConnectionTime00%,60000|%TSConnectionTime01%,300000|%TSConnectionTime02%,600000|%TSConnectionTime03%,900000|%TSConnectionTime04%,1800000|%TSConnectionTime05%,3600000|%TSConnectionTime06%,7200000|%TSConnectionTime07%,10800000|%TSConnectionTime08%,86400000|%TSConnectionTime09%,172800000|%TSConnectionTime10%
+
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\fInheritMaxIdleTime,4,%fInheritMaxIdleTime%,0
+MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\MaxIdleTime,4,%MaxIdleTime%,3,0|%TSConnectionTime00%,60000|%TSConnectionTime01%,300000|%TSConnectionTime02%,600000|%TSConnectionTime03%,900000|%TSConnectionTime04%,1800000|%TSConnectionTime05%,3600000|%TSConnectionTime06%,7200000|%TSConnectionTime07%,10800000|%TSConnectionTime08%,86400000|%TSConnectionTime09%,172800000|%TSConnectionTime10%
+
+
+;=============================== Crash Control ====================================================================
+MACHINE\System\CurrentControlSet\Control\CrashControl\CrashDumpEnabled,4,%fCCCrashDumpEnabled%,3,0|%fCCCrashDumpEnabled00%,1|%fCCCrashDumpEnabled01%,2|%fCCCrashDumpEnabled02%
+MACHINE\System\CurrentControlSet\Control\CrashControl\AutoReboot,4,%fCCAutoReboot%,0
+MACHINE\System\CurrentControlSet\Control\CrashControl\LogEvent,4,%fCCLogEvent%,0
+
+; ============================== Additional Tweaks ========================================================
+; Command Processor Completion Charcter - used in cmd.exe to auto complete a command or filename (behave the same way Windows XP/2003 behaves)
+MACHINE\SOFTWARE\Microsoft\Command Processor\CompletionChar,4,%CompletionChar%,3,9|%CompletionChar009%,33|%CompletionChar033%,64|%CompletionChar064%
+
+; Disable Hidden Administrative Shares For Windows 2000 Server
+MACHINE\SYSTEM\CurrentControlSet\Services\lanmanserver\parameters\AutoShareServer,4,%AutoShareServer%,0
+; Disable Hidden Administrative Shares For Windows 2000 Professional
+MACHINE\SYSTEM\CurrentControlSet\Services\lanmanserver\parameters\AutoShareWks,4,%AutoShareWks%,0
+
+; Enable Screen Saver Password
+USERS\DEFAULT\Control Panel\Desktop\ScreenSaverIsSecure,4,%ScreenSaverIsSecure%,0
+; Enable Screen Saver
+USERS\DEFAULT\Control Panel\Desktop\ScreenSaveActive,4,%ScreenSaveActive%,0
+
+;=============================== RSC Customizations END================================================================
+
+
+[Strings]
+SubmitControl = Allow server operators to schedule tasks (domain controllers only)
+ShutdownWithoutLogon = Allow system to be shut down without having to log on
+AllocateDASD = Allowed to eject removable NTFS media
+AllocateDASD0 = Administrators
+AllocateDASD1 = Administrators and Power Users
+AllocateDASD2 = Administrators and Interactive Users
+AuditBaseObjects = Audit the access of global system objects
+FullPrivilegeAuditing = Audit use of Backup and Restore privilege
+EnableForcedLogoff = Automatically log off users when logon time expires (local)
+AutoDisconnect = Amount of idle time required before disconnecting session
+ClearPageFileAtShutdown = Clear virtual memory pagefile when system shuts down
+RequireSMBSignRdr = Digitally sign client communication (always)
+EnableSMBSignRdr = Digitally sign client communication (when possible)
+RequireSMBSignServer = Digitally sign server communication (always)
+EnableSMBSignServer = Digitally sign server communication (when possible)
+DisableCAD = Disable CTRL+ALT+DEL requirement for logon
+RestrictAnonymous = Additional restrictions for anonymous connections
+RA0 = None. Rely on default permissions
+RA1 = Do not allow enumeration of SAM accounts and shares
+RA2 = No access without explicit anonymous permissions
+DontDisplayLastUserName = Do not display last user name in logon screen
+LmCompatibilityLevel = LAN Manager Authentication Level
+LMCLevel0 = Send LM & NTLM responses
+LMCLevel1 = Send LM & NTLM - use NTLMv2 session security if negotiated
+LMCLevel2 = Send NTLM response only
+LMCLevel3 = Send NTLMv2 response only
+LMCLevel4 = Send NTLMv2 response only\refuse LM
+LMCLevel5 = Send NTLMv2 response only\refuse LM & NTLM
+LegalNoticeText = Message text for users attempting to log on
+LegalNoticeCaption = Message title for users attempting to log on
+CachedLogonsCount = Number of previous logons to cache (in case domain controller is not available)
+AddPrintDrivers = Prevent users from installing printer drivers
+DisablePWChange = Prevent system maintenance of computer account password
+PasswordExpiryWarning = Prompt user to change password before expiration
+RCAdmin = Recovery Console: Allow automatic administrative logon
+RCSet = Recovery Console: Allow floppy copy and access to all drives and all folders
+AllocateCDRoms = Restrict CD-ROM access to locally logged-on user only
+AllocateFloppies = Restrict floppy access to locally logged-on user only
+ProtectionMode = Strengthen default permissions of global system objects (e.g. Symbolic Links)
+SignOrSeal = Secure channel: Digitally encrypt or sign secure channel data (always)
+SealSecureChannel = Secure channel: Digitally encrypt secure channel data (when possible)
+SignSecureChannel = Secure channel: Digitally sign secure channel data (when possible)
+StrongKey = Secure channel: Require strong (Windows 2000 or later) session key
+CrashOnAuditFail = Shut down system immediately if unable to log security audits
+EnablePlainTextPassword = Send unencrypted password to connect to third-party SMB servers
+ScRemove = Smart card removal behavior
+ScRemove0 = No Action
+ScRemove1 = Lock Workstation
+ScRemove2 = Force Logoff
+DriverSigning = Unsigned driver installation behavior
+NDriverSigning = Unsigned non-driver installation behavior
+DriverSigning0 = Silently succeed 
+DriverSigning1 = Warn but allow installation
+DriverSigning2 = Do not allow installation
+Unit-Logons = logons
+Unit-Days = days
+Unit-Minutes = minutes
+
+
+;=============================== RSC Customizations BEGIN==============================================================
+;================================ MSS Settings ================================
+;================================ W2KHG Settings ========================================================================
+EnableICMPRedirect = "MSS: Allow ICMP redirects to override OSPF generated routes"
+SynAttackProtect = "MSS: Syn attack protection level (protects against DoS)"
+SynAttackProtect0 = "No additional protection, use default settings"
+SynAttackProtect1 = "Connections time out sooner if a SYN attack is detected"
+SynAttackProtect2 = "Strongest protection: Connections time out very quickly"
+EnableDeadGWDetect = "MSS: Allow automatic detection of dead network gateways (could lead to DoS)"
+EnablePMTUDiscovery = "MSS: Allow automatic detection of MTU size (possible DoS by an attacker using a small MTU)"
+KeepAliveTime = "MSS: How often keep-alive packets are sent in milliseconds"
+KeepAliveTime0 ="150000 or 2.5 minutes"
+KeepAliveTime1 ="300000 or 5 minutes (recommended)" 
+KeepAliveTime2 ="600000 or 10 minutes"
+KeepAliveTime3 ="1200000 or 20 minutes"
+KeepAliveTime4 ="2400000 or 40 minutes"
+KeepAliveTime5 ="3600000 or 1 hour"
+KeepAliveTime6 ="7200000 or 2 hours (default value)"
+DisableIPSourceRouting = "MSS: IP source routing protection level (protects against packet spoofing)"
+DisableIPSourceRouting0 = "No addtional protection, source routed packets are allowed"
+DisableIPSourceRouting1 = "Medium, source routed packets ignored when IP forwarding is enabled"
+DisableIPSourceRouting2 = "Highest protection, source routing is completely disabled"
+TcpMaxConnectResponseRetransmissions = "MSS: SYN-ACK retransmittions when a connection request is not acknowledged"
+TcpMaxConnectResponseRetransmissions0 = "No retransmission, half-open connections dropped after 3 seconds"
+TcpMaxConnectResponseRetransmissions1 = "3 seconds, half-open connections dropped after 9 seconds"
+TcpMaxConnectResponseRetransmissions2 = "3 & 6 seconds, half-open connections dropped after 21 seconds"
+TcpMaxConnectResponseRetransmissions3 = "3, 6, & 9 seconds, half-open connections dropped after 45 seconds"
+TcpMaxDataRetransmissions = "MSS: How many times unacknowledged data is retransmitted (3 recommended, 5 is default)"
+TcpMaxConnectRetransmissions = "MSS: How many times a connect request is transmitted (3 recommended, 5 is default)"
+PerformRouterDiscovery = "MSS: Allow IRDP to detect and configure Default Gateway addresses (could lead to DoS)"
+TCPMaxPortsExhausted = "MSS: How many dropped connect requests to initiate SYN attack protection (5 is recommended)" 
+NoNameReleaseOnDemand = "MSS: Allow the computer to ignore NetBIOS name release requests except from WINS servers"
+NtfsDisable8dot3NameCreation = "MSS: Enable the computer to stop generating 8.3 style filenames"
+Autorun = "MSS: Enable the Autorun feature for local CD-ROM and DVD drives"
+NoDriveTypeAutoRun = "MSS: Disable Autorun for all drives"
+NoDriveTypeAutoRun0 = "Null, allow Autorun"
+NoDriveTypeAutoRun1 = "255, disable Autorun for all drives"
+WarningLevel = "MSS: Percentage threshold for the security event log at which the system will generate a warning"
+WarningLevel0 = "50%"
+WarningLevel1 = "60%"
+WarningLevel2 = "70%"
+WarningLevel3 = "80%"
+WarningLevel4 = "90%"
+RestrictNullSessAccess = "MSS: Disable null session access to the computer"
+HideBrowseList = "MSS: Hide the computer from the network browse list"
+NoDefaultExempt = "MSS: Remove default IPSec exemptions"
+SafeDllSearchMode = "MSS: Enable Safe DLL Search Mode"
+BlockSendInputResets = "MSS: Prevent interference of the session lock from application generated input"
+
+NoLMHash = "Network security: Do not store LAN Manager hash value on next password change"
+LDAPServerIntegrity = "Domain controller: LDAP server signing requirements"
+LDAPServer1 = "None"
+LDAPServer2 = "Require signing"
+LDAPClientIntegrity = "Network security: LDAP client signing requirements"
+LDAPClient0 = "None"
+LDAPClient1 = "Negotiate signing"
+LDAPClient2 = "Require signing"
+AlertNames = "MSS: Users and computers to receive administrative alert when the audit log is full (1 per line)"
+WebView = "MSS: Turn off web view in folders"
+
+;These settings use the bitmask controller with checkboxes, it only works in XP and above
+NTLMMinClientSec = "Network security: Minimum session security for NTLM SSP based (including secure RPC) clients. Note, this setting must be configured from a Windows XP or .NET Server computer to be set correctly"
+NTLMMinServerSec = "Network security: Minimum session security for NTLM SSP based (including secure RPC) servers. Note, this setting must be configured from a Windows XP or .NET Server computer to be set correctly"
+
+OptionalSubSystems = "System settings: Optional subsystems"
+NullSessionPipes = "MSS: Pipes accessible through null sessions"
+NullSessionShares = "MSS: Shares accessible through null sessions"
+
+;=============================== Terminal Services ====================================================================
+; fDenyTSConnections = "Terminal Services: Deny Terminal Services Connections"
+MinEncryptionLevel = "Terminal Services: Encryption Level"
+MinEncryptionLevel1 = "Low"
+MinEncryptionLevel3 = "High"
+
+; Windows 2000
+MinEncryptionLevel2 = "Medium"
+
+; Windows 2003
+; MinEncryptionLevel2 = "Client Compatible"
+; MinEncryptionLevel4 = "FIPS Compliant"
+
+
+fInheritResetBroken = "Terminal Services: Inherit User Setting for Reset Broken Connection"
+fResetBroken = "Terminal Services: Reset session when session limit is reached or connection is broken"
+fResetBroken0 = "Disconnect from session"
+fResetBroken1 = "End Session"
+
+fInheritMaxSessionTime = "Terminal Services: Inherit User Setting for End an Active Session Timer"
+MaxConnectionTime = "Terminal Services: Time to End an Active Session"
+fInheritMaxDisconnectionTime = "Terminal Services: Inherit User Setting for End a Disconnected Session Timer"
+MaxDisconnectionTime = "Terminal Services: Time to End a Disconnected session"
+fInheritMaxIdleTime = "Terminal Services: Inherit User Setting for End an Idle Session Timer"
+MaxIdleTime = "Terminal Services: Time to End an Idle Session"
+
+TSConnectionTime00 = "Never"
+TSConnectionTime01 = "1 minute"
+TSConnectionTime02 = "5 minutes"
+TSConnectionTime03 = "10 minutes"
+TSConnectionTime04 = "15 minutes"
+TSConnectionTime05 = "30 minutes"
+TSConnectionTime06 = "1 hour"
+TSConnectionTime07 = "2 hours"
+TSConnectionTime08 = "3 hours"
+TSConnectionTime09 = "1 day"
+TSConnectionTime10 = "2 days"
+
+;=============================== Crash Control ====================================================================
+fCCCrashDumpEnabled = "Crash Control: Perform Kernel or Complete Memory Dump on System Crash"
+fCCCrashDumpEnabled00 = "No Memory Dump"
+fCCCrashDumpEnabled01 = "Complete Memory Dump"
+fCCCrashDumpEnabled02 = "Kernel Memory Dump"
+
+fCCAutoReboot = "Crash Control: Automatically Reboot after System Crash"
+fCCLogEvent = "Crash Control: Log System Crash to Event Log"
+
+
+
+; ============================== Additional Tweaks ========================================================
+; Change Command Processor Completion character
+CompletionChar = "Command Processor: Completion Character"
+CompletionChar009 = "TAB"
+CompletionChar033 = "ESC"
+CompletionChar064 = "A - Default"
+
+; Diable Hidden Administrative Shares
+AutoShareServer = "Network Security: Disable Hidden Administrative Shares - Server"
+AutoShareWks = "Network Security: Disable Hidden Administrative Shares - Workstation"
+
+; Screen Server Settings
+ScreenSaverIsSecure = "User Settings: Enable Password Protection on Screen Saver"
+ScreenSaveActive = "User Settings: Enable Screen Saver"
+
+;=============================== RSC Customizations END================================================================
+

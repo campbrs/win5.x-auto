@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<SYSTEMBUILD>
+  <OSANSWERFILE>
+    <FileContents>
+      <Unattend
+        OemPnPDriversPath="drivers\nic;drivers\audio\sblive;drivers\chipset;drivers\disk\perc23ad;drivers\disk\perc2dcsc;drivers\disk\perc34ls;drivers\disk\adaptec;drivers\video\nvidia;drivers\video\atiradeon;drivers\video\atiragexl"
+      >
+      </Unattend>
+      <UserData
+        ProductKey=""
+      >
+      </UserData>
+      <RegionalSettings
+        LanguageGroup="1"
+      >
+      <Components
+         tsEnable = "on"
+         tsKeyboardDrivers = "off"
+         tsPrinterDrivers = "off"
+         tsClients = "off"
+         licenseserver = "0"
+      >
+        <TerminalServices
+          applicationserver = "0"
+        >
+        </TerminalServices>
+        <InternetServer>
+        </InternetServer>
+      </Components>
+    </FileContents>   
+  </OSANSWERFILE>
+</SYSTEMBUILD>
+

@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<SYSTEMBUILD>
+  <OSANSWERFILE>
+    <FileContents>
+      <Unattended
+      >
+      </Unattended>
+      <UserData
+        ProductKey=""
+      >
+      </UserData>
+      <RegionalSettings
+        LanguageGroup="2,1"
+      >
+      </RegionalSettings>
+      <Components
+      >
+      </Components>
+    </FileContents>   
+  </OSANSWERFILE>
+</SYSTEMBUILD>
+

@@ -1,0 +1,91 @@
+<job>
+  <script language="JScript" src="include/jlibHelper.js"></script>
+  <script language="JScript" src="include/jlibFile.js"></script>
+  <script language="JScript" src="include/jlibXML.js"></script>
+  <script language="JScript" src="include/jlibSystem.js"></script>
+  <script language="JScript" src="include/jlibNetwork.js"></script>
+  <script language="JScript" src="include/jlibObject.js"></script>
+  <script language="JScript" src="include/jlibDisk.js"></script>
+  <script language="JScript" src="include/jlibTxtmode.js"></script>
+  <script language="JScript" src="include/jlibWIM.js"></script>
+<!--  <script language="JScript" src="include/jlibDiskpart.js"></script> -->
+<!--  <script language="JScript" src="include/jlibSystemBuild.js"></script> -->
+  <script language="JScript" src="include/jlibRegistry.js"></script>
+  <script language="JScript" src="include/jlibINI.js"></script>
+<!--  <script language="JScript" src="include/jlibNetwork.js"></script> -->
+
+
+  <script language="JScript">
+
+//  jCOPrintCO(">", jDiskGetVolumeInfo56(), " ");
+//  jCOPrintCO(">", jDiskGetVolumeInfoDP("d:\\temp\\temp.txt"), " ");
+//  jCOPrintCO(">", jDiskGetVolumeInfoWMI("localhost"), " ");
+
+//  jCOPrintCO(">", jSBGetInternalVars(), " ");
+
+  
+//    var oXD1 = jXMLLoadDOM("test1.xml");
+
+// WScript.Echo(jSBReplaceVarsInStr(oXD1, jXMLGetSingleNodeValue(oXD1, "//VARIABLES/OSSRCPATH"), null));
+
+//    var oXD2 = jXMLLoadDOM("test2.xml");
+//    var oAttributeIgnoreList = "DESCRIPTION";
+
+//    jXMLMergeNode(oXD1.selectSingleNode("//TEST1"), oXD2.selectSingleNode("//TEST2"), oAttributeIgnoreList);
+
+//    jXMLSortNodeChildren(oXD2.selectSingleNode("//TEST2"));
+
+//    oXD2.save("test2.xml");
+//  jXMLCreateDocument("z:\\test.xml", "ASSEMBLY_ROOT");
+
+
+//  jCOPrintCO(">",  jPCIGetHistoryDetail("localhost"), " ");
+//  jReg2XML("localhost", HKLM, "SYSTEM\\CurrentControlSet\\Enum\\PCI", oXD1.selectSingleNode("//BLAH"));
+
+//    var aOEMSCSIStrings = jSBFindTXTModeOEMControllerStrings("localhost", "txtsetup.oem");
+//    for ( var i = 0; i < aOEMSCSIStrings.length; i++ )
+//    {
+//      WScript.Echo ("OEM Adapter Drivers: Found "  + aOEMSCSIStrings[i]);
+//    }
+
+//  oXD1.save("test2.xml");
+/*
+    var oXD1 = jXMLLoadDOM("xmltest.1.xml");
+
+    jXMLReduceChildNodes(oXD1.selectSingleNode("//SYSTEMBUILD"), "version", "2000");
+    jXMLReduceChildNodes(oXD1.selectSingleNode("//SYSTEMBUILD"), "systemclass", "workstation");
+    
+    // Get NIC Config and load into the XMLDOM
+    jOBJ2XML( oXD1.selectSingleNode("//SYSSPECS/ARCHITECTURE").appendChild(oXD1.createElement("PROCESSOR")), jSysGetProcessorSpec("localhost") );
+    jOBJ2XML( oXD1.selectSingleNode("//SYSSPECS/MEMORY").appendChild(oXD1.createElement("PHYSICALMEMORY")), jSysGetPhysicalMemorySpec("localhost") );
+    jOBJ2XML( oXD1.selectSingleNode("//SYSSPECS/NETWORK").appendChild(oXD1.createElement("NIC")), jNetGetNICConfig("localhost") );
+    jOBJ2XML( oXD1.selectSingleNode("//SYSSPECS/NETWORK").appendChild(oXD1.createElement("PERSISTENTROUTE")), jNetGetPersistentRoutes("localhost") );
+    
+    oXD1.save("xmltest.2.xml");
+    
+    jXML2INI(oXD1.selectSingleNode("//OSANSWERFILE"), "test.1.ini");
+
+  //jOBJPrint(">", jCntrlrGetIDEControllerInfo("localhost"), " ");
+  jOBJPrint(">", jDiskGetDiskInfoWMI("localhost"), " ", 0);
+  jOBJPrint(">", jDiskGetVolumeInfoWMI("localhost"), " ", 0);
+  jOBJPrint(">", jCntrlrGetControllerDependencies(jCntrlrGetIDEInterfaceInfo("localhost")), " ", 0);
+*/
+    var oXD1 = jXMLLoadDOM("xmltest.1.xml");
+    var oXNode;
+
+//    jTMProcessOEMDiskDrivers(oXD1, "localhost");
+
+    jWIMInfo2XML(oXD1.selectSingleNode("//SCRATCH"), "install.wim");
+    jWIMInfo2XML(oXD1.selectSingleNode("//SCRATCH"), "test.wim");
+WScript.Echo("Got WIM Info");
+    oXNode = jWIMPrintAvailImages(oXD1);
+
+    WScript.Echo ("WIM file is: " + oXNode.parentNode.getAttribute("FILENAME"));
+    WScript.Echo ("Image Number is: " + oXNode.getAttribute("INDEX"));
+    WScript.Echo ("Image Description is: " + jXMLSelectSingleNode(oXNode, "DESCRIPTION").text);
+
+    jWIMConvertCustomFlags2Elements(oXNode);
+
+    oXD1.save("test4.xml");
+  </script>
+</job>

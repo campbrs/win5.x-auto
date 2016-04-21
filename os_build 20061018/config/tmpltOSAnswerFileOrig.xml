@@ -1,0 +1,199 @@
+<?xml version='1.0'?>
+<SYSTEMBUILD>
+  <OSANSWERFILE
+    FileName="test.inf"
+    FilePath="Z:\"
+    FileType="INI"
+  >
+    <FileContents>
+      <Data
+        AutoPartition="1"
+        MsDosInitiated="0"
+        UnattendedInstall="Yes"
+      >
+      </Data>
+      <SetupData
+        OSLoadOptionsVar = ""
+      >
+      </SetupData>
+      <Unattended
+        UnattendMode="FullUnattended"
+        DriverSigningPolicy="Ignore"
+        OemSkipEula="Yes"
+        OemPreinstall="Yes"
+        OemPnPDriversPath=""
+        TargetPath="WINDOWS"
+        UnattendSwitch="Yes"
+      >
+      </Unattended>
+      <Branding
+        BrandIEUsingUnattended="Yes"
+      >
+      </Branding>
+      <GuiUnattended
+        AdminPassword=“password”
+        EncryptedAdminPassword="No"
+        AutoLogon="No"
+        AutoLogonCount="0"
+        OEMSkipRegional="1"
+        OemSkipWelcome="1"
+        TimeZone="10"
+        ServerWelcome="No"
+      >
+      </GuiUnattended>
+      <UserData
+        ProductKey=""
+        FullName=“name”
+        OrgName=“org”
+        ComputerName=""
+      >
+      </UserData>
+      <Display
+        BitsPerPel="16"
+        Xresolution="800"
+        YResolution="600"
+        Vrefresh="72"
+      >
+      </Display>
+      <LicenseFilePrintData
+        AutoMode="PerSeat"
+      >
+      </LicenseFilePrintData>
+      <TapiLocation
+        CountryCode="1"
+        AreaCode=“555”
+      >
+      </TapiLocation>
+      <RegionalSettings>
+        LanguageGroup="2,1"
+      </RegionalSettings>
+      <GuiRunOnce>
+      </GuiRunOnce>
+      <Shell
+        DefaultStartPanelOff="Yes"
+      >
+      </Shell>
+      <Proxy
+        Proxy_Enable="0"
+      >
+      </Proxy>
+      <URL
+        Home_Page="http://www.google.com"
+        NoWelcome="1"
+      >
+      </URL>
+      <Identification>
+      </Identification>
+      <Networking
+        InstallDefaultComponents="No"
+      >
+      </Networking>
+      <NetOptionalComponents
+        Beacon = "0"
+        DHCPServer = "0"
+        DNS = "0"
+        IAS = "0"
+        ILS = "0"
+        LPDSVC = "0"
+        macPrint = "0"
+        macSrv = "0"
+        netcm = "0"
+        netmontools = "0"
+        simptcp = "0"
+        SNMP = "0"
+        WINS = "0"
+      >
+      </NetOptionalComponents>
+      <Components
+        accessopt = "off"
+        autoUpdate = "on"
+        netoc = "on"
+        appsrv_c"on"sole = "on"
+        complusnetwork = "on"
+        dtcnetwork = "on"
+        IEAccess = "on"
+        OEaccess = "off"
+        WMaccess = "off"
+        WMPocm = "off"
+        calc = "on"
+        cdplayer = "off"
+        chat = "off"
+        charmap = "on"
+        clipbook = "on"
+        dialer = "off"
+        deskpaper = "off"
+        fax = "off"
+        hypertrm = "off"
+        media_clips = "off"
+        media_utopia = "off"
+        mousepoint = "off"
+        msnexplr = "off"
+        mswordpad = "on"
+        paint = "on"
+        rec = "off"
+        templates = "off"
+        vol = "off"
+        freecell = "off"
+        hearts = "off"
+        minesweeper = "off"
+        solitaire = "off"
+        spider = "off"
+        pinball = "off"
+        zonegames = "off"
+        wms = "off"
+        wms_admin_asp = "off"
+        wms_admin_mmc = "off"
+        wms_isapi = "off"
+        wms_server = "off"
+        certsrv = "off"
+        certsrv_client = "off"
+        certsrv_server = "off"
+        cluster = "off"
+        aspnet = "off"
+        BitsServerExtensionsISAPI = "off"
+        BitsServerExtensionsManager = "off"
+        fp_extensions = "off"
+        fp_vdir_deploy = "off"
+        iis_asp = "off"
+        iis_comm"on" = "off"
+        iis_ftp = "off"
+        iis_inetmgr = "off"
+        iis_internetdatac"on"nector = "off"
+        iis_nntp = "off"
+        iis_serversideincludes = "off"
+        iis_smtp = "off"
+        iis_webadmin = "off"
+        iis_webdav = "off"
+        iis_www = "off"
+        iis_www_vdir_scripts = "off"
+        indexsrv_system = "on"
+        inetprint = "off"
+        netcis = "off"
+        msmq_ADIntegrated = "off"
+        msmq_Core = "off"
+        msmq_HTTPSupport = "off"
+        msmq_LocalStorage = "off"
+        msmq_MQDSService = "off"
+        msmq_RoutingSupport = "off"
+        msmq_TriggersService = "off"
+        objectpkg = "off"
+        pop3Admin = "off"
+        pop3Service = "off"
+        pop3Srv = "off"
+        reminst = "off"
+        rootautoupdate = "on"
+        rstorage = "off"
+        wbemsnmp = "off"
+        terminalserver = "off"
+        tswebclient = "off"
+        licenseserver = "off"
+      >
+        <TerminalServices>
+        </TerminalServices>
+        <InternetServer>
+        </InternetServer>
+      </Components>
+    </FileContents>   
+  </OSANSWERFILE>
+</SYSTEMBUILD>
+

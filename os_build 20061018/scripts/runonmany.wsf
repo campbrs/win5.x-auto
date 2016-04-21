@@ -1,0 +1,28 @@
+<job>
+  <script language="JScript" src="include/jlibIO.js"></script>
+  <script language="JScript" src="include/jlibHelper.js"></script>
+  <script language="JScript" src="include/jlibFile.js"></script>
+
+  <script language="JScript">
+    var aFlacFiles;
+    var strSearchPath= ".";
+    var oFS = new ActiveXObject("Scripting.FileSystemObject");
+
+    if ( WScript.Arguments.Named.Exists("path") )
+    {
+      strSearchPath = WScript.Arguments.Named("path");
+    }
+
+    aFlacFiles = jFind(strSearchPath, "wav$");
+
+    for ( var i = 0; i < aFlacFiles.length; i++)
+    {
+      strCurrParentFolderName = oFS.GetParentFolderName(aFlacFiles[i]);
+
+      
+      WScript.Echo(aFlacFiles[i]);
+WScript.Echo(strCurrParentFolderName);
+    }
+
+  </script>
+</job>

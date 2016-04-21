@@ -1,0 +1,108 @@
+[Disks]
+
+PERC   = "DELL PERC RAID Products for Windows 2000",\mraid,\
+PERC32 = "DELL PERC RAID Products for Windows 2003 (x86)", \mraid,\
+
+[Defaults]
+
+# This section lists the default selection for each 'required'
+# hardware component.  If a line is not present for a component,
+# the default defaults to the first item in the [<component_name>]
+# section (see below).
+#
+# <component_name> is one of computer, display, keyboard, mouse, scsi
+# <id> is a unique <within the component> string to be associated
+#   with an option.
+
+scsi = PERC
+
+
+[scsi]
+
+PERC   = "DELL PERC RAID Products for Windows 2000", mraid2k
+PERC32 = "DELL PERC RAID Products for Windows 2003 (x86)", mraid35x
+
+[Files.scsi.PERC]
+
+driver  = PERC, mraid2k.sys, mraid2k
+inf     = PERC, oemsetup.inf, mraid2k
+inf     = PERC, nodev.inf
+catalog = PERC, percraid.cat
+
+[HardwareIds.scsi.PERC]
+PERC = "PCI\VEN_101E&DEV_1960&SUBSYS_04711028", "mraid2k"
+PERC = "PCI\VEN_101E&DEV_1960&SUBSYS_04931028", "mraid2k"
+PERC = "PCI\VEN_101E&DEV_1960&SUBSYS_04751028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_000E&SUBSYS_01231028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_000F&SUBSYS_013B1028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_000F&SUBSYS_014A1028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_000F&SUBSYS_014C1028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_000F&SUBSYS_014D1028", "mraid2k"
+PERC = "PCI\VEN_101E&DEV_1960&SUBSYS_05111028", "mraid2k"
+PERC = "PCI\VEN_1000&DEV_1960&SUBSYS_05181028", "mraid2k"
+PERC = "PCI\VEN_1000&DEV_1960&SUBSYS_05201028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_0013&SUBSYS_016C1028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_0013&SUBSYS_016D1028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_0013&SUBSYS_016E1028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_0013&SUBSYS_016F1028", "mraid2k"
+PERC = "PCI\VEN_1028&DEV_0013&SUBSYS_01701028", "mraid2k"
+PERC = "PCI\VEN_1000&DEV_0408&SUBSYS_00011028", "mraid2k"
+PERC = "PCI\VEN_1000&DEV_0408&SUBSYS_00021028", "mraid2k"
+
+
+[Files.scsi.PERC32]
+
+driver  = PERC32, mraid35x.sys, mraid35x
+inf     = PERC32, oemsetup.inf, mraid35x
+inf     = PERC32, nodev.inf
+catalog = PERC32, percraid.cat
+
+[HardwareIds.scsi.PERC32]
+PERC32 = "PCI\VEN_8086&DEV_1960&SUBSYS_11121111", "mraid35x"
+PERC32 = "PCI\VEN_8086&DEV_1960&SUBSYS_11111111", "mraid35x"
+PERC32 = "PCI\VEN_8086&DEV_1960&SUBSYS_09A0101E", "mraid35x"
+PERC32 = "PCI\VEN_8086&DEV_1960&SUBSYS_11111028", "mraid35x"
+PERC32 = "PCI\VEN_8086&DEV_1960&SUBSYS_04671028", "mraid35x"
+PERC32 = "PCI\VEN_101E&DEV_1960&SUBSYS_04711028", "mraid35x"
+PERC32 = "PCI\VEN_101E&DEV_1960&SUBSYS_04931028", "mraid35x"
+PERC32 = "PCI\VEN_101E&DEV_1960&SUBSYS_04751028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_000E&SUBSYS_01231028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_000F&SUBSYS_013B1028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_000F&SUBSYS_014A1028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_000F&SUBSYS_014C1028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_000F&SUBSYS_014D1028", "mraid35x"
+PERC32 = "PCI\VEN_101E&DEV_1960&SUBSYS_05111028", "mraid35x"
+PERC32 = "PCI\VEN_1000&DEV_1960&SUBSYS_05181028", "mraid35x"
+PERC32 = "PCI\VEN_1000&DEV_1960&SUBSYS_05201028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_0013&SUBSYS_016C1028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_0013&SUBSYS_016D1028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_0013&SUBSYS_016E1028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_0013&SUBSYS_016F1028", "mraid35x"
+PERC32 = "PCI\VEN_1028&DEV_0013&SUBSYS_01701028", "mraid35x"
+PERC32 = "PCI\VEN_1000&DEV_0408&SUBSYS_00011028", "mraid35x"
+PERC32 = "PCI\VEN_1000&DEV_0408&SUBSYS_00021028", "mraid35x"
+
+
+[Config.mraid2k]
+
+# This section specifies values to be set in the registry for
+# particular component options.  Required values in the services\xxx
+# key are created automatically -- use this section to specify additional
+# keys to be created in services\xxx and values in services\xxx and
+# services\xxx\yyy.
+#
+# <key_name> is relative to the services node for this device.
+#   If it is empty, then it refers to the services node.
+#   If specified, the key is created first.
+# <value_name> specifies the value to be set within the key
+# <value_type> is a string like REG_DWORD.  See below.
+# <value> specifies the actual value; its format depends on <value_type>
+
+value = "", Tag, REG_DWORD, 20
+
+
+[Config.mraid35x]
+value=parameters\PnpInterface,5, REG_DWORD,1 
+
+
+

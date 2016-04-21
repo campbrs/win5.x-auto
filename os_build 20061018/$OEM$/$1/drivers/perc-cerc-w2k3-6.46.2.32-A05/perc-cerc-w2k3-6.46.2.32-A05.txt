@@ -1,0 +1,612 @@
+Dell PowerEdge RAID Controller Device Driver for Windows 2000 and 2003.
+
+Windows 2000 Version 5.48
+Windows 2003 Version 6.46.2.32
+
+
+TABLE OF CONTENTS
+
+1.0  Introduction
+2.0  Compatibility / Minimum Requirements
+3.0  Install Instructions
+     3.1 Installing the Driver during Operating System Installation
+     3.2 Installing a Windows 2000 or 2003 Driver for a New RAID Controller
+     3.3 Updating an Existing Windows 2000 or 2003 Driver
+     3.4 Installing PERC 4/DC, 4/SC or PERC 4e/DC Controllers in Windows 2000 and
+         Windows 2003 Operating Systems with PERC 3/SC, 3/DCL or PERC 3/DC Controllers
+     3.5 Migrating from a PERC 3/DC, 3/DCL, 3/SC Controller to a PERC 4e/DC, 4/DC or 
+         PERC 4/SC Controller in Windows 2000 or 2003
+4.0  Fixes or Enhancements in this Release
+5.0  Additional Information
+6.0  Revision History
+
+
+1.0 Introduction
+================
+
+This is the driver for following PowerEdge Expandable RAID Controllers:
+ 
+    PERC 4e/Di, 4e/Si, 4e/DC
+    PERC 4/Di, 4/DC, 4/SC
+    PERC 3/QC, 3/DC, 3/DCL, 3/SC
+    CERC ATA100/4CH
+
+
+2.0 Compatibility / Minimum Requirements
+========================================
+
+This Device Driver is compatible with the following firmware versions:
+
+Controller         Minimum Recommended       Description
+                   Firmware Level
+
+PERC 3/QC          198Q                      PERC 3 Quad Channel
+PERC 3/DC          198Q                      PERC 3 Dual Channel
+PERC 3/DCL         198Q                      PERC 3 Dual Channel Lite
+PERC 3/SC          198Q                      PERC 3 Single Channel
+PERC 4/Di          421Q                      PERC 4 Integrated on PE 1750
+PERC 4/Di          251Q                      PERC 4 Integrated on PE 2600
+PERC 4/SC          351Q                      PERC 4 Single Channel
+PERC 4/DC          351Q                      PERC 4 Dual Channel
+PERC 4e/Di         521Q                      PERC 4e Integrated on PE 2800, 2850, 6800, 6850
+PERC 4e/Si         521Q                      PERC 4e Integrated on PE 1850
+PERC 4e/DC         521Q                      PERC 4e Dual Channel
+CERC ATA100/4CH    6.62                      CERC Quad Channel IDE
+
+
+3.0 Install Instructions
+========================
+
+This is a self-extracting package of the Windows 2000 and 2003 device driver
+installation diskette for PERC 4/DC, 4/SC, 3/QC, 3/DC, 3/DCL, 3/SC,  
+CERC ATA100/4CH, PERC 4/Di, PERC 4e/Di, PERC4e/Si and PERC 4e/DC. 
+
+To build the installation diskette, execute the package, directing its output
+to an empty, formatted diskette.
+
+
+3.1 Installing the Driver during Operating System Installation
+--------------------------------------------------------------
+
+1. Boot the system using the Microsoft Windows Server 2000/2003 CD.
+2. When the message Press F6 if you need to install a third party SCSI or RAID
+   driver appears, press the <F6> key immediately.
+   Within a few minutes, a screen appears that asks for additional controllers 
+   in the system.
+3. Press the <S> key.
+   The system prompts for the driver diskette to be inserted.
+4. Insert the driver diskette in the floppy drive and press the <Enter> key.
+   A list of PERC controllers appears.
+5. Select the right driver for the installed controller and press the <Enter>
+   key to load the driver.
+
+NOTE: For Windows 2003, a message appears that states that the driver that you
+provided is older/newer then the Windows driver. Press the <S> key to use the
+driver that is on the floppy diskette.
+
+6. Press the <Enter> key again to continue the installation process as usual.
+
+
+3.2 Installing a Windows 2000 or 2003 Driver for a New RAID Controller
+----------------------------------------------------------------------
+
+Perform the following steps to configure the driver when you add the RAID 
+controller to a system that already has Windows installed.
+
+1. Power down the system.
+2. Install the new RAID controller in the system.
+   Refer to Hardware Installation for detailed instructions on installing and
+   cabling the RAID controller in the system.
+3. Power on the system.
+   The Windows operating system should detect the new controller and display a
+   message to inform the user.
+4. The Found New Hardware Wizard screen pops up and displays the detected 
+   hardware device.
+5. Click Next.
+6. On the Locate device driver screen, select Search for a suitable driver for
+   my device and click Next.
+7. Insert the appropriate driver diskette and select Floppy disk drives on the
+   Locate Driver Files screen.
+8. Click Next.
+9. The wizard detects and installs the appropriate device drivers for the new
+   RAID controller.
+10. Click Finish to complete the installation.
+11. Reboot the server.
+
+
+3.3 Updating an Existing Windows 2000 or 2003 Driver
+----------------------------------------------------
+
+Perform the following steps to update the windows driver for the RAID controller
+already installed on your system.
+
+NOTE: It is important that you idle your system before you update the driver.
+
+1. Press Start > Settings > Control Panel > System.
+   The System Properties screen displays.
+
+NOTE: In Windows 2003, press Start > Control Panel > System.
+
+2. Click on the Hardware tab.
+3. Click the Device Manager and the Device Manager screen displays.
+4. Click SCSI and RAID Controllers.
+5. Double-click the RAID controller for which you want to update the driver.
+6. Click the Driver tab and click on Update Driver.
+   The screen for the Upgrade Device Driver Wizard displays.
+7. Insert the appropriate driver diskette.
+8. Click Next.
+9. Follow the steps in the Wizard to search the diskette for the driver.
+10. Select the INF file from the diskette.
+
+NOTE: In Windows 2003, select the name of the driver, not the INF file.
+
+11. Click Next and continue the installation steps in the Wizard.
+12. Click Finish to exit the wizard and reboot the system for the changes to take
+    place.
+
+
+3.4 Installing PERC 4/DC, 4/SC or PERC 4e/DC Controllers in Windows 2000 and
+    Windows 2003 Operating Systems with PERC 3/SC, 3/DCL or PERC 3/DC Controllers
+---------------------------------------------------------------------------------
+
+The following steps should be performed in the following order:
+- Update the PERC 3/DC, 3/DCL, or 3/SC drivers to PERC 4 drivers.
+
+  NOTE: The PERC 4/DC, 4/SC and PERC 4e/DC drivers for Windows 2000 and
+  Windows 2003 operating systems are compatible with PERC 3/SC, 3/DCL and
+  PERC 3/DC controllers.
+
+- Install PERC 4/DC or 4/SC controllers in Windows 2000 or Windows 2003 
+  operating systems
+- Install the PERC 4/DC or 4/SC drivers for the newly installed controllers
+
+NOTE: You must be logged on as Administrator to perform these steps.
+
+1. From the desktop, right-click on the My Computer icon.
+2. Left-click Manage.
+3. Click Device Manager.
+4. Double-click SCSI and RAID Controller.
+   A list of all currently installed SCSI drivers appears.
+5. Double-click the appropriate RAID controller (such as PERC 3/DC RAID 
+   Controller).
+6. Select the Driver tab.
+7. Select Update Driver.
+   The Update Device Driver Wizard displays.
+8. Click Next.
+9. Click Display a list of known drivers for this device so I can choose a 
+   specific driver.
+10. Click Next.
+    The Select a Device Driver Wizard appears.
+11. Locate the driver diskette for Windows 2000 or Windows 2003 provided with 
+    your PERC 4/DC or PERC 4/SC controller kit and insert it in the diskette drive.
+
+    NOTE: You can also create a diskette with the latest version of the driver by 
+    accessing support.dell.com and downloading the latest version available online.
+    
+12. Click Have Disk.
+    The Install from Disk dialog box appears.
+13. Click OK.
+    A list of PERC 4/DC and 4/SC drivers available on the diskette appears.
+14. Click Next.
+15. Select the appropriate driver for Windows 2000 or Windows 2003.
+    A driver warning dialog box appears.
+16. Click Yes to continue.
+    The Start Device Driver Installation dialog box appears.
+17. Click Finish to complete the installation and exit the wizard.
+18. Shut down and remove power from the system.
+19. Install the new PERC 4/DC or 4/SC controller(s) and connect the internal SCSI
+    cables appropriately.
+
+    Refer to the Hardware Installation section for detailed instructions on 
+    installing and cabling the RAID controller in the system.
+
+20. Power on the system.
+    During boot up, the PERC 4/DC or 4/SC BIOS banner should display indicating the
+    presence of the new controllers in the system. If it does not, power the system
+    down and refer to the Troubleshooting section.
+21. Log on as an administrator.
+    Windows 2000 or Windows 2003 starts, displays a message that new hardware has 
+    been detected, and starts the Found New Hardware Wizard.
+22. Click Next.
+    The Install Hardware Device Drivers window appears.
+23. Select the Search for a suitable driver for my device (recommended) option, 
+    if not already selected, and click Next.
+     The Locate Driver Files dialog box appears. Make sure that only the Floppy disk
+     drive option is selected.
+24. Insert the driver diskette that came with your PERC 4/DC, 4/SC or PERC 4e/DC
+    controller into your system’s diskette drive and click Next.
+    The Driver Files Search Results window appears, displaying the driver found on 
+    the diskette that matches the device you are installing.
+25. Click Next.
+    When Windows has finished installing the driver, the Completing the Found New 
+    Hardware Wizard window appears.
+26. Click Finish.
+27. The Found New Hardware Wizard appears, indicating that Windows 2000 or 
+    Windows 2003 found a device labeled SCSI Controller.
+28. Repeat step 8 through step 17 to install the correct driver for the SCSI 
+    controller.
+
+    NOTE: If you are adding a PERC 4/DC controller, perform step 24 once to install 
+    one driver for the device labeled SCSI Controller. When you have installed all
+    of the necessary drivers, the Completing the Found New Hardware Wizard window 
+    appears.
+    
+29. Click Finish.
+    The Completing the Upgrade Device Driver Wizard window appears.
+30. Click Finish.
+    The Dell PERC 4/DC, 4/SC or PERC 4e/DC RAID Controller Properties window appears.
+31. Click Close.
+32. Restart your system.
+
+
+3.5 Migrating from a PERC 3/DC, 3/DCL, 3/SC Controller to a PERC 4e/DC, 4/DC or 
+    PERC 4/SC Controller in Windows 2000 or 2003
+-------------------------------------------------------------------------------
+
+This section provides details for upgrading from the PERC 3/DC, 3/DCL or 
+PERC 3/SC controllers to the PERC 4/DC, 4/SC or PERC 4e/DC controller.
+
+NOTE: PERC controller cards cannot support drive roaming and drive migration at 
+the same time. Do not roam drives during drive migration. Keep the controllers
+on the same ID.  Upgrading from PERC 3/SC, 3/DC and 3/DCL is direct and easy.
+Make sure you back up the entire system, including operating system and user
+data files before making this upgrade.
+
+To upgrade to PERC 4e/DC, PERC 4/DC, or 4/SC controllers the following broad 
+tasks must be completed in order:
+
+1. Update the device driver (use the procedure appropriate for your operating 
+   system).
+2. Remove the PERC 3/SC, 3/DC, 3/DCL controller and install the PERC 4e/DC, 
+   PERC 4/DC,or PERC 4/SC controller.
+3. Set the desired write-back or write-through policy using the PERC BIOS 
+   Configure Utility
+
+3.5.1 Updating the Device Driver in Windows 2000 or 2003
+--------------------------------------------------------
+
+To remove the PERC 3/DC, 3/DCL, 3/SC drivers and install the PERC 4e/DC, 
+PERC 4/DC or 4/SC drivers to a system running the Microsoft Windows 2000
+or Windows 2003 operating system, perform the following steps:
+
+NOTE: You must be logged on as Administrator to perform these steps:
+
+1. From the desktop, right-click the My Computer icon.
+2. Click on Manage.
+3. Click on Device Manager and the Device Manager screen displays.
+4. Double-click SCSI and RAID Controller.
+   A list of all currently installed SCSI drivers appears.
+5. Double-click the appropriate RAID controller to be removed (such as 
+   PERC 3/DC RAID Controller).
+6. Select the Driver tab.
+7. Click on Update Driver.
+   The Update Device Driver Wizard appears.
+8. Click Next.
+9. Click Display a list of known drivers for this device so I can choose a 
+   specific driver.
+10. Click Next.
+    The Select a Device Driver Wizard appears.
+11. Locate the driver diskette for Windows 2000 or Windows 2003 provided with
+    your PERC 4e/DC, 4/DC or PERC 4/SC controller kit and insert it in the diskette drive.
+12. Click Have Disk.
+    The Install from Disk dialog box appears.
+13. Click OK.
+    A list of PERC 4e/DC, 4/DC or PERC 4/SC drivers available on the diskette appears.
+14. Click Next.
+15. Select the appropriate driver for Windows 2000 or Windows 2003.
+    A driver warning dialog box appears.
+16. Click Yes to continue.
+    The Start Device Driver Installation dialog box appears.
+17. Click Next.
+    The Completing the Upgrade Device Driver windows appears.
+18. Click Finish.
+19. Click Close.
+20. Next, follow the procedure Removing the PERC 3/DC, 3/DCL or PERC 3/SC 
+    Controller and Installing the PERC 4e/DC, 4/DC or PERC 4/SC Controller on a
+    Windows 2000 or 2003 System.
+
+3.5.2 Removing the PERC 3/DC, 3/DCL or PERC 3/SC Controller and
+      Installing the PERC 4e/DC, 4/DC or PERC 4/SC Controller on a
+      Windows 2000 or 2003 System
+-------------------------------------------------------------------
+
+The following procedure applies to Windows 2000 and Windows 2003 operating 
+systems. To remove the PERC 3/DC, 3/DCL, or 3/SC controller, perform the
+following steps:
+
+CAUTION: See the safety instructions in your System Information booklet before 
+working inside your
+system.
+
+1. Shut down and remove power to the system and any attached external peripherals.
+2. Remove the system cabinet cover.
+   See the system Installation and Troubleshooting Guide for detailed instructions.
+
+3. Label the SCSI connectors that connect to the 3/DC, 3/DCL and 3/SC controller
+   connectors.
+
+CAUTION: If the SCSI connectors are not properly identified with their channel
+identification, the PERC 4 controller firmware may be unable to convert to the
+correct logical drive configuration (performed in the next procedure.)
+
+4. Disconnect the connectors attached to the PERC 3/DC, 3/DCL and 3/SC controller
+   and remove them from the system.
+
+   See the systems Installation and Troubleshooting Guide for instructions.
+
+5. Install the PERC 4e/DC, 4/DC, or 4/SC controller and install the SCSI cables 
+   you removed in step 4.
+6. Refer to Hardware Installation for detailed instructions on installing and 
+   cabling the RAID controller in the system.
+7. Close or replace the system cabinet cover.
+8. Reconnect the system and peripherals to their power sources.
+9. Power on the system.
+   The configuration data on the hard drive is used automatically if there is a 
+   configuration mismatch (assuming the new controller has no configuration).
+
+NOTE: If you have configured a RAID 5 system with more than four physical drives, 
+the disk activity LED blinks after the BIOS configuration is complete. This is
+an indication of normal background initialization being performed by the PERC 4
+controllers. Background initialization could take hours to complete,
+depending on the size of the logical drives. The server is usable, although I/O 
+response may be slow. Performance should be back to normal after initialization
+is complete.
+
+
+3.5.3 Changing the Write Policy
+-------------------------------
+
+If the new PERC 4e/DC, 4/DC or PERC 4/SC controllers have different battery 
+backup settings than the previous controllers, you must change the write policy
+of the logical drive to obtain additional performance improvements or avoid data
+corruption in the event of power loss.
+
+For example, PERC 3/SC and PERC 3/DCL controllers do not include a battery 
+backup unit, while the PERC 4/DC and PERC 3/DC do have a battery backup unit.
+
+If you are upgrading from a PERC 3/SC to a PERC 4/DC, you should change the 
+write policy from Write-Through to Write-Back for additional performance
+improvements.
+
+If you are upgrading a PERC 3/DC to a PERC 4/DC with the same battery backup 
+settings, you do not need to change the write policy.
+
+To change the write policy settings, perform the following steps:
+1. From the PERC BIOS Configure Utility, select the Object > Logical Drive menu.
+2. Select the logical drive and press <Enter>.
+3. Select View/Update Parameters and press <Enter>.
+4. Select Write Policy and press <Enter>.
+5. Select WrBack or WrThru according to the battery unit setting.
+6. If the new adapter does not include the battery backup unit, select WrThru. 
+   Otherwise, select WrBack.
+7. Press <Esc> as many times as necessary to return to the Logical Drive Menu.
+8. Repeat step 2 through step 6 for each logical drive.
+9. Reboot your system for the changes to take place.
+
+
+4.0 Fixes or Enhancements in this Release 
+=========================================
+
+W2K 5.48
+
+1. During Bus Reset, the driver issues a call to the F/W and returns without 
+   waiting for the call to finish and asks for the next request from OS. This 
+   next request got issued to the F/W even before the reset call completed 
+   resulting in the reservation conflict. Now the driver does not issue the next
+   command until the reset call to the F/W completes. 
+
+W2K3 6.46.2.32
+
+1. If the Adapter is set to DEAD, all the IOCTLs sent to the driver will be 
+   returned with a special signature 0xEE to identify that the adapter is DEAD
+   and not responding.
+
+2. During Bus Reset, the driver issues a call to the F/W and returns without 
+   waiting for the call to finish and asks for the next request from OS. This 
+   next request got issued to the F/W even before the reset call completed 
+   resulting in the reservation conflict. Now the driver does not issue the next
+   command until the reset call to the F/W completes. 
+
+3. SCSI commands issued to the Dummy Device exposed by the driver was not 
+   handled properly. Driver should have rejected all the commands issued to the
+   Dummy Device except for the SCSIOP_INQUIRY and SCSIIO_READ_CAPACITY. This was
+   causing the system to blue screen when using utilities sending SCSI commands
+   to the Dummy Device. This release driver handles all the SCSI commands issued
+   to the driver gracefully.
+
+
+5.0 Additional Information
+==========================
+
+1. When installing a PERC 3/DCL controller in a system, Windows will 
+   automatically load a different PERC driver. This driver will show the PERC
+   3/DCL as a PERC 3/DC. You must upgrade the driver to the latest shipping level
+   and after this upgrade the PERC 3/DCL will be displayed correctly. 
+
+2. When installing Windows Server 2000 or 2003 in a system and have a PERC 3/QC,
+   PERC 3/DC, PERC 3/DCL, PERC 3/SC, PERC 4/DC, PERC 4/SC, PERC 4e/DC, or
+   PERC 4e/Di together in a system you will see the following selection when
+   choosing a logical drive to configure.
+
+		(xxxxx)mb Disk 0 at Id <y> on bus <z> on mraid35x [MBR]
+		
+		Where (xxxxx) is the size of the logical  drive.
+		Where (y) is the logical drive id per controller.
+ 		Where (z) is the bus number.
+			
+If there is more than 1 logical drive per controller then Id number will be 
+incremented. 
+
+If there is more than 1 type of controller in a system then multiple selections 
+will be displayed per controller.
+
+ 		(xxxxx)mb Disk 0 at Id (y) on bus (z) on mraid35x [MBR]
+
+		(xxxxx)mb Disk 0 at Id (y) on bus (z) on mraid35x [MBR]
+
+The user must be careful to select the appropriate id when installing Windows 
+Server 2000 or 2003. 
+
+
+6.0 Revision History
+====================
+
+W2K Changes from 5.42 to 5.46
+
+1. A timer routine has been added to the driver's reset path which will 
+   periodically be invoked and will calculate the actual system time elapsed
+   from the start of the issuing of reset. If more than 3 minutes elapse, the 
+   adapter will be marked as failed.
+   In a cluster environment during heavy I/O, this would prevent the driver
+   from stalling the CPU and allow the cluster to failover instead of freezing.
+2. The driver will now expose a failed logical drive to the OS and will complete
+   the failed I/O request with the proper status information to prevent a logical
+   drive mismatch between the OS and the RAID management utilities.
+3. Support added for PERC 4e/Si,PERC 4e/Di,and PERC 4e/DC.
+
+
+W2K Changes from 5.39 to 5.42
+
+1. File Version has been modified to reflect the product version from this 
+   release onwards.
+2. Minor change to the setup files.
+3. Driver no longer filters out all other commands except SCSI READ and SCSI 
+   WRITE
+4. The driver will accept only one Reservation call at a time and would allow it 
+   to complete before issuing any more commands to the Firmware.
+5. The driver will be using an individual commandID for each WriteConfig issued 
+   to the Firmware
+
+
+W2K Changes from 5.35.2 to 5.39 
+
+1. Utilities are issuing driver calls for getting the logical drive statistics. 
+   We have seen some utilities are requesting 40LD statistics but send buffer less 
+   than the required statistics size. This is causing the system to crash. This
+   bug has been fixed in the driver by returning all the calls with lesser buffer size 
+   without copying any data successfully.
+2. Change in the setup files, so that Scsiport driver should give correct Device 
+   Number and Function Number to the Miniport driver.
+3. A timeout is implemented in the driver so that driver shouldn't wait 
+   infinitely for the Firmware to acknowledge the interrupt.
+4. During Reset, Driver was not clearing all the Pending Commands whenever the 
+   Firmware is not able to complete it.
+5. System was hanging after it wakes up from Hibernation/Standby on PERC 3/QC 
+   and PERC 3/DC controllers. Driver needs to reprogram these SCSI chips before 
+   waiting for the firmware to initialize.   
+6. During the Cluster HCT phase 5 test the driver and firmware used to wait for 
+   each other for a command completion. This led to dead lock condition and the HCT 
+   test fails with an IO timeout error. In order to avoid this dead lock condition 
+   the driver will poll the firmware for completion of a command before the OS 
+   times out the command.
+7. When running heavy I/O's the miniport driver would often get a mailbox busy 
+   condition that would lead to an I/O hang. The fix is made in the driver to 
+   improve delay optimization for the mailbox busy condition. 
+8. The logical drive status checking was failing for Dummy Device inquiry. This 
+   logic was removed since there is no need to check status of this device. 
+9. The capability pointer was changed in firmware for Fast READ/WRITE calls for 
+   hard drives connected to the SCSI Channels.
+10. Initial release of PERC 4/Di support on PE2755MC 
+11. Initial release of PERC 4/SC. 
+
+    
+W2K Changes from 5.32 to 5.35.2
+
+1. System was not waking up after a hibernation/standby operation. This bug was 
+   caused by the driver. Driver was trying to access PCI_CONFIG space from the 
+   ScsiRestartAdapter in the driver. This bug has been fixed by accessing the 
+   PCI_CONFIG space from the ScsiSetRunningConfig entry point.
+2. New command has been introduced to enhance the performance for SCSI I/O on 
+   non-raid SCSI channel.
+3. In case of cluster reset, Driver was waiting infinitely for all the commands 
+   to complete, resulting in the system crash/hang. This problem has been fixed by 
+   waiting for certain period of time for the outstanding commands to complete. If 
+   the commands are not completed in certain period of time, Driver completes all 
+   the outstanding with error and returns.
+4. In case of Standby, driver was not waiting for the Firmware to get 
+   initialized, resulting in the driver sending commands to the firmware even when 
+   the Firmware is not initialized. The fix has been put in the driver. Driver is 
+   polling for the Firmware to get initialized before sending any commands to the 
+   Firmware.
+5. A single Tape drive was seen at TargetID 0 and TargetID 16 on the physical 
+   channel.  One can attach up to a maximum of 15 devices on a single physical 
+   channel. All the requests coming for a physical channel with TargetID greater 
+   than 15 should be returned as Illegal request.
+
+
+W2K Version 5.32.0.0
+
+1. Initial release of PERC 4/Di on PE2600.
+
+
+W2K3 Changes from 6.35.2.32 to 6.41.2.32
+
+1. A timer routine has been added to the driver's reset path which will 
+   periodically be invoked and will calculate the actual system time elapsed 
+   from the start of the issuing of reset. If more than 3 minutes elapse, the 
+   adapter will be marked as failed.
+   In a cluster environment during heavy I/O, this would prevent the driver from 
+   stalling the CPU and allow the cluster to failover instead of freezing.
+2. The driver will now expose a failed logical drive to the OS and will complete
+   the failed I/O request with the proper status information to prevent a logical 
+   drive mismatch between the OS and the RAID management utilities.
+3. Support added for PERC 4e/Si,PERC 4e/Di,and PERC 4e/DC.
+4. The driver addresses a potential system freeze during reset. 
+5. The driver now returns the Bus interrupt level in the PCI information structure
+   for use in the RAID utilities.
+6. The TimeOut Value in the Registry entry under Disk.sys has been increased to 
+   60 secs from 40 secs to prevent Event ID 9.
+7. Support for MegaRAID SCSI 320-0X support added to the registry.
+8. Support has been added for the SATA(523) SAF-TE device from AMI.
+9. Support has been added for the Intel(R) Storage RAID Controller SRCU42 to the 
+   driver and the setup files.  
+
+
+W2K3 Changes from 6.32.2.32 to 6.35.2.32
+
+1. Minor change to Oemsetup.txt file.
+2. Driver no longer filters out all other commands except SCSI READ and SCSI 
+   WRITE.
+
+
+W2K3 Changes from 6.25 to 6.32.2.32
+
+1. Changes in the setup files, so that Scsiport driver should give the correct
+   device number and function number to the miniport driver.
+2. A timeout is implemented in the driver so that driver shouldn't wait 
+   infinitely for the firmware to acknowledge the interrupt.
+3. The driver will return an error status for all the offline logical drives.
+4. Utilities are issuing 0xc3 calls for getting the logical drive statistics. 
+   This is causing the system to crash. This bug has been fixed in the driver.
+5. The driver is using Hal functions to program hierarchy bridges and SCSI 
+   chips when system goes to D3 standby state.  
+
+   The use of Hal functions were not allowing the driver to pass the HCT test.
+   So we have to disable the Hal calls in the previous releases. A workaround
+   has been done in the driver whereby all the Hal calls have been replaced by
+   its assembly equivalent.
+6. During reset, the driver was not clearing all the pending commands whenever 
+   the firmware is not able to complete it.
+7. Driver is allocating enough continuous memory for the
+   FLASH_WRITE_BLOCK(0x2c) command.
+8. The system gives a blue screen when one swaps the boot controller. This bug
+   has been fixed by adding entries of all the supported controllers in the
+   critical data base section of the registry through changes in the
+   oemsetup.inf file.
+9. The system was not waking up after a hibernation/standby operation. This bug 
+   was caused by the driver. The driver was trying to access PCI_CONFIG space from 
+   the ScsiRestartAdapter in the driver. This bug has been fixed by accessing the 
+   PCI_CONFIG space from the ScsiSetRunningConfig entry point.
+10. A new command has been introduced to enhance the performance for SCSI I/O on 
+    non-raid SCSI channel.
+11. In case of standby, the driver was not waiting for the firmware to get 
+    initialized. This resulted in the driver sending commands to the firmware
+    even when the firmware is not initialized. The fix has been put in the
+    driver. The driver is polling for the Firmware to get initialized before
+    sending any commands to the firmware.
+12. The PERC 3 Firmware was not able to handle multiple reserve commands for a 
+    logical drive. This was leading to reservation failures on some of the
+    logical drives. A fix has been done in the driver where the driver would
+    accept only one reservation call at a time and would allow it to complete
+    before issuing any more commands to the firmware.
+

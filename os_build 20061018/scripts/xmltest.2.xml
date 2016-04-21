@@ -1,0 +1,563 @@
+<?xml version="1.0"?>
+<SYSTEMBUILD>
+	<VARIABLES>
+		<VARDELIM>__</VARDELIM>
+		<VARARRAYDELIM>;</VARARRAYDELIM>
+		<RAMDISKDRIVE>__RAMDISKLETTER__:</RAMDISKDRIVE>
+		<REMOVABLEDRIVES>__REMOVABLEVOLUMES__:</REMOVABLEDRIVES>
+		<RESERVEDLETTERS>a;b;__REMOVABLELETTERS__;x;y;z</RESERVEDLETTERS>
+		<OSSRCPATH>__REMOVABLEDRIVES__\install\os</OSSRCPATH>
+		<XMLSRCPATH>__SYSTEMDRIVE__\config</XMLSRCPATH>
+		<PRETEMPPATH>__RAMDISKDRIVE__\sbtemp</PRETEMPPATH>
+		<CONFIGXML>__PRETEMPPATH__\tSBConfig.xml</CONFIGXML>
+		<ASSEMBLYXML>__PRETEMPPATH__\SBAssembly.xml</ASSEMBLYXML>
+		<TIMEZONE>008</TIMEZONE>
+		<AREACODE>555</AREACODE>
+		<ADMINPASSWORD>password</ADMINPASSWORD>
+	</VARIABLES>
+	<SYSSPECS>
+		<MEMORY>
+			<PHYSICALMEMORY INDEX="0"><BankLabel></BankLabel><Capacity>536870912</Capacity><Caption>Physical Memory</Caption><CreationClassName>Win32_PhysicalMemory</CreationClassName><DataWidth>64</DataWidth><Description>Physical Memory</Description><DeviceLocator>DIMM_A</DeviceLocator><FormFactor>8</FormFactor><HotSwappable></HotSwappable><InstallDate></InstallDate><InterleaveDataDepth>0</InterleaveDataDepth><InterleavePosition>0</InterleavePosition><Manufacturer></Manufacturer><MemoryType>0</MemoryType><Model></Model><Name>Physical Memory</Name><OtherIdentifyingInfo></OtherIdentifyingInfo><PartNumber></PartNumber><PositionInRow>1</PositionInRow><PoweredOn></PoweredOn><Removable></Removable><Replaceable></Replaceable><SerialNumber></SerialNumber><SKU></SKU><Speed>266</Speed><Status></Status><Tag>Physical Memory 0</Tag><TotalWidth>64</TotalWidth><TypeDetail>128</TypeDetail><Version></Version></PHYSICALMEMORY><PHYSICALMEMORY INDEX="1"><BankLabel></BankLabel><Capacity>536870912</Capacity><Caption>Physical Memory</Caption><CreationClassName>Win32_PhysicalMemory</CreationClassName><DataWidth>64</DataWidth><Description>Physical Memory</Description><DeviceLocator>DIMM_B</DeviceLocator><FormFactor>8</FormFactor><HotSwappable></HotSwappable><InstallDate></InstallDate><InterleaveDataDepth>0</InterleaveDataDepth><InterleavePosition>0</InterleavePosition><Manufacturer></Manufacturer><MemoryType>0</MemoryType><Model></Model><Name>Physical Memory</Name><OtherIdentifyingInfo></OtherIdentifyingInfo><PartNumber></PartNumber><PositionInRow>1</PositionInRow><PoweredOn></PoweredOn><Removable></Removable><Replaceable></Replaceable><SerialNumber></SerialNumber><SKU></SKU><Speed>266</Speed><Status></Status><Tag>Physical Memory 1</Tag><TotalWidth>64</TotalWidth><TypeDetail>128</TypeDetail><Version></Version></PHYSICALMEMORY></MEMORY>
+		<ARCHITECTURE>
+			<PROCESSOR INDEX="0"><AddressWidth>32</AddressWidth><Architecture>0</Architecture><Availability>3</Availability><Caption>x86 Family 15 Model 2 Stepping 7</Caption><ConfigManagerErrorCode></ConfigManagerErrorCode><ConfigManagerUserConfig></ConfigManagerUserConfig><CpuStatus>1</CpuStatus><CreationClassName>Win32_Processor</CreationClassName><CurrentClockSpeed>1794</CurrentClockSpeed><CurrentVoltage>33</CurrentVoltage><DataWidth>32</DataWidth><Description>x86 Family 15 Model 2 Stepping 7</Description><DeviceID>CPU0</DeviceID><ErrorCleared></ErrorCleared><ErrorDescription></ErrorDescription><ExtClock>133</ExtClock><Family>178</Family><InstallDate></InstallDate><L2CacheSize>512</L2CacheSize><L2CacheSpeed>1794</L2CacheSpeed><L3CacheSize></L3CacheSize><L3CacheSpeed></L3CacheSpeed><LastErrorCode></LastErrorCode><Level>15</Level><LoadPercentage>29</LoadPercentage><Manufacturer>GenuineIntel</Manufacturer><MaxClockSpeed>1794</MaxClockSpeed><Name>Mobile Intel(R) Pentium(R) 4 - M CPU 1.80GHz</Name><NumberOfCores></NumberOfCores><NumberOfLogicalProcessors></NumberOfLogicalProcessors><OtherFamilyDescription></OtherFamilyDescription><PNPDeviceID></PNPDeviceID><PowerManagementCapabilities></PowerManagementCapabilities><PowerManagementSupported>false</PowerManagementSupported><ProcessorId>BFEBF9FF00000F27</ProcessorId><ProcessorType>3</ProcessorType><Revision>519</Revision><Role>CPU</Role><SocketDesignation>Microprocessor</SocketDesignation><Status>OK</Status><StatusInfo>3</StatusInfo><Stepping>7</Stepping><SystemCreationClassName>Win32_ComputerSystem</SystemCreationClassName><SystemName>test</SystemName><UniqueId></UniqueId><UpgradeMethod>6</UpgradeMethod><Version>Model 2, Stepping 7</Version><VoltageCaps>2</VoltageCaps></PROCESSOR></ARCHITECTURE>
+		<NETWORK>
+			<NIC INDEX="0"><ArpAlwaysSourceRoute></ArpAlwaysSourceRoute><ArpUseEtherSNAP></ArpUseEtherSNAP><Caption>[00000001] 3Com 3C920 Integrated Fast Ethernet Controller (3C905C-TX Compatible)</Caption><DatabasePath>%SystemRoot%\System32\drivers\etc</DatabasePath><DeadGWDetectEnabled></DeadGWDetectEnabled><DefaultIPGateway></DefaultIPGateway><DefaultTOS></DefaultTOS><DefaultTTL></DefaultTTL><Description>3Com 3C920 Integrated Fast Ethernet Controller (3C905C-TX Compatible) - Eacfilt Miniport</Description><DHCPEnabled>true</DHCPEnabled><DHCPLeaseExpires>20380118221407.000000-300</DHCPLeaseExpires><DHCPLeaseObtained>20060727223237.000000-240</DHCPLeaseObtained><DHCPServer>255.255.255.255</DHCPServer><DNSDomain>pearlst.org</DNSDomain><DNSDomainSuffixSearchOrder INDEX="0">dude.net</DNSDomainSuffixSearchOrder><DNSDomainSuffixSearchOrder INDEX="1">dude.org</DNSDomainSuffixSearchOrder><DNSEnabledForWINSResolution>false</DNSEnabledForWINSResolution><DNSHostName>test</DNSHostName><DNSServerSearchOrder></DNSServerSearchOrder><DomainDNSRegistrationEnabled>true</DomainDNSRegistrationEnabled><ForwardBufferMemory></ForwardBufferMemory><FullDNSRegistrationEnabled>true</FullDNSRegistrationEnabled><GatewayCostMetric></GatewayCostMetric><IGMPLevel></IGMPLevel><Index>1</Index><InterfaceIndex>4</InterfaceIndex><IPAddress INDEX="0">0.0.0.0</IPAddress><IPConnectionMetric>1</IPConnectionMetric><IPEnabled>true</IPEnabled><IPFilterSecurityEnabled>false</IPFilterSecurityEnabled><IPPortSecurityEnabled></IPPortSecurityEnabled><IPSubnet INDEX="0">0.0.0.0</IPSubnet><IPUseZeroBroadcast></IPUseZeroBroadcast><KeepAliveInterval></KeepAliveInterval><KeepAliveTime></KeepAliveTime><MACAddress>00:0B:DB:16:45:C7</MACAddress><MTU></MTU><NumForwardPackets></NumForwardPackets><PMTUBHDetectEnabled></PMTUBHDetectEnabled><PMTUDiscoveryEnabled></PMTUDiscoveryEnabled><ServiceName>EL90Xbc</ServiceName><SettingID>{C535DB44-0487-4899-8293-72DF5513296B}</SettingID><TcpipNetbiosOptions>2</TcpipNetbiosOptions><TcpMaxConnectRetransmissions></TcpMaxConnectRetransmissions><TcpMaxDataRetransmissions></TcpMaxDataRetransmissions><TcpNumConnections></TcpNumConnections><TcpUseRFC1122UrgentPointer></TcpUseRFC1122UrgentPointer><TcpWindowSize></TcpWindowSize><WINSEnableLMHostsLookup>true</WINSEnableLMHostsLookup><WINSHostLookupFile></WINSHostLookupFile><WINSPrimaryServer></WINSPrimaryServer><WINSScopeID></WINSScopeID><WINSSecondaryServer></WINSSecondaryServer><ConnectionName>NIC0</ConnectionName></NIC><NIC INDEX="1"><ArpAlwaysSourceRoute></ArpAlwaysSourceRoute><ArpUseEtherSNAP></ArpUseEtherSNAP><Caption>[00000010] Belkin Wireless Pre-N Notebook Network Card</Caption><DatabasePath>%SystemRoot%\System32\drivers\etc</DatabasePath><DeadGWDetectEnabled></DeadGWDetectEnabled><DefaultIPGateway INDEX="0">192.168.2.1</DefaultIPGateway><DefaultTOS></DefaultTOS><DefaultTTL></DefaultTTL><Description>Belkin Wireless Pre-N Notebook Network Card - Virtual Machine Network Services Driver</Description><DHCPEnabled>true</DHCPEnabled><DHCPLeaseExpires>20380118221407.000000-300</DHCPLeaseExpires><DHCPLeaseObtained>20060902190443.000000-240</DHCPLeaseObtained><DHCPServer>192.168.2.1</DHCPServer><DNSDomain>pearlst.org</DNSDomain><DNSDomainSuffixSearchOrder INDEX="0">dude.net</DNSDomainSuffixSearchOrder><DNSDomainSuffixSearchOrder INDEX="1">dude.org</DNSDomainSuffixSearchOrder><DNSEnabledForWINSResolution>false</DNSEnabledForWINSResolution><DNSHostName>test</DNSHostName><DNSServerSearchOrder INDEX="0">192.168.2.1</DNSServerSearchOrder><DomainDNSRegistrationEnabled>false</DomainDNSRegistrationEnabled><ForwardBufferMemory></ForwardBufferMemory><FullDNSRegistrationEnabled>true</FullDNSRegistrationEnabled><GatewayCostMetric INDEX="0">20</GatewayCostMetric><IGMPLevel></IGMPLevel><Index>10</Index><InterfaceIndex>65543</InterfaceIndex><IPAddress INDEX="0">192.168.2.5</IPAddress><IPConnectionMetric>20</IPConnectionMetric><IPEnabled>true</IPEnabled><IPFilterSecurityEnabled>false</IPFilterSecurityEnabled><IPPortSecurityEnabled></IPPortSecurityEnabled><IPSubnet INDEX="0">255.255.255.0</IPSubnet><IPUseZeroBroadcast></IPUseZeroBroadcast><KeepAliveInterval></KeepAliveInterval><KeepAliveTime></KeepAliveTime><MACAddress>00:11:50:20:4B:7C</MACAddress><MTU></MTU><NumForwardPackets></NumForwardPackets><PMTUBHDetectEnabled></PMTUBHDetectEnabled><PMTUDiscoveryEnabled></PMTUDiscoveryEnabled><ServiceName>Airgo</ServiceName><SettingID>{D6EA355E-1452-42BC-AF14-E1CAF757387D}</SettingID><TcpipNetbiosOptions>0</TcpipNetbiosOptions><TcpMaxConnectRetransmissions></TcpMaxConnectRetransmissions><TcpMaxDataRetransmissions></TcpMaxDataRetransmissions><TcpNumConnections></TcpNumConnections><TcpUseRFC1122UrgentPointer></TcpUseRFC1122UrgentPointer><TcpWindowSize></TcpWindowSize><WINSEnableLMHostsLookup>true</WINSEnableLMHostsLookup><WINSHostLookupFile></WINSHostLookupFile><WINSPrimaryServer></WINSPrimaryServer><WINSScopeID></WINSScopeID><WINSSecondaryServer></WINSSecondaryServer><ConnectionName>NIC1</ConnectionName></NIC><NIC INDEX="2"><ArpAlwaysSourceRoute></ArpAlwaysSourceRoute><ArpUseEtherSNAP></ArpUseEtherSNAP><Caption>[00000016] Nortel IPSECSHM Adapter</Caption><DatabasePath>%SystemRoot%\System32\drivers\etc</DatabasePath><DeadGWDetectEnabled></DeadGWDetectEnabled><DefaultIPGateway></DefaultIPGateway><DefaultTOS></DefaultTOS><DefaultTTL></DefaultTTL><Description>Nortel IPSECSHM Adapter - Eacfilt Miniport</Description><DHCPEnabled>false</DHCPEnabled><DHCPLeaseExpires></DHCPLeaseExpires><DHCPLeaseObtained></DHCPLeaseObtained><DHCPServer></DHCPServer><DNSDomain></DNSDomain><DNSDomainSuffixSearchOrder INDEX="0">dude.net</DNSDomainSuffixSearchOrder><DNSDomainSuffixSearchOrder INDEX="1">dude.org</DNSDomainSuffixSearchOrder><DNSEnabledForWINSResolution>false</DNSEnabledForWINSResolution><DNSHostName>test</DNSHostName><DNSServerSearchOrder></DNSServerSearchOrder><DomainDNSRegistrationEnabled>false</DomainDNSRegistrationEnabled><ForwardBufferMemory></ForwardBufferMemory><FullDNSRegistrationEnabled>true</FullDNSRegistrationEnabled><GatewayCostMetric></GatewayCostMetric><IGMPLevel></IGMPLevel><Index>16</Index><InterfaceIndex>5</InterfaceIndex><IPAddress INDEX="0">0.0.0.0</IPAddress><IPConnectionMetric>1</IPConnectionMetric><IPEnabled>true</IPEnabled><IPFilterSecurityEnabled>false</IPFilterSecurityEnabled><IPPortSecurityEnabled></IPPortSecurityEnabled><IPSubnet INDEX="0">0.0.0.0</IPSubnet><IPUseZeroBroadcast></IPUseZeroBroadcast><KeepAliveInterval></KeepAliveInterval><KeepAliveTime></KeepAliveTime><MACAddress>44:45:53:54:42:00</MACAddress><MTU></MTU><NumForwardPackets></NumForwardPackets><PMTUBHDetectEnabled></PMTUBHDetectEnabled><PMTUDiscoveryEnabled></PMTUDiscoveryEnabled><ServiceName>IPSECSHM</ServiceName><SettingID>{897C0716-5416-4754-982B-2BB50B76668D}</SettingID><TcpipNetbiosOptions>0</TcpipNetbiosOptions><TcpMaxConnectRetransmissions></TcpMaxConnectRetransmissions><TcpMaxDataRetransmissions></TcpMaxDataRetransmissions><TcpNumConnections></TcpNumConnections><TcpUseRFC1122UrgentPointer></TcpUseRFC1122UrgentPointer><TcpWindowSize></TcpWindowSize><WINSEnableLMHostsLookup>true</WINSEnableLMHostsLookup><WINSHostLookupFile></WINSHostLookupFile><WINSPrimaryServer></WINSPrimaryServer><WINSScopeID></WINSScopeID><WINSSecondaryServer></WINSSecondaryServer><ConnectionName>NIC2</ConnectionName></NIC><NIC INDEX="3"><ArpAlwaysSourceRoute></ArpAlwaysSourceRoute><ArpUseEtherSNAP></ArpUseEtherSNAP><Caption>[00000030] VMware Virtual Ethernet Adapter for VMnet1</Caption><DatabasePath>%SystemRoot%\System32\drivers\etc</DatabasePath><DeadGWDetectEnabled></DeadGWDetectEnabled><DefaultIPGateway></DefaultIPGateway><DefaultTOS></DefaultTOS><DefaultTTL></DefaultTTL><Description>VMware Virtual Ethernet Adapter for VMnet1</Description><DHCPEnabled>false</DHCPEnabled><DHCPLeaseExpires></DHCPLeaseExpires><DHCPLeaseObtained></DHCPLeaseObtained><DHCPServer></DHCPServer><DNSDomain></DNSDomain><DNSDomainSuffixSearchOrder INDEX="0">dude.net</DNSDomainSuffixSearchOrder><DNSDomainSuffixSearchOrder INDEX="1">dude.org</DNSDomainSuffixSearchOrder><DNSEnabledForWINSResolution>false</DNSEnabledForWINSResolution><DNSHostName>test</DNSHostName><DNSServerSearchOrder></DNSServerSearchOrder><DomainDNSRegistrationEnabled>false</DomainDNSRegistrationEnabled><ForwardBufferMemory></ForwardBufferMemory><FullDNSRegistrationEnabled>true</FullDNSRegistrationEnabled><GatewayCostMetric></GatewayCostMetric><IGMPLevel></IGMPLevel><Index>30</Index><InterfaceIndex>3</InterfaceIndex><IPAddress INDEX="0">192.168.235.1</IPAddress><IPConnectionMetric>20</IPConnectionMetric><IPEnabled>true</IPEnabled><IPFilterSecurityEnabled>false</IPFilterSecurityEnabled><IPPortSecurityEnabled></IPPortSecurityEnabled><IPSubnet INDEX="0">255.255.255.0</IPSubnet><IPUseZeroBroadcast></IPUseZeroBroadcast><KeepAliveInterval></KeepAliveInterval><KeepAliveTime></KeepAliveTime><MACAddress>00:50:56:C0:00:01</MACAddress><MTU></MTU><NumForwardPackets></NumForwardPackets><PMTUBHDetectEnabled></PMTUBHDetectEnabled><PMTUDiscoveryEnabled></PMTUDiscoveryEnabled><ServiceName>VMnetAdapter</ServiceName><SettingID>{24AE39F5-0393-421B-BB06-47F64F728ACE}</SettingID><TcpipNetbiosOptions>0</TcpipNetbiosOptions><TcpMaxConnectRetransmissions></TcpMaxConnectRetransmissions><TcpMaxDataRetransmissions></TcpMaxDataRetransmissions><TcpNumConnections></TcpNumConnections><TcpUseRFC1122UrgentPointer></TcpUseRFC1122UrgentPointer><TcpWindowSize></TcpWindowSize><WINSEnableLMHostsLookup>true</WINSEnableLMHostsLookup><WINSHostLookupFile></WINSHostLookupFile><WINSPrimaryServer></WINSPrimaryServer><WINSScopeID></WINSScopeID><WINSSecondaryServer></WINSSecondaryServer><ConnectionName>NIC3</ConnectionName></NIC><NIC INDEX="4"><ArpAlwaysSourceRoute></ArpAlwaysSourceRoute><ArpUseEtherSNAP></ArpUseEtherSNAP><Caption>[00000031] VMware Virtual Ethernet Adapter for VMnet8</Caption><DatabasePath>%SystemRoot%\System32\drivers\etc</DatabasePath><DeadGWDetectEnabled></DeadGWDetectEnabled><DefaultIPGateway></DefaultIPGateway><DefaultTOS></DefaultTOS><DefaultTTL></DefaultTTL><Description>VMware Virtual Ethernet Adapter for VMnet8</Description><DHCPEnabled>false</DHCPEnabled><DHCPLeaseExpires></DHCPLeaseExpires><DHCPLeaseObtained></DHCPLeaseObtained><DHCPServer></DHCPServer><DNSDomain></DNSDomain><DNSDomainSuffixSearchOrder INDEX="0">dude.net</DNSDomainSuffixSearchOrder><DNSDomainSuffixSearchOrder INDEX="1">dude.org</DNSDomainSuffixSearchOrder><DNSEnabledForWINSResolution>false</DNSEnabledForWINSResolution><DNSHostName>test</DNSHostName><DNSServerSearchOrder></DNSServerSearchOrder><DomainDNSRegistrationEnabled>false</DomainDNSRegistrationEnabled><ForwardBufferMemory></ForwardBufferMemory><FullDNSRegistrationEnabled>true</FullDNSRegistrationEnabled><GatewayCostMetric></GatewayCostMetric><IGMPLevel></IGMPLevel><Index>31</Index><InterfaceIndex>2</InterfaceIndex><IPAddress INDEX="0">192.168.20.1</IPAddress><IPConnectionMetric>20</IPConnectionMetric><IPEnabled>true</IPEnabled><IPFilterSecurityEnabled>false</IPFilterSecurityEnabled><IPPortSecurityEnabled></IPPortSecurityEnabled><IPSubnet INDEX="0">255.255.255.0</IPSubnet><IPUseZeroBroadcast></IPUseZeroBroadcast><KeepAliveInterval></KeepAliveInterval><KeepAliveTime></KeepAliveTime><MACAddress>00:50:56:C0:00:08</MACAddress><MTU></MTU><NumForwardPackets></NumForwardPackets><PMTUBHDetectEnabled></PMTUBHDetectEnabled><PMTUDiscoveryEnabled></PMTUDiscoveryEnabled><ServiceName>VMnetAdapter</ServiceName><SettingID>{E75E027F-53ED-4232-9431-0901BCE66AF9}</SettingID><TcpipNetbiosOptions>0</TcpipNetbiosOptions><TcpMaxConnectRetransmissions></TcpMaxConnectRetransmissions><TcpMaxDataRetransmissions></TcpMaxDataRetransmissions><TcpNumConnections></TcpNumConnections><TcpUseRFC1122UrgentPointer></TcpUseRFC1122UrgentPointer><TcpWindowSize></TcpWindowSize><WINSEnableLMHostsLookup>true</WINSEnableLMHostsLookup><WINSHostLookupFile></WINSHostLookupFile><WINSPrimaryServer></WINSPrimaryServer><WINSScopeID></WINSScopeID><WINSSecondaryServer></WINSSecondaryServer><ConnectionName>NIC4</ConnectionName></NIC><PERSISTENTROUTE INDEX="0"><NetworkNumber>10.0.0.0</NetworkNumber><NetworkMask>255.255.255.0</NetworkMask><Gateway>192.168.2.253</Gateway><Metric>1</Metric></PERSISTENTROUTE></NETWORK>
+	</SYSSPECS>
+	<GENSPECS>
+		<OSSPECS>
+			<OS INDEX="1041">
+				<NAME>EN_VL_WIN2000_PRO_SP4</NAME>
+				<DESCRIPTION>Windows 2000 Professional w/ SP4 (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>2195</BUILDNUMBER>
+				<MAJORVERSION>2000</MAJORVERSION>
+				<MINORVERSION>PRO</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>4</SERVICEPACK>
+				<PATCHPACK>WIN2000_PATCH_SP4</PATCHPACK>
+				<ADDONPACK>WIN2000_ADDON</ADDONPACK>
+				<SYSTEMCLASS>WORKSTATION</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="1042">
+				<NAME>EN_VL_WIN2000_SRV_SP4</NAME>
+				<DESCRIPTION>Windows 2000 Server w/ SP4 (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>2195</BUILDNUMBER>
+				<MAJORVERSION>2000</MAJORVERSION>
+				<MINORVERSION>SRV</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>4</SERVICEPACK>
+				<PATCHPACK>WIN2000_PATCH_SP4</PATCHPACK>
+				<ADDONPACK>WIN2000_ADDON</ADDONPACK>
+				<SYSTEMCLASS>SERVER</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="1043">
+				<NAME>EN_VL_WIN2000_ADV_SP4</NAME>
+				<DESCRIPTION>Windows 2000 Advance Server w/ SP4 (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>2195</BUILDNUMBER>
+				<MAJORVERSION>2000</MAJORVERSION>
+				<MINORVERSION>ADV</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>4</SERVICEPACK>
+				<PATCHPACK>WIN2000_PATCH_SP4</PATCHPACK>
+				<ADDONPACK>WIN2000_ADDON</ADDONPACK>
+				<SYSTEMCLASS>SERVER</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="2022">
+				<NAME>EN_VL_WINXP_PRO_SP2</NAME>
+				<DESCRIPTION>Windows XP Professional w/ SP2 (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>2600</BUILDNUMBER>
+				<MAJORVERSION>XP</MAJORVERSION>
+				<MINORVERSION>PRO</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>2</SERVICEPACK>
+				<PATCHPACK>WINXP_PATCH_SP2</PATCHPACK>
+				<ADDONPACK>WINXP_ADDON</ADDONPACK>
+				<SYSTEMCLASS>WORKSTATION</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="3001">
+				<NAME>EN_VL_WIN2003_WEB</NAME>
+				<DESCRIPTION>Windows 2003 Server: Web Edition (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>3790</BUILDNUMBER>
+				<MAJORVERSION>2003</MAJORVERSION>
+				<MINORVERSION>WEB</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>0</SERVICEPACK>
+				<PATCHPACK>WIN2003_PATCH</PATCHPACK>
+				<ADDONPACK>WIN2003_ADDON</ADDONPACK>
+				<SYSTEMCLASS>SERVER</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="3002">
+				<NAME>EN_VL_WIN2003_STD</NAME>
+				<DESCRIPTION>Windows 2003 Server: Standard Edition (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>3790</BUILDNUMBER>
+				<MAJORVERSION>2003</MAJORVERSION>
+				<MINORVERSION>STD</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>0</SERVICEPACK>
+				<PATCHPACK>WIN2003_PATCH</PATCHPACK>
+				<ADDONPACK>WIN2003_ADDON</ADDONPACK>
+				<SYSTEMCLASS>SERVER</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="3003">
+				<NAME>EN_VL_WIN2003_ENT</NAME>
+				<DESCRIPTION>Windows 2003 Server: Enterprise Edition (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>3790</BUILDNUMBER>
+				<MAJORVERSION>2003</MAJORVERSION>
+				<MINORVERSION>ENT</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>0</SERVICEPACK>
+				<PATCHPACK>WIN2003_PATCH</PATCHPACK>
+				<ADDONPACK>WIN2003_ADDON</ADDONPACK>
+				<SYSTEMCLASS>SERVER</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="3011">
+				<NAME>EN_VL_WIN2003_WEB_SP1</NAME>
+				<DESCRIPTION>Windows 2003 Server: Web Edition w/ SP1 (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>3790</BUILDNUMBER>
+				<MAJORVERSION>2003</MAJORVERSION>
+				<MINORVERSION>WEB</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>1</SERVICEPACK>
+				<PATCHPACK>WIN2003_PATCH_SP1</PATCHPACK>
+				<ADDONPACK>WIN2003_ADDON</ADDONPACK>
+				<SYSTEMCLASS>SERVER</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="3012">
+				<NAME>EN_VL_WIN2003_STD_SP1</NAME>
+				<DESCRIPTION>Windows 2003 Server: Standard Edition w/ SP1 (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>3790</BUILDNUMBER>
+				<MAJORVERSION>2003</MAJORVERSION>
+				<MINORVERSION>STD</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>1</SERVICEPACK>
+				<PATCHPACK>WIN2003_PATCH_SP1</PATCHPACK>
+				<ADDONPACK>WIN2003_ADDON</ADDONPACK>
+				<SYSTEMCLASS>SERVER</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+			<OS INDEX="3013">
+				<NAME>EN_VL_WIN2003_ENT_SP1</NAME>
+				<DESCRIPTION>Windows 2003 Server: Enterprise Edition w/ SP1 (Volume License)</DESCRIPTION>
+				<BUILDNUMBER>3790</BUILDNUMBER>
+				<MAJORVERSION>2003</MAJORVERSION>
+				<MINORVERSION>ENT</MINORVERSION>
+				<LANGUAGE>ENGLISH</LANGUAGE>
+				<RELEASE>VOLUME</RELEASE>
+				<PRODUCTKEY></PRODUCTKEY>
+				<SERVICEPACK>1</SERVICEPACK>
+				<PATCHPACK>WIN2003_PATCH_SP1</PATCHPACK>
+				<ADDONPACK>WIN2003_ADDON</ADDONPACK>
+				<SYSTEMCLASS>SERVER</SYSTEMCLASS>
+				<ARCHITECTURE>x86</ARCHITECTURE>
+				<ANSWERFILETYPE>ini</ANSWERFILETYPE>
+			</OS>
+		</OSSPECS>
+		<!-- SYSTEM CLASS SPECS -->
+		<SYSTEMCLASSSPECS>
+			<OSANSWERFILE FILENAME="unattend.ini" TYPE="INI" VERSION="2000;XP;2003">
+				<BRANDING>
+					<BRANDIEUSINGUNATTEND>yes</BRANDIEUSINGUNATTEND>
+					<IEBRANDINGFILE></IEBRANDINGFILE>
+				</BRANDING>
+				<CERT_CLIENT>
+					<CAMACHINE></CAMACHINE>
+					<CANAME></CANAME>
+				</CERT_CLIENT>
+				<CERT_SERVER>
+					<CATYPE></CATYPE>
+					<COUNTRY VERSION="2000;XP"></COUNTRY>
+					<CSPPROVIDER></CSPPROVIDER>
+					<DESCRIPTION VERSION="2000;XP"></DESCRIPTION>
+					<EMAIL VERSION="2000;XP"></EMAIL>
+					<EXISTINGKEY VERSION="2000;XP"></EXISTINGKEY>
+					<HASHALGORITHM>SHA1</HASHALGORITHM>
+					<KEYLENGTH></KEYLENGTH>
+					<LOCALITY VERSION="2000;XP"></LOCALITY>
+					<NAME></NAME>
+					<ORGANIZATION VERSION="2000;XP"></ORGANIZATION>
+					<ORGANIZATIONUNIT VERSION="2000;XP"></ORGANIZATIONUNIT>
+					<PARENTCAMACHINE></PARENTCAMACHINE>
+					<PARENTCANAME></PARENTCANAME>
+					<PRESERVEDB VERSION="2000;XP"></PRESERVEDB>
+					<REQUESTFILE VERSION="2000;XP"></REQUESTFILE>
+					<SHAREDFOLDER>"%systemdrive%\CAConfig"</SHAREDFOLDER>
+					<STATE VERSION="2000;XP"></STATE>
+					<USEEXISTINGCERT VERSION="2000;XP"></USEEXISTINGCERT>
+					<VALIDITYPERIOD>20</VALIDITYPERIOD>
+					<VALIDITYPERIODUNITS>years</VALIDITYPERIODUNITS>
+				</CERT_SERVER>
+				<CLUSTER VERSION="2000">
+					<ACCOUNT VERSION="2000"></ACCOUNT>
+					<ACTION VERSION="2000"></ACTION>
+					<DOMAIN VERSION="2000"></DOMAIN>
+					<EXCLUDEDRIVE VERSION="2000"></EXCLUDEDRIVE>
+					<IPADDR VERSION="2000"></IPADDR>
+					<LOCALQUORUM VERSION="2000"></LOCALQUORUM>
+					<NAME VERSION="2000"></NAME>
+					<NETWORK VERSION="2000"></NETWORK>
+					<PASSWORD VERSION="2000"></PASSWORD>
+					<QUORUM VERSION="2000"></QUORUM>
+					<SUBNET VERSION="2000"></SUBNET>
+				</CLUSTER>
+				<COMPONENTS>
+					<ACCESSOPT DESCRIPTION="Installs the Accessibility wizard">off</ACCESSOPT>
+					<ACS VERSION="2000;XP" DESCRIPTION="Specifies that QoS Admission Control Service be installed">0</ACS>
+					<CALC DESCRIPTION="Installs the Calculator">on</CALC>
+					<CDPLAYER SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the CD Player program">on</CDPLAYER>
+					<CERTSRV DESCRIPTION="Installs the Certificate Services components">off</CERTSRV>
+					<CERTSRV_CLIENT DESCRIPTION="Installs the Web client components of the Certificate Services feature">off</CERTSRV_CLIENT>
+					<CERTSRV_SERVER VERSION="2000;2003" DESCRIPTION="Installs the server components of the Certificate Services features">off</CERTSRV_SERVER>
+					<CHARMAP DESCRIPTION="Installs the Character Map program that inserts symbols and characters into documents">on</CHARMAP>
+					<CHAT DESCRIPTION="Installs the Chat program">off</CHAT>
+					<CLUSTER VERSION="2000;2003" DESCRIPTION="Installs the Cluster service Node and Administration components">off</CLUSTER>
+					<COM DESCRIPTION="Undocumented"></COM>
+					<DESKPAPER SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs desktop wallpaper on your computer desktop">on</DESKPAPER>
+					<DIALER DESCRIPTION="Installs the Phone Dialer program">off</DIALER>
+					<DIALER SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the Phone Dialer program">on</DIALER>
+					<DTC DESCRIPTION="">on</DTC>
+					<FP_EXTENSIONS DESCRIPTION="Installs the FrontPage server extensions">off</FP_EXTENSIONS>
+					<FREECELL SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the Freecell game">on</FREECELL>
+					<FREESTYLE SYSTEMCLASS="WORKSTATION" DESCRIPTION="">on</FREESTYLE>
+					<HYPERTERM DESCRIPTION="Installs the HyperTerminal program">on</HYPERTERM>
+					<IISDBG DESCRIPTION="Installs the Microsoft Script Debugger">off</IISDBG>
+					<IIS_COMMON DESCRIPTION="Installs the common set of files needed by IIS">off</IIS_COMMON>
+					<IIS_DOC VERSION="2000" DESCRIPTION="Installs documentation for IIS">off</IIS_DOC>
+					<IIS_FTP DESCRIPTION="Installs the FTP service">off</IIS_FTP>
+					<IIS_HTMLA VERSION="2000;XP" DESCRIPTION="Installs the HTML-based administration tools for IIS">off</IIS_HTMLA>
+					<IIS_INETMGR DESCRIPTION="Installs the MMC-based administration tools for IIS">off</IIS_INETMGR>
+					<IIS_NNTP DESCRIPTION="Installs the Network News Transfer Protocol (NNTP) service">off</IIS_NNTP>
+					<IIS_NNTP_DOCS VERSION="2000;XP" DESCRIPTION="Installs the documentation for the NNTP service">off</IIS_NNTP_DOCS>
+					<IIS_PWMGR VERSION="2000;XP" DESCRIPTION="Installs the Personal Web Manager">off</IIS_PWMGR>
+					<IIS_SMTP DESCRIPTION="Installs the Simple Mail Transfer Protocol (SMTP) service">off</IIS_SMTP>
+					<IIS_SMTP_DOCS VERSION="2000;XP" DESCRIPTION="Installs documentation for the SMTP service">off</IIS_SMTP_DOCS>
+					<IIS_WWW DESCRIPTION="Installs the World Wide Web (WWW) service">off</IIS_WWW>
+					<INDEXSRV_SYSTEM DESCRIPTION="Installs the Indexing Service files">off</INDEXSRV_SYSTEM>
+					<LICENSESERVER DESCRIPTION="Turns Terminal Services licensing on or off">off</LICENSESERVER>
+					<MEDIA_CLIPS SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs sample sound clips">on</MEDIA_CLIPS>
+					<MEDIA_UTOPIA SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the Utopia Sound Scheme">on</MEDIA_UTOPIA>
+					<MINESWEEPER SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the Minesweeper game">on</MINESWEEPER>
+					<MOUSEPOINT SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs all the available mouse pointers that ship with Windows">on</MOUSEPOINT>
+					<MPLAY VERSION="2000;XP" DESCRIPTION="Installs the Media Player program">off</MPLAY>
+					<MPLAY SYSTEMCLASS="WORKSTATION" VERSION="2000;XP" DESCRIPTION="Installs the Media Player program">on</MPLAY>
+					<MSMSGS VERSION="2000;XP" DESCRIPTION="">off</MSMSGS>
+					<MSMQ VERSION="2000" DESCRIPTION="Installs the Message Queuing Services (MSMQ) components">off</MSMQ>
+					<MSWORDPAD DESCRITION="Installs the WordPad program">on</MSWORDPAD>
+					<NETCIS DESCRIPTION="Installs the Microsoft COM Internet Services">off</NETCIS>
+					<NETOC DESCRIPTION="Enables processing of the [NetOptionalComponents] section">on</NETOC>
+					<NOACCESS DESCRIPTION="Undocumented"></NOACCESS>
+					<NOTEBOOK DESCRIPTION="Undocumented">on</NOTEBOOK>
+					<OBJECTPKG DESCRIPTION="Installs the Object Packager program">off</OBJECTPKG>
+					<OOBE DESCRIPTION="Undocumented"></OOBE>
+					<PAINT DESCRIPTION="Installs the Paint program">on</PAINT>
+					<PINBALL SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the Pinball game">on</PINBALL>
+					<REC SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the Sound Recorder program">on</REC>
+					<REMINST DESCRIPTION="Installs the Remote Installation Service">off</REMINST>
+					<RSTORAGE DESCRIPTION="Installs the Remote Storage Service feature that allow the use of tape libraries as extensions of NTFS volumes">off</RSTORAGE>
+					<SAKIT DESCRIPTION="Undocumented"></SAKIT>
+					<SOLITAIRE SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the Solitaire game">on</SOLITAIRE>
+					<SYSTEM DESCRIPTION="Undocumented"></SYSTEM>
+					<STICKYNOTES SYSTEMCLASS="WORKSTATION" DESCRIPTION="Undocumented">on</STICKYNOTES>
+					<TEMPLATES SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs Document Templates">on</TEMPLATES>
+					<TPG DESCRIPTION="Undocumented"></TPG>
+					<TSCLIENTS SYSTEMCLASS="WORKSTATION" VERSION="2000;XP" DESCRIPTION="Installs the files (approximately 10 MB) required to create Terminal Services client disks">on</TSCLIENTS>
+					<TSENABLE VERSION="2000" SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs Terminal Services">off</TSENABLE>
+					<VOL DESCRIPTION="Installs the Volume Control">off</VOL>
+					<VOL SYSTEMCLASS="WORKSTATION" DESCRIPTION="Installs the Volume Control">on</VOL>
+					<WBEMCRRL DESCRIPTION="Undocumented"></WBEMCRRL>
+					<WBEMFWRD DESCRIPTION="Undocumented"></WBEMFWRD>
+					<WBEMMSI DESCRIPTION="Undocumented"></WBEMMSI>
+					<WMS DESCRIPTION="Must be ON to install either of the Windows Media Services components: administrative or server">off</WMS>
+					<WMS_ADMIN VERSION="2000" DESCRIPTION="Installs the Windows Media Services administrative components">off</WMS_ADMIN>
+					<WMS_SERVER DESCRIPTION="Installs the Windows Media Services server components">off</WMS_SERVER>
+				</COMPONENTS>
+				<DATA>
+					<AUTOPARTITION>1</AUTOPARTITION>
+					<MSDOSINITIATED>0</MSDOSINITIATED>
+					<UNATTENDEDINSTALL>yes</UNATTENDEDINSTALL>
+					<USEBIOSTOBOOT></USEBIOSTOBOOT>
+				</DATA>
+				<DCINSTALL VERSION="2000;2003">
+					<ADMINISTRATORPASSWORD VERSION="2000;2003"></ADMINISTRATORPASSWORD>
+					<ALLOWANONYMOUSACCESS VERSION="2000;2003"></ALLOWANONYMOUSACCESS>
+					<AUTOCONFIGDNS VERSION="2000;2003"></AUTOCONFIGDNS>
+					<CHILDNAME VERSION="2000;2003"></CHILDNAME>
+					<CREATEORJOIN VERSION="2000;2003"></CREATEORJOIN>
+					<CRITICALREPLICATIONONLY VERSION="2000;2003"></CRITICALREPLICATIONONLY>
+					<DATABASEPATH VERSION="2000;2003"></DATABASEPATH>
+					<DNSONNETWORK VERSION="2000;2003"></DNSONNETWORK>
+					<DOMAINNETBIOSNAME VERSION="2000;2003"></DOMAINNETBIOSNAME>
+					<ISLASTDCINDOMAIN VERSION="2000;2003"></ISLASTDCINDOMAIN>
+					<LOGPATH VERSION="2000;2003"></LOGPATH>
+					<NEWDOMAINDNSNAME VERSION="2000;2003"></NEWDOMAINDNSNAME>
+					<PARENTDOMAINDNSNAME VERSION="2000;2003"></PARENTDOMAINDNSNAME>
+					<PASSWORD VERSION="2000;2003"></PASSWORD>
+					<REBOOTONSUCCESS VERSION="2000;2003"></REBOOTONSUCCESS>
+					<REPLICADOMAINDNSNAME VERSION="2000;2003"></REPLICADOMAINDNSNAME>
+					<REPLICAORMEMBER VERSION="2000;2003"></REPLICAORMEMBER>
+					<REPLICAORNEWDOMAIN VERSION="2000;2003"></REPLICAORNEWDOMAIN>
+					<REPLICATIONSOURCEDC VERSION="2000;2003"></REPLICATIONSOURCEDC>
+					<SAFEMODEADMINPASSWORD VERSION="2000;2003"></SAFEMODEADMINPASSWORD>
+					<SITENAME VERSION="2000;2003"></SITENAME>
+					<SYSVOLPATH VERSION="2000;2003"></SYSVOLPATH>
+					<TREEORCHILD VERSION="2000;2003"></TREEORCHILD>
+					<USERDOMAIN VERSION="2000;2003"></USERDOMAIN>
+					<USERNAME VERSION="2000;2003"></USERNAME>
+				</DCINSTALL>
+				<DISPLAY>
+					<BITSPERPEL>16</BITSPERPEL>
+					<VREFRESH>72</VREFRESH>
+					<XRESOLUTION>800</XRESOLUTION>
+					<YRESOLUTION>600</YRESOLUTION>
+				</DISPLAY>
+				<FAVORITESEX>
+					<!-- INSERT IE FAVORITES MANUALLY HERE -->
+				</FAVORITESEX>
+				<FAX>
+					<ARCHIVEFOLDERNAME VERSION="2000;2003"></ARCHIVEFOLDERNAME>
+					<ARCHIVEOUTGOING></ARCHIVEOUTGOING>
+					<CSID></CSID>
+					<FAXNUMBER VERSION="2000"></FAXNUMBER>
+					<FAXPRINTERNAME></FAXPRINTERNAME>
+					<RINGS></RINGS>
+					<ROUTEFOLDERNAME></ROUTEFOLDERNAME>
+					<ROUTEPRINTERNAME></ROUTEPRINTERNAME>
+					<TSID></TSID>
+				</FAX>
+				<GUIRUNONCE>
+				</GUIRUNONCE>
+				<GUIUNATTENDED>
+					<ADMINPASSWORD>__ADMINPASSWORD__</ADMINPASSWORD>
+					<ADVSERVERTYPE></ADVSERVERTYPE>
+					<ARGUMENTS DESCRIPTION="Required Arguements for the Detached Program"></ARGUMENTS>
+					<AUTOLOGON>yes</AUTOLOGON>
+					<AUTOLOGONACCOUNTCREATION VERSION="2000;2003"></AUTOLOGONACCOUNTCREATION>
+					<AUTOLOGONCOUNT>__AUTOLOGONCOUNT__</AUTOLOGONCOUNT>
+					<DETACHEDPROGRAM DESCRIPTION="A program that runs concurently with setup.exe"></DETACHEDPROGRAM>
+					<!-- The password must be unecrypted for autologon to function -->
+					<OEMSKIPREGIONAL>1</OEMSKIPREGIONAL>
+					<OEMSKIPWELCOME>1</OEMSKIPWELCOME>
+					<PROFILESDIR SYSTEMCLASS="WORKSTATION">"d:\Documents and Settings"</PROFILESDIR>
+					<TIMEZONE>__TIMEZONE__</TIMEZONE>
+				</GUIUNATTENDED>
+				<IDENTIFICATION>
+					<DOMAINADMIN></DOMAINADMIN>
+					<DOMAINADMINPASSWORD></DOMAINADMINPASSWORD>
+					<JOINDOMAIN></JOINDOMAIN>
+					<JOINWORKGROUP></JOINWORKGROUP>
+					<MACHINEOBJECTOU></MACHINEOBJECTOU>
+				</IDENTIFICATION>
+				<INTERNETSERVER>
+					<EXTENSIONFILE VERSION="2000;2003"></EXTENSIONFILE>
+					<PATHWWWROOT VERSION="1999:2001"></PATHWWWROOT>
+					<PATHFTPROOT2 VERSION="1999:"></PATHFTPROOT2>
+					<PATHFTPROOT3 VERSION=":2001"></PATHFTPROOT3>
+					<PATHFTPROOT4 VERSION="1230:1234;1999:"></PATHFTPROOT4>
+				</INTERNETSERVER>
+				<LICENSEFILEPRINTDATA>
+					<AUTOMODE>perseat</AUTOMODE>
+					<AUTOUSERS></AUTOUSERS>
+				</LICENSEFILEPRINTDATA>
+				<MASSSTORAGEDRIVERS>
+					<!-- INSERT MASSSTORAGEDRIVERS HERE AT RUNTIME -->
+				</MASSSTORAGEDRIVERS>
+				<NETOPTIONALCOMPONENTS>
+					<DHCPSERVER VERSION="2000;2003" DESCRIPTION="Specifies that DHCP Server be installed">0</DHCPSERVER>
+					<DNS VERSION="2000;2003" DESCRIPTION="Specifies that DNS be installed">0</DNS>
+					<IAS DESCRIPTION="Installs the Internet Authentication Services (IAS) and creates a shortcut to the IAS MMC snap-in under the Administrative Tools section of the Start menu">0</IAS>
+					<ILS DESCRIPTION="Specifies that the Internet Location Service (ILS) be installed">0</ILS>
+					<LPDSVC DESCRIPTION="Specifies that Print Services for UNIX be installed">0</LPDSVC>
+					<MACPRINT DESCRIPTION="Specifies that Print Services for Macintosh be installed">0</MACPRINT>
+					<MACSVC DESCRIPTION="Specifies that Services for Macintosh (SFM) be installed">0</MACSVC>
+					<NETCM DESCRIPTION="Installs the Microsoft Connection Manager Administration Kit and Phone Book Service">0</NETCM>
+					<NETMONTOOLS DESCRIPTION="Specifies that Network Monitor tools be installed">0</NETMONTOOLS>
+					<SIMPTCP DESCRIPTION="Specifies that Simple TCP/IP Services be installed">0</SIMPTCP>
+					<SNMP DESCRIPTION="Specifies that SNMP be installed">0</SNMP>
+					<WINS VERSION="2000;2003" DESCRIPTION="Specifies that WINS be installed">0</WINS>
+				</NETOPTIONALCOMPONENTS>
+				<NETWORKING>
+					<INSTALLDEFAULTCOMPONENTS>no</INSTALLDEFAULTCOMPONENTS>
+				</NETWORKING>
+				<!-- INSERT NIC SPECIFIC CONFIGS HERE AT RUNTIME -->
+				<NETBINDINGS>
+					<!-- INSERT NETBINDINGS CONFIGURATION HERE DURING RUNTIME -->
+				</NETBINDINGS>
+				<OEMBOOTFILES>
+					<!-- INSERT OEM DRIVERS HERE AT RUNTIME -->
+				</OEMBOOTFILES>
+				<OEM_ADS VERSION="2000">
+					<BACKGROUND VERSION="2000"></BACKGROUND>
+					<LOGO VERSION="2000"></LOGO>
+				</OEM_ADS>
+				<OSCHOOSER>
+					<DESCRIPTION></DESCRIPTION>
+					<HELP></HELP>
+					<IMAGETYPE></IMAGETYPE>
+					<LAUNCHFILE></LAUNCHFILE>
+					<VERSION></VERSION>
+				</OSCHOOSER>
+				<PROXY>
+					<FTP_PROXY_SERVER></FTP_PROXY_SERVER>
+					<GOPHER_PROXY_SERVER></GOPHER_PROXY_SERVER>
+					<HTTP_PROXY_SERVER></HTTP_PROXY_SERVER>
+					<PROXY_ENABLE>0</PROXY_ENABLE>
+					<PROXY_OVERRIDE></PROXY_OVERRIDE>
+					<SECURE_PROXY_SERVER></SECURE_PROXY_SERVER>
+					<SOCKS_PROXY_SERVER></SOCKS_PROXY_SERVER>
+					<USE_SAME_PROXY></USE_SAME_PROXY>
+				</PROXY>
+				<REGIONALSETTINGS>
+					<INPUTLOCALE></INPUTLOCALE>
+					<LANGUAGE>0409</LANGUAGE>
+					<LANGUAGEGROUP>1</LANGUAGEGROUP>
+					<SYSTEMLOCALE></SYSTEMLOCALE>
+					<USERLOCALE></USERLOCALE>
+				</REGIONALSETTINGS>
+				<REMOTEINSTALL>
+					<REPARTITION></REPARTITION>
+					<USEWHOLEDISK></USEWHOLEDISK>
+				</REMOTEINSTALL>
+				<SETUPDATA>
+					<OSLOADTIMEOUT>5</OSLOADTIMEOUT>
+					<OSLOADOPTIONSVAR>__OSLOADOPTIONSVAR__</OSLOADOPTIONSVAR>
+					<!-- all boot params are specified here, such as /NOGUIBOOT, /PAE, /NOEXECUTE=ALWAYSOFF, etc -->
+					<LOADIDENTIFIER>__OS\DESCRIPTION__</LOADIDENTIFIER>
+				</SETUPDATA>
+				<SNMP>
+					<ACCEPT_COMMUNITYNAME></ACCEPT_COMMUNITYNAME>
+					<ANY_HOST></ANY_HOST>
+					<COMMUNITY_NAME></COMMUNITY_NAME>
+					<CONTACT_NAME></CONTACT_NAME>
+					<LIMIT_HOST></LIMIT_HOST>
+					<LOCATION></LOCATION>
+					<SEND_AUTHENTICATION></SEND_AUTHENTICATION>
+					<SERVICE></SERVICE>
+					<TRAPS></TRAPS>
+				</SNMP>
+				<SYSTEMFILEPROTECTION>
+					<SFCDLLCACHEDIR></SFCDLLCACHEDIR>
+					<SFCDISABLE DESCRIPTION="Undocumented">1</SFCDISABLE>
+					<SFCSHOWPROGRESS></SFCSHOWPROGRESS>
+					<SFCQUOTA></SFCQUOTA>
+				</SYSTEMFILEPROTECTION>
+				<TAPILOCATION>
+					<AREACODE>__AREACODE__</AREACODE>
+					<COUNTRYCODE>1</COUNTRYCODE>
+					<DIALING>pulse</DIALING>
+					<LONGDISTANCEACCESS></LONGDISTANCEACCESS>
+				</TAPILOCATION>
+				<TERMINALSERVICES>
+					<ALLOWCONNECTIONS>1</ALLOWCONNECTIONS>
+					<APPLICATIONSERVER VERSION="2000" DESCRIPTION=""></APPLICATIONSERVER>
+					<PERMISSIONSSETTING DESCRIPTION="Used by administrators to choose the security mode for Terminal Server users during terminal server sessions"></PERMISSIONSSETTING>
+				</TERMINALSERVICES>
+				<UNATTENDED>
+					<COMPUTERTYPE></COMPUTERTYPE>
+					<DRIVERSIGNINGPOLICY>ignore</DRIVERSIGNINGPOLICY>
+					<EXTENDOEMPARTITION></EXTENDOEMPARTITION>
+					<FILESYSTEM></FILESYSTEM>
+					<KEYBOARDLAYOUT></KEYBOARDLAYOUT>
+					<OEMFILESPATH></OEMFILESPATH>
+					<OEMPNPDRIVERSPATH>__OEMPNPDRIVERSPATH__</OEMPNPDRIVERSPATH>
+					<OEMPREINSTALL>yes</OEMPREINSTALL>
+					<OEMSKIPEULA>yes</OEMSKIPEULA>
+					<REPARTITION>no</REPARTITION>
+					<TARGETPATH>C:\WINDOWS</TARGETPATH>
+					<UNATTENDMODE>fullunattended</UNATTENDMODE>
+				</UNATTENDED>
+				<URL>
+					<AUTOCONFIG DESCRIPTION="Whether to autoconfigure browser from a server">0</AUTOCONFIG>
+					<AUTOCONFIGJSURL DESCRIPTION="URL of Javascript used to autoconfigure proxy settings"></AUTOCONFIGJSURL>
+					<AUTOCONFIGURL DESCRIPTION="URL of INS File used to autoconfigure proxy settings"></AUTOCONFIGURL>
+					<HELP_PAGE>http://support.microsoft.com</HELP_PAGE>
+					<HOME_PAGE>http://www.google.com</HOME_PAGE>
+					<!-- INSERT QUICKLINKS MANUALLY HERE -->
+					<SEARCH_PAGE DESCRIPTION="Undocumented">http://www.google.com</SEARCH_PAGE>
+				</URL>
+				<USERDATA>
+					<COMPUTERNAME>__COMPUTERNAME__</COMPUTERNAME>
+					<FULLNAME>__FULLNAME__</FULLNAME>
+					<ORGNAME>__ORGNAME__</ORGNAME>
+				</USERDATA>
+			</OSANSWERFILE>
+			<PARTITIONSPEC>
+				<MAXFILLPERCENT>0.85</MAXFILLPERCENT>
+				<DISKPARTANSWERFILE>__TEMP__\diskpartaf.txt</DISKPARTANSWERFILE>
+				<REMOVABLELETTERS>r;s;t;o;p;q</REMOVABLELETTERS>
+				<PARTITION INDEX="0">
+					<SIZE UNIT="GB">30</SIZE>
+					<LETTER>c</LETTER>
+					<FORMAT>ntfs</FORMAT>
+					<LABEL>os</LABEL>
+					<DIR INDEX="0">tempinst</DIR>
+					<DIR INDEX="1">install</DIR>
+					<DIR INDEX="2">install\os</DIR>
+					<DIR INDEX="3">install\os\__OS\NAME__</DIR>
+					<DIR INDEX="4">install\os\__OS\NAME__\I386</DIR>
+					<DIR INDEX="5">install\os\__OS\NAME__\I386\$OEM$</DIR>
+					<DIR INDEX="6">install\os\__OS\ADDONPACK__</DIR>
+					<DIR INDEX="7">install\os\__OS\PATCHPACK__</DIR>
+					<DIR INDEX="8">install\apps</DIR>
+					<DIR INDEX="9">install\tools</DIR>
+				</PARTITION>
+				<PARTITION INDEX="1">
+					<SIZE>*</SIZE>
+					<LETTER>d</LETTER>
+					<FORMAT>ntfs</FORMAT>
+					<LABEL>apps-data</LABEL>
+					<DIR INDEX="0">temp</DIR>
+					<DIR INDEX="1">apps</DIR>
+					<DIR INDEX="2">data</DIR>
+					<DIR INDEX="3">data\backup</DIR>
+					<DIR INDEX="4">data\backup\archive</DIR>
+					<DIR INDEX="5">data\downloads</DIR>
+					<DIR INDEX="6">logs</DIR>
+					<DIR INDEX="7">logs\iis</DIR>
+					<DIR INDEX="17">logs\security</DIR>
+					<DIR INDEX="18">scripts</DIR>
+					<DIR INDEX="19">scripts\backup</DIR>
+					<DIR INDEX="20">scripts\system</DIR>
+					<DIR INDEX="21">scripts\security</DIR>
+					<DIR INDEX="22">tools</DIR>
+					<DIR INDEX="23">tools\system</DIR>
+					<DIR INDEX="24">tools\security</DIR>
+					<DIR INDEX="25">tools\debug</DIR>
+					<DIR>temp</DIR>
+				</PARTITION>
+			</PARTITIONSPEC>
+		</SYSTEMCLASSSPECS>
+	</GENSPECS>
+</SYSTEMBUILD>

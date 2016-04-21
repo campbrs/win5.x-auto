@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00 
+
+;Associate Reg Files with Notepad
+[HKEY_CLASSES_ROOT\.reg]
+@="txtfile"
+"PercievedType"="text"
+"Content Type"="text/plain"
+[HKEY_CLASSES_ROOT\.reg\PersistentHandler]
+@="{5e941d80-bf96-11cd-b579-08002b30bfeb}"
+[HKEY_CLASSES_ROOT\.reg\ShellNew]
+"NullFile"=""

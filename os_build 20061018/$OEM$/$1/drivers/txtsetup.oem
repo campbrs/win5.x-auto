@@ -1,0 +1,240 @@
+[Disks]
+PERC23AD    = "Dell PERC 2, 2/Si, 3/Si, 3/Di Windows 2000/2003 Device Drivers", \raidisk1, \
+PERC34LS32  = "DELL PERC RAID Products for Windows 2003 (x86)", \mraid,\
+ADULTRA160  = "Adaptec Ultra160 Windows2003 FMS4.0 SP5", \u160dsk1, \
+A320RAID    = "Adaptec HostRAID U320 Driver Ver 3.00 For Windows 2000/XP/2003", \hraidsk1, \hahaha
+ADPU320     = "Adaptec Ultra320 Family Manager Set - Microsoft Disk", \u320dsk1, \
+SYMMPI_32   = "LSI Logic PCI SCSI/FC MPI Miniport Driver (Server 2003 32-bit)", \symmpi.tag, \
+#SYMMPI_64  = "LSI Logic PCI SCSI/FC MPI Miniport Driver (Server 2003 64-bit)", \symmpi.tag, \64_bit
+
+[Defaults]
+scsi = PERC34LS32
+
+
+[scsi]
+perc2      = "Dell PERC 2, 2/Si, 3/Si, 3/Di RAID Controllers", perc2
+mraid35x   = "DELL PERC RAID Products for Windows 2003 (x86)", mraid35x
+adpu160m   = "Adaptec Ultra160 Windows2003 FMS4.0 SP5"
+a320raid   = "Adaptec HostRAID U320 Driver Ver 3.00 For Windows 2000/XP/2003"
+adpu320    = "Adaptec Ultra320 SCSI Cards (Win XP/Server 2003 IA-32)"
+symmpi_32  = "LSI Logic PCI SCSI/FC MPI Driver (Server 2003 32-bit)",symmpi
+#symmpi_64 = "LSI Logic PCI SCSI/FC MPI Driver (Server 2003 64-bit)",symmpi
+
+#===============================================================================
+#
+# Dell PERC 2, 2/Si, 3/Si, 3/Di Windows 2000/2003 Device Drivers
+#
+#===============================================================================
+
+[Files.Scsi.perc2]
+driver  = PERC23AD, perc2.sys, perc2
+catalog = PERC23AD, perc2.cat
+inf     = PERC23AD, perc2.inf
+inf     = PERC23AD, perc2mgt.inf
+; driver  = PERC23AD, perc2cin.dll, none
+; driver  = PERC23AD, perc2evt.exe, none
+
+[Config.perc2]
+value = "", Type, REG_DWORD, 1
+value = "", Start, REG_DWORD, 0
+value = "", Group, REG_SZ, "SCSI miniport"
+value = "", ErrorControl, REG_DWORD, 1
+value = Parameters\Device, NumberOfRequests, REG_DWORD, 0fe
+value = Parameters\Device, UncachedExtAlignment, REG_DWORD, e
+
+[HardwareIds.scsi.perc2]
+id = "PCI\VEN_104C&DEV_8027&SUBSYS_00D41028", "perc2" ; CRAP
+id = "PCI\VEN_1011&DEV_0046&SUBSYS_13649005", "perc2"
+id = "PCI\VEN_1011&DEV_0046&SUBSYS_13659005", "perc2"
+id = "PCI\VEN_1028&DEV_0001&SUBSYS_00011028", "perc2"
+id = "PCI\VEN_1028&DEV_0002&SUBSYS_00021028", "perc2"
+id = "PCI\VEN_1028&DEV_0003&SUBSYS_00031028", "perc2"
+id = "PCI\VEN_1028&DEV_0002&SUBSYS_00D11028", "perc2"
+id = "PCI\VEN_1028&DEV_0002&SUBSYS_00D91028", "perc2"
+id = "PCI\VEN_1028&DEV_000A&SUBSYS_01061028", "perc2"
+id = "PCI\VEN_1028&DEV_000A&SUBSYS_011B1028", "perc2"
+id = "PCI\VEN_1028&DEV_000A&SUBSYS_01211028", "perc2"
+id = "PCI\VEN_9006&DEV_2140&SUBSYS_21409006", "perc2"
+id = "PCI\VEN_9005&DEV_00C5&SUBSYS_00C51028", "perc2"
+id = "PCI\VEN_1028&DEV_000A&SUBSYS_011B1028", "perc2"
+id = "PCI\VEN_1028&DEV_000A&SUBSYS_01211028", "perc2"
+
+
+
+#===============================================================================
+#
+# DELL PERC RAID Products for Windows 2003 (x86)
+#
+#===============================================================================
+
+[Files.scsi.mraid35x]
+driver  = PERC34LS32, mraid35x.sys, mraid35x
+inf     = PERC34LS32, percraid.inf, mraid35x
+inf     = PERC34LS32, percrdnd.inf
+catalog = PERC34LS32, percraid.cat
+
+[Config.mraid35x]
+value=parameters\PnpInterface,5, REG_DWORD,1 
+
+[HardwareIds.scsi.mraid35x]
+id = "PCI\VEN_8086&DEV_1960&SUBSYS_11121111", "mraid35x"
+id = "PCI\VEN_8086&DEV_1960&SUBSYS_11111111", "mraid35x"
+id = "PCI\VEN_8086&DEV_1960&SUBSYS_09A0101E", "mraid35x"
+id = "PCI\VEN_8086&DEV_1960&SUBSYS_11111028", "mraid35x"
+id = "PCI\VEN_8086&DEV_1960&SUBSYS_04671028", "mraid35x"
+id = "PCI\VEN_101E&DEV_1960&SUBSYS_04711028", "mraid35x"
+id = "PCI\VEN_101E&DEV_1960&SUBSYS_04931028", "mraid35x"
+id = "PCI\VEN_101E&DEV_1960&SUBSYS_04751028", "mraid35x"
+id = "PCI\VEN_1028&DEV_000E&SUBSYS_01231028", "mraid35x"
+id = "PCI\VEN_1028&DEV_000F&SUBSYS_013B1028", "mraid35x"
+id = "PCI\VEN_1028&DEV_000F&SUBSYS_014A1028", "mraid35x"
+id = "PCI\VEN_1028&DEV_000F&SUBSYS_014C1028", "mraid35x"
+id = "PCI\VEN_1028&DEV_000F&SUBSYS_014D1028", "mraid35x"
+id = "PCI\VEN_101E&DEV_1960&SUBSYS_05111028", "mraid35x"
+id = "PCI\VEN_1000&DEV_1960&SUBSYS_05181028", "mraid35x"
+id = "PCI\VEN_1000&DEV_1960&SUBSYS_05201028", "mraid35x"
+id = "PCI\VEN_1028&DEV_0013&SUBSYS_016C1028", "mraid35x"
+id = "PCI\VEN_1028&DEV_0013&SUBSYS_016D1028", "mraid35x"
+id = "PCI\VEN_1028&DEV_0013&SUBSYS_016E1028", "mraid35x"
+id = "PCI\VEN_1028&DEV_0013&SUBSYS_016F1028", "mraid35x"
+id = "PCI\VEN_1028&DEV_0013&SUBSYS_01701028", "mraid35x"
+id = "PCI\VEN_1000&DEV_0408&SUBSYS_00011028", "mraid35x"
+id = "PCI\VEN_1000&DEV_0408&SUBSYS_00021028", "mraid35x"
+
+
+
+#===============================================================================
+#
+# Adaptec Ultra160 Windows2003 FMS4.0 SP5
+#
+#===============================================================================
+
+[Files.scsi.adpu160m]
+driver  = ADULTRA160, adpu160m.sys, adpu160m
+inf     = ADULTRA160, adpu160m.inf
+catalog = ADULTRA160, adpu160m.cat
+
+[Config.adpu160m]
+value = "", tag, REG_DWORD, 20
+value = Parameters\PnpInterface,5, REG_DWORD,1
+
+[HardwareIds.scsi.adpu160m]
+id = "PCI\VEN_9005&DEV_00C0", "adpu160m"
+id = "PCI\VEN_9005&DEV_00C0&SUBSYS_F6209005", "adpu160m"
+id = "PCI\VEN_9005&DEV_00C0&SUBSYS_F6200E11", "adpu160m"
+id = "PCI\VEN_9005&DEV_0080", "adpu160m"
+id = "PCI\VEN_9005&DEV_0080&SUBSYS_E2A09005", "adpu160m"
+id = "PCI\VEN_9005&DEV_0080&SUBSYS_E2A00E11", "adpu160m"
+id = "PCI\VEN_9005&DEV_0080&SUBSYS_62A09005", "adpu160m"
+id = "PCI\VEN_9005&DEV_0080&SUBSYS_E2209005", "adpu160m"
+id = "PCI\VEN_9005&DEV_00CF", "adpu160m"
+id = "PCI\VEN_9005&DEV_008F", "adpu160m"
+
+
+#===============================================================================
+#
+# Adaptec HostRAID U320 Driver Ver 3.00 For Windows 2000/XP/2003
+#
+#===============================================================================
+
+[Files.scsi.a320raid]
+driver  = A320RAID,a320raid.sys, a320raid
+inf     = A320RAID,a320raid.inf
+inf     = A320RAID,adhraid.inf
+catalog = A320RAID,a320raid.cat
+catalog = A320RAID,adhraid.cat
+
+[Config.a320raid]
+value = "", Group, REG_SZ,    "SCSI Miniport"
+value = "", Start, REG_DWORD, 0
+value = "", Tag,   REG_DWORD, 1
+value = "", Type,  REG_DWORD, 1
+
+[HardwareIds.scsi.a320raid]
+id = "PCI\VEN_9005&DEV_00c4","a320raid"
+id = "PCI\VEN_9005&DEV_8011","a320raid"
+id = "PCI\VEN_9005&DEV_809F","a320raid"
+id = "PCI\VEN_9005&DEV_8090","a320raid"
+id = "PCI\VEN_9005&DEV_8091","a320raid"
+id = "PCI\VEN_9005&DEV_8092","a320raid"
+id = "PCI\VEN_9005&DEV_8093","a320raid"
+id = "PCI\VEN_9005&DEV_8094","a320raid"
+id = "PCI\VEN_9005&DEV_809E","a320raid"
+id = "PCI\VEN_9005&DEV_808F","a320raid"
+id = "PCI\VEN_9005&DEV_8080","a320raid"
+id = "PCI\VEN_9005&DEV_8097","a320raid"
+id = "PCI\VEN_9005&DEV_809D","a320raid"
+id = "PCI\VEN_9005&DEV_809C","a320raid"
+id = "PCI\VEN_9005&DEV_8095","a320raid"
+id = "PCI\VEN_9005&DEV_8096","a320raid"
+
+
+#===============================================================================
+#
+# Adaptec Ultra320 Family Manager Set - Microsoft Disk
+#
+#===============================================================================
+
+[Files.scsi.adpu320]
+driver  = ADPU320, adpu320.sys, adpu320
+inf     = ADPU320, adpu320.inf
+catalog = ADPU320, adpu320.cat
+
+[Config.adpu320]
+value = "", tag, REG_DWORD, 20
+#value = Parameters\PnpInterface,5, REG_DWORD,1
+
+[HardwareIds.scsi.adpu320]
+id = "PCI\VEN_9005&DEV_801D", "adpu320"
+id = "PCI\VEN_9005&DEV_801E", "adpu320"
+id = "PCI\VEN_9005&DEV_801F", "adpu320"
+id = "PCI\VEN_9005&DEV_800F", "adpu320"
+id = "PCI\VEN_9005&DEV_800F&SUBSYS_005F9005", "adpu320"
+id = "PCI\VEN_9005&DEV_8000&SUBSYS_00609005", "adpu320"
+id = "PCI\VEN_9005&DEV_8010&SUBSYS_00409005", "adpu320"
+id = "PCI\VEN_9005&DEV_8011&SUBSYS_00419005", "adpu320"
+id = "PCI\VEN_9005&DEV_8012&SUBSYS_00429005", "adpu320"
+id = "PCI\VEN_9005&DEV_8014&SUBSYS_00449005", "adpu320"
+id = "PCI\VEN_9005&DEV_8015&SUBSYS_00409005", "adpu320"
+id = "PCI\VEN_9005&DEV_8016&SUBSYS_00409005", "adpu320"
+id = "PCI\VEN_9005&DEV_8017&SUBSYS_00449005", "adpu320"
+
+
+#===============================================================================
+#
+# LSI Logic PCI SCSI/FC MPI Driver
+#
+#===============================================================================
+
+[HardwareIds.scsi.symmpi_32]
+id = "PCI\VEN_1000&DEV_0621", "symmpi"
+id = "PCI\VEN_1000&DEV_0622", "symmpi"
+id = "PCI\VEN_1000&DEV_0624", "symmpi"
+id = "PCI\VEN_1000&DEV_0626", "symmpi"
+id = "PCI\VEN_1000&DEV_0628", "symmpi"
+id = "PCI\VEN_1000&DEV_0030", "symmpi"
+id = "PCI\VEN_1000&DEV_0032", "symmpi"
+
+#[HardwareIds.scsi.symmpi_64]
+#id = "PCI\VEN_1000&DEV_0621", "symmpi"
+#id = "PCI\VEN_1000&DEV_0622", "symmpi"
+#id = "PCI\VEN_1000&DEV_0624", "symmpi"
+#id = "PCI\VEN_1000&DEV_0626", "symmpi"
+#id = "PCI\VEN_1000&DEV_0628", "symmpi"
+#id = "PCI\VEN_1000&DEV_0030", "symmpi"
+#id = "PCI\VEN_1000&DEV_0032", "symmpi"
+
+[Files.scsi.symmpi_32]
+driver = SYMMPI_32,symmpi.sys,SYMMPI
+inf    = SYMMPI_32,symmpi.inf
+inf    = SYMMPI_32,lsipseud.inf
+catalog = SYMMPI_32,mpi2k332.cat
+
+#[Files.scsi.symmpi_64]
+#driver = SYMMPI_64,symmpi.sys,SYMMPI
+#inf    = SYMMPI_64,symmpi.inf
+#inf    = SYMMPI_64,lsipseud.inf
+#catalog = SYMMPI_64,mpi2k364.cat
+
+[Config.SYMMPI]
+value = Parameters\PnpInterface,5,REG_DWORD,1

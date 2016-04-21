@@ -1,0 +1,126 @@
+Windows Registry Editor Version 5.00 
+
+;Associate Reg Files with Notepad
+[HKEY_CLASSES_ROOT\.reg]
+@="txtfile"
+"PercievedType"="text"
+"Content Type"="text/plain"
+[HKEY_CLASSES_ROOT\.reg\PersistentHandler]
+@="{5e941d80-bf96-11cd-b579-08002b30bfeb}"
+[HKEY_CLASSES_ROOT\.reg\ShellNew]
+"NullFile"=""
+
+
+
+;Disable the Desktop Cleanup Wizard - Not HKLM - must be performed manually
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\CleanupWiz]
+"NoRun"=dword:00000001
+
+;Remove Shortcut Arrows - not HKLM - Value delete - must be performed manually
+[HKEY_CLASSES_ROOT\lnkfile]
+"IsShortcut"=-
+
+
+;Disable Windows Picture and Fax Viewer - Key delete - must be performed manually 
+[-HKEY_CLASSES_ROOT\SystemFileAssociations\image\ShellEx\ContextMenuHandlers\ShellImagePreview]
+
+;Speed up Network Browsing by removing Network Scheduled Tasks - Key delete - must be performed manually 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RemoteComputer\NameSpace\{D6277990-4C6A-11CF-8D87-00AA0060F5BF}]
+
+
+
+;----------------------------------------------
+;Tweaks to improve the functionality of Windows
+;----------------------------------------------
+
+;This will add "Services" to the right-click menu of "My Computer" - Not HKLM - must be Performed manually
+[HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\services] 
+@=hex(2):53,00,65,00,72,00,76,00,69,00,63,00,65,00,73,00,00,00 
+"SuppressionPolicy"=dword:4000003c 
+[HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\services\command] 
+@=hex(2):25,00,77,00,69,00,6e,00,64,00,69,00,72,00,25,00,5c,00,73,00,79,00,73, 00,74,00,65,00,6d,00,33,00,32,00,5c,00,6d,00,6d,00,63,00,2e,00,65,00,78,00, 65,00,20,00,2f,00,73,00,20,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52, 00,6f,00,6f,00,74,00,25,00,5c,00,73,00,79,00,73,00,74,00,65,00,6d,00,33,00, 32,00,5c,00,73,00,65,00,72,00,76,00,69,00,63,00,65,00,73,00,2e,00,6d,00,73, 00,63,00,20,00,2f,00,73,00,00,00
+
+;This adds the "Open Command Window Here" on the right click menu for folders - Not HKLM - must be Performed manually
+[HKEY_CLASSES_ROOT\Directory\shell\cmd]
+@="Open Command Window Here"
+[HKEY_CLASSES_ROOT\Directory\shell\cmd\command]
+@="cmd.exe /k \"cd %L\""
+[HKEY_CLASSES_ROOT\Drive\shell\cmd]
+@="Open Command Window Here"
+[HKEY_CLASSES_ROOT\Drive\shell\cmd\command]
+@="cmd.exe /k \"cd %L\""
+
+
+
+;Remove Shared Documents from My Computer - Key delete - must be performed manually 
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\DelegateFolders\{59031a47-3f72-44a7-89c5-5595fe6b30ee}]
+
+;NoRecentDocsmenu removes the recent documents from the start menu. - Not HKLM - must be performed manually 
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"NoRecentDocsMenu"=dword:00000001
+
+;Classic search, full path in title bar and address bar. - Not HKLM - must be performed manually 
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState]
+"FullPath"=dword:00000001
+"FullPathAddress"=dword:00000001
+"Use Search Asst"="no"
+"Settings"=hex:0c,00,02,00,1b,01,e7,77,60,00,00,00
+
+;Allow renaming of Recycle Bin - Not HKLM - must be performed manually 
+[HKEY_CLASSES_ROOT\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\ShellFolder]
+"Attributes"=hex:50,01,00,20
+"CallForAttributes"=dword:00000000
+
+;NoLowDiskSpaceChecks won't check if you are low on diskspace and pop up a balloon telling you. - Not HKLM - must be performed manually 
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"NoLowDiskSpaceChecks"=dword:00000001
+
+;Change MenuShowDelay (Start Menu load speed) - Not HKLM - must be performed manually 
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"MenuShowDelay"="2"
+
+
+;------------------------
+;Internet Explorer Tweaks - Not HKLM - must be performed manually 
+;------------------------
+
+;Adds search keywords to Internet Explorer
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\SearchUrl\MSKB]
+@="http://support.microsoft.com/?kbid=%s"
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\SearchUrl\AV]
+@="http://www.altavista.com/sites/search/web?q=%s"
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\SearchUrl\Ggl]
+@="http://www.google.com/search?q=%s"
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\SearchUrl\MSN]
+@="http://search.msn.com/results.asp?q=%s"
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\SearchUrl\FM]
+@="http://www.filemirrors.com/search.src?file=%s"
+
+;Prevents Internet Explorer windows from being reused
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+"AllowWindowReuse"=dword:00000000
+
+;Max your Internet Explorer's simultaneous downloads to 10 (default was 2)
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
+"MaxConnectionsPer1_0Server"=dword:0000000a
+"MaxConnectionsPerServer"=dword:0000000a
+
+
+;------------
+;Other Tweaks
+;------------
+
+;Remove WMP Right Click Options (Queue-it-up, etc.) - Key delete - Not HKLM - must be performed manually 
+[-HKEY_CLASSES_ROOT\CLSID\{CE3FB1D1-02AE-4a5f-A6E9-D9F1B4073E6C}] 
+[-HKEY_CLASSES_ROOT\CLSID\{F1B9284F-E9DC-4e68-9D7E-42362A59F0FD}] 
+[-HKEY_CLASSES_ROOT\CLSID\{8DD448E6-C188-4aed-AF92-44956194EB1F}]
+
+;Removes Sign up with Passport Wizard when trying to sign in MSN Messenger - Not HKLM - must be performed manually 
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Passport]
+"RegistrationCompleted"=dword:00000001
+
+;Disables Preview of Movie file formats (allowing you to move/rename/delete without errors) - Key delete - Not HKLM - must be performed manually 
+[-HKEY_CLASSES_ROOT\.avi\ShellEx]
+[-HKEY_CLASSES_ROOT\.mpg\ShellEx]
+[-HKEY_CLASSES_ROOT\.mpe\ShellEx]
+[-HKEY_CLASSES_ROOT\.mpeg\ShellEx]

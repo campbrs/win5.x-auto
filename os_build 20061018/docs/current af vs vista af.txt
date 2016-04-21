@@ -1,0 +1,44 @@
+
+
+<!-- Custom Windows 2000-2003 -->
+<OS_AF>
+          <SNMP VERSION="2000;XP;2003">
+            <ACCEPT_COMMUNITYNAME VERSION="2000;XP;2003"></ACCEPT_COMMUNITYNAME>
+            <ANY_HOST VERSION="2000;XP;2003"></ANY_HOST>
+            <COMMUNITY_NAME VERSION="2000;XP;2003"></COMMUNITY_NAME>
+            <CONTACT_NAME VERSION="2000;XP;2003"></CONTACT_NAME>
+            <LIMIT_HOST VERSION="2000;XP;2003"></LIMIT_HOST>
+            <LOCATION VERSION="2000;XP;2003"></LOCATION>
+            <SEND_AUTHENTICATION VERSION="2000;XP;2003"></SEND_AUTHENTICATION>
+            <SERVICE VERSION="2000;XP;2003"></SERVICE>
+            <TRAPS VERSION="2000;XP;2003"></TRAPS>
+          </SNMP>
+</OS_AF>
+
+
+<!-- Vista -->
+<component name="Microsoft-Windows-SNMP-Agent-Service" systemarchitecture="x86" loddida="blah">
+  <EnableAuthenticationTraps>false</EnableAuthenticationTraps>
+  <PermittedManagers>
+    <A1>networkhost</A1>
+  </PermittedManagers>
+  <RFC1156Agent>
+    <sysContact>MyContact</sysContact>
+    <sysLocation>MyLocation</sysLocation>
+    <sysServices>65</sysServices>
+  </RFC1156Agent>
+  <TrapConfiguration>
+    <TrapConfigurationItems wcm:action="add">
+      <Community_Name>Private</Community_Name>
+      <Traps>ComputerName</Traps>
+    </TrapConfigurationItems>
+    <TrapConfigurationItems wcm:action="add">
+      <Community_Name>Public</Community_Name>
+      <Traps>123.456.7.89</Traps>
+    </TrapConfigurationItems>
+  </TrapConfiguration>
+  <ValidCommunities>
+    <ValidCommunity wcm:action="add" wcm:keyValue="Community1">2</ValidCommunity>
+    <ValidCommunity wcm:action="add" wcm:keyValue="Community2">4</ValidCommunity>
+  </ValidCommunities>
+</component>

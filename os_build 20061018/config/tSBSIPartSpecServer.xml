@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<SYSTEMBUILD>
+  <SYSTEMINFO>
+    <PARTITIONSPEC>
+      <PARTITION index="0">
+        <size>6</size>
+        <letter>c</letter>
+        <format>ntfs</format>
+        <label>os</label>
+        <dir index="0">tempinst</dir>
+      </PARTITION>
+      <PARTITION index="1">
+        <size>10</size>
+        <letter>d</letter>
+        <format>ntfs</format>
+        <label>scratch</label>
+        <dir index="0">install</dir>
+        <dir index="1">install\os</dir>
+        <dir index="2">install\os\__OSLABEL__</dir>
+        <dir index="3">install\os\__OSLABEL__\I386</dir>
+        <dir index="4">install\os\__OSLABEL__\I386\$OEM$</dir>
+        <dir index="5">install\os\__OSADDONPACK__</dir>
+        <dir index="6">install\os\__OSPATCHPACK__</dir>
+        <dir index="7">install\apps</dir>
+        <dir index="8">install\tools</dir>
+        <dir>temp</dir>
+      </PARTITION>
+      <PARTITION index="2">
+        <size>*</size>
+        <letter>e</letter>
+        <format>ntfs</format>
+        <label>apps-data</label>
+        <dir index="0">apps</dir>
+        <dir index="1">data</dir>
+        <dir index="2">data\backup</dir>
+        <dir index="3">data\backup\archive</dir>
+        <dir index="4">data\downloads</dir>
+        <dir index="5">logs</dir>
+        <dir index="6">logs\iis</dir>
+        <dir index="7">logs\security</dir>
+        <dir index="8">scripts</dir>
+        <dir index="9">scripts\backup</dir>
+        <dir index="10">scripts\system</dir>
+        <dir index="11">scripts\security</dir>
+        <dir index="12">tools</dir>
+        <dir index="13">tools\system</dir>
+        <dir index="14">tools\security</dir>
+        <dir index="15">tools\debug</dir>
+      </PARTITION>
+    </PARTITIONSPEC>
+  </SYSTEMINFO>
+</SYSTEMBUILD>
+

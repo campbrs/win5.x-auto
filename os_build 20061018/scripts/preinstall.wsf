@@ -1,0 +1,167 @@
+<!--
+  
+      Program:		preinstall
+      Version:		5.0 beta 3   
+      Version by:       Richard Campbell
+      Date:		01/0/2006
+      Creation Date:	05/2002
+      Created by:	Richard Campbell
+   
+      Arguments:		See Display Usage Function
+   
+
+      Version History:
+                        5.0beta3   01/06 Converted from raw jscript into WSF based jscript
+                        5.0beta2.1 11/05 Bug Fixed Windows XP installs
+                        5.0beta2   08/05 Bug Fixing, Config File Support, Service Pack Tweaks
+                                      - Fixed bugs in the 5.0beta version to allow for OS builds to function as well as 4.5 version
+                                      - Added Data Execute Prevention (DEP) setup support for Win 2003 SP1 and Win XP SP2
+                                      - Moved Version dependent logic from the OS Unattend Answer File Generation procedure into the LoadConfig procedure
+                        5.0beta    05/05 Commented, Extensable, Workstation Support
+                                      - Robust commenting added to all functions
+                                      - moved all configuration parameters from Global Variables to a config object based model
+                                      - replaced hardecoded Service pack images with SP detection based on src file/dir name
+                                      - exteneded OS selection menu to be more automated
+                                      - Added in Windows XP and Windows 2000 Pro support (workstation support) - this was in original network based batch versions (pre 1.0)
+                                      - Moved all OS level configuration to a single function (in anticipation of creating a config file)
+                                      - Re-established completely customizable partitioning with some logical assumptions (part of the pre 1.0 versions) - versions 1.0 - 4.5 all had hardecoded partitioning (3 partitions, c: = 6GB, d: = 10GB, e: = rest)
+			4.5        03/05 Fixed all network Autoconfiguration support - including Adding to Domain
+			4.3        02/05 Fixed DNS, DHCP support (Auto network config support broken - since version 3.0)
+			4.0        12/04 Rolled in WinPE2004 with WMI Support - Added following functions:
+					EnumRegKey
+					GetRegValue
+					GetVirtMemRng
+					GetNICConfig
+					GetNumHardDisks
+					Dir
+			3.4	 11/04 Added Win2K3 Textmode HDD driver support
+			3.3	 11/04 Added xCopy, Unrar, xCopyUnrar Functions
+			3.2	 11/04 Added hardening support
+			3.1	 11/04 Added OS Patch Support
+			3.0	 11/04 Converted to JScript
+			2.1	 10/04 Added Win2K Textmode HDD driver support
+			2.0	 10/04 Support for Windows 2000 (multi OS Support added)
+			1.1	 10/04 Added Network Autoconfiguration support (DHCP, DNS)
+                        1.0      10/04 Written in Batch - first CD based version - supports only Win2k3
+                    pre 1.0      11/03 - 06/04 Network based original group of scripts
+  
+-->
+<job>
+   <runtime>
+      <description>This script runs inside Windows PE and is used to build a computer system</description>
+      <named
+          name="buildsystem"
+          helpstring= "Build a new system or rebuild an older system"
+          type = "simple"
+          required="false"
+      />
+      <named
+          name="bcx"
+          helpstring= "Base Config XML (defaults to SYSTEMDRIVE\config\tSBBase.xml)"
+          type = "string"
+          required="false"
+      />
+    <example>
+Example:
+
+presinstall.wsf /buildsystem
+presinstall.wsf /buildsystem /bcx:"x:\config\base.xml"
+
+    </example>
+  </runtime>
+  
+ <!--
+   Add needed includes
+  -->
+
+  <script language="JScript" src="include/jlibIO.js"></script>
+  <script language="JScript" src="include/jlibHelper.js"></script>
+  <script language="JScript" src="include/jlibConfigObject.js"></script>
+  <script language="JScript" src="include/jlibFile.js"></script>
+  <script language="JScript" src="include/jlibXML.js"></script>
+  <script language="JScript" src="include/jlibDisk.js"></script>
+  <script language="JScript" src="include/jlibSystemBuild.js"></script>
+
+
+  <script language="JScript">
+  /*\
+   *  Function:		jArgParser
+   *  Version:		0.1
+   *  Date:		1/11/2005
+   *
+   *  sInput:
+   *  Output:		Parsed Arg Object (note: if no args are passed just the initialized object is passed out)
+   *
+   *  Description:	Function to parse arguments passed into the host script.
+   *  
+  \*/
+
+  function jArgParser(oConfig) 
+  {
+    var oFS = new ActiveXObject("Scripting.FileSystemObject");
+    var oWinCmd = new ActiveXObject("WScript.Shell");
+    var oPROCENV = oWinCmd.Environment("PROCESS");
+    var strSYSTEMDRIVE = oPROCENV("SYSTEMDRIVE");
+
+
+    // The following code should be customized per application
+
+    oConfig["buildsystem"] = false;
+    oConfig["BaseConfigXML"] = strSYSTEMDRIVE + "\\config\\tSBBase.xml";
+    oConfig["Loaded"] = false;
+
+
+    // Read in Arguments
+
+    // See if we want to build the system
+    if ( WScript.Arguments.Named.Exists("buildsystem") )
+      oConfig["buildsystem"] = true;
+
+    // see if the Base Config XML was specified
+    if ( WScript.Arguments.Named.Exists("bcx") )
+    {
+      oConfig["BaseConfigXML"] = WScript.Arguments.Named("bcx");
+    }
+
+    return (oConfig);
+  }
+  </script>
+
+  <script language="JScript">
+  function jMainProgram(oConfig)
+  {
+    var oXDBase, oINTVARs;
+    var oOS2InstallNode;
+
+    // if we do not want to build the system then don't
+    if ( ! oConfig["buildsystem"] )
+      return null;
+
+    oXDBase = jXMLLoadDOM(oConfig["BaseConfigXML"]);
+
+    // Copy the XML's to the Pre-partitioned Temp Path
+    jSBBootStapXML(oXDBase);
+
+    // Initialize drive letters by moving non-partition/removable volumes to the predefined removable letter range
+    // and move partitions to a tempory letter range
+//    jSBInitDriveLetters(oXDBase);
+
+    // Build Assembly XML - XML File used for system builds 
+    jSBBuildAssemblyXML(oXDBase);
+
+
+
+
+  }
+  </script>
+
+
+  <script language="JScript">
+  var oConfig = jArgParser(new Object());
+
+  jMainProgram(oConfig);
+  </script>
+
+
+</job>
+

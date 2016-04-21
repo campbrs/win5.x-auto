@@ -1,0 +1,134 @@
+<!--
+  
+      Program:		PatchOS
+      Version:		2.0 beta
+      Date:		11/21/2005
+      Creation Date:	12/2004
+   
+      Arguments:		See Display Usage Function
+   
+      Description:
+
+      Revision History: 2.0beta 11/08/2005  converted to WSF
+   			1.0	12/2005     Original JScript version
+   					    
+  
+-->
+<job>
+   <runtime>
+      <description>This script applies OS patches based on a "patch.cmd" Batch script(s) located in the directory and/or subdirectories pointed to from the script.</description>
+      <named
+          name="patchpath"
+          helpstring= "Path to patches and patch Batch script"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="patchscript"
+          helpstring= "Script filename"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="q"
+          helpstring= "Quiet Install (no output)"
+          type = "simple"
+          required="false"
+      />
+    <example>
+Example:
+
+patchos.wsf /patchpath:"d:\install\os\winxp_patches_sp2"
+patchos.wsf /patchscript:"c:\my patches\patch.cmd"
+    </example>
+  </runtime>
+  
+ <!--
+   Add needed includes
+  -->
+
+  <script language="JScript" src="include/jlibIO.js"></script>
+  <script language="JScript" src="include/jlibHelper.js"></script>
+  <script language="JScript" src="include/jlibFile.js"></script>
+  <script language="JScript" src="include/jlibPatch.js"></script>
+
+
+  <script language="JScript">
+  /*\
+   *  Function:		jArgParser
+   *  Version:		0.1
+   *  Date:		1/11/2005
+   *
+   *  sInput:
+   *  Output:		Parsed Arg Object (note: if no args are passed just the initialized object is passed out)
+   *
+   *  Description:	Function to parse arguments passed into the host script.
+   *  
+  \*/
+
+  function jArgParser(oConfig) {
+    var oFS = new ActiveXObject("Scripting.FileSystemObject");
+    var oWinCmd = new ActiveXObject("WScript.Shell");
+    var PROCENV = oWinCmd.Environment("PROCESS");
+    var sSYSTEMDRIVE = PROCENV("SYSTEMDRIVE");
+
+
+    // The following code should be customized per application
+
+    // 2000 = 2195; XP = 2600; 2003 = 3790
+    oConfig["OSBuildVer"] = oWinCmd.RegRead("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\CurrentBuildNumber");
+
+    oConfig["Loaded"] = true;
+    oConfig["Quiet"] = false;
+
+
+    // Read in Arguments
+
+    // see if the patch path was specified
+    if ( WScript.Arguments.Named.Exists("patchpath") ) {
+      oConfig["PatchPath"] = WScript.Arguments.Named("patchpath");
+    } else {
+      oConfig["PatchPath"] = null;
+    }
+
+    // see if the script path was specified
+    if ( WScript.Arguments.Named.Exists("patchscript") ) {
+      oConfig["PatchScript"] = WScript.Arguments.Named("patchscript");
+    } else {
+      oConfig["PatchScript"] = null;
+    }
+
+    if ( (oConfig["PatchScript"] == null) && (oConfig["PatchScript"] == null) )
+      oConfig["Loaded"] = false;
+
+    // see if quiet install
+    if ( WScript.Arguments.Named.Exists("q") )
+      oConfig["Quiet"] = true;
+
+    return (oConfig);
+  }
+  </script>
+
+  <script language="JScript"> 
+  function jMainProgram(oConfig)
+  {
+     var aFoundFiles, i;
+
+     if ( oConfig["Loaded"] )
+     {
+       aFoundFiles = jFind(oConfig["PatchPath"], oConfig["PatchScript"]);
+
+       for (i = 0; i < aFoundFiles.length; i++)
+       {
+         jPatchFromScript(aFoundFiles[i]);
+       }
+     }
+  }
+  </script>
+
+  <script language="JScript">
+  var oConfig = new Object();
+  jMainProgram(jArgParser(oConfig));
+  </script>
+
+</job>

@@ -1,0 +1,125 @@
+;#####################################################################
+;  Copyright © 2001, LSI Logic Corp..
+;#####################################################################
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System
+ClassGuid={4D36E97D-E325-11CE-BFC1-08002BE10318}
+Provider=%DELL%
+CatalogFile=percraid.cat
+CatalogFile.ntx86=percraid.cat
+DriverVer= 07/16/2004,5.48
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[SourceDisksNames]
+
+
+[SourceDisksFiles]
+
+
+
+[Manufacturer]
+%DELL%=DELL, NT.5.1, NT.5.2
+
+
+[DELL]
+%NULL.DeviceDesc%     = mraid2k_Inst, SCSI\Other__RAID___DummyDevice____05XX    
+
+;DELL Processor device
+%DELLProcessor%       = mraid2k_Inst, SCSI\ProcessorDELL____PERC_2/DC_______
+%DELLSCProcessor%     = mraid2k_Inst, SCSI\ProcessorDELL____PERC_2/SC_______
+%DELLDCProcessor%     = mraid2k_Inst, SCSI\ProcessorDELL____PERC_3/DC_______
+%DELLQCProcessor%     = mraid2k_Inst, SCSI\ProcessorDELL____PERC_3/QC_______
+%DELLDiProcessor%     = mraid2k_Inst, SCSI\ProcessorDELL____PERC_4/Di_______
+%DELL4DCProcessor%    = mraid2k_Inst, SCSI\ProcessorDELL____PERC_4/DC_______
+%DELL4EDCProcessor%   = mraid2k_Inst, SCSI\ProcessorDELL____PERC_4e/DC______
+
+
+
+;Qlogic Chip
+%virtual.DeviceDesc%   = mraid2k_Inst, PCI\VEN_1077&DEV_1216&SUBSYS_8471101E
+%virtual.DeviceDesc%   = mraid2k_Inst, PCI\VEN_1077&DEV_1216&SUBSYS_8493101E
+
+[mraid2k_Inst]
+AddReg=raid_addreg
+DriverVer= 07/16/2004,5.48
+
+[mraid2k_Inst.Services]
+AddService = , %SPSVCINST_ASSOCSERVICE%   ; null service install
+
+
+;----------------------------------------------------------------------
+
+[DELL.NT.5.1]
+%NULL.DeviceDesc%     = XPDRV, SCSI\Other__RAID___DummyDevice____05XX    
+
+;DELL Processor device
+%DELLProcessor%       = XPDRV, SCSI\ProcessorDELL____PERC_2/DC_______
+%DELLSCProcessor%     = XPDRV, SCSI\ProcessorDELL____PERC_2/SC_______
+%DELLDCProcessor%     = XPDRV, SCSI\ProcessorDELL____PERC_3/DC_______
+%DELLQCProcessor%     = XPDRV, SCSI\ProcessorDELL____PERC_3/QC_______
+%DELLDiProcessor%     = XPDRV, SCSI\ProcessorDELL____PERC_4/Di_______
+%DELL4DCProcessor%    = XPDRV, SCSI\ProcessorDELL____PERC_4/DC_______
+%DELL4EDCProcessor%   = XPDRV, SCSI\ProcessorDELL____PERC_4e/DC______
+
+
+
+;Qlogic Chip
+%virtual.DeviceDesc%   = XPDRV, PCI\VEN_1077&DEV_1216&SUBSYS_8471101E
+%virtual.DeviceDesc%   = XPDRV, PCI\VEN_1077&DEV_1216&SUBSYS_8493101E
+
+[XPDRV] ;empty section, so this INF does not support Windows XP
+
+;---------------Windows.NET--------------------------------------------
+
+[DELL.NT.5.2]
+%NULL.DeviceDesc%     = NODRV, SCSI\Other__RAID___DummyDevice____
+
+;DELL Processor device
+%DELLProcessor%       = NODRV, SCSI\ProcessorDELL____PERC_2/DC_______
+%DELLSCProcessor%     = NODRV, SCSI\ProcessorDELL____PERC_2/SC_______
+%DELLDCProcessor%     = NODRV, SCSI\ProcessorDELL____PERC_3/DC_______
+%DELLQCProcessor%     = NODRV, SCSI\ProcessorDELL____PERC_3/QC_______
+%DELLDiProcessor%     = NODRV, SCSI\ProcessorDELL____PERC_4/Di_______
+%DELL4DCProcessor%    = NODRV, SCSI\ProcessorDELL____PERC_4/DC_______
+%DELL4EDCProcessor%   = NODRV, SCSI\ProcessorDELL____PERC_4e/DC______
+
+
+
+;Qlogic Chip
+%virtual.DeviceDesc%   = NODRV, PCI\VEN_1077&DEV_1216&SUBSYS_8471101E
+%virtual.DeviceDesc%   = NODRV, PCI\VEN_1077&DEV_1216&SUBSYS_8493101E
+
+
+[NODRV.ntx86]
+AddReg=raid_addreg
+DriverVer= 10/28/2004,6.46.2.32
+
+
+[NODRV.ntx86.Services]
+AddService = , %SPSVCINST_ASSOCSERVICE%   ; null service install
+
+
+
+[strings]
+DELL                  = "DELL"
+DellProcessor         = "DELL PERC 2/DC SCSI Processor Device"
+DellSCProcessor       = "DELL PERC 2/SC SCSI Processor Device"
+DellDCProcessor       = "DELL PERC 3/DC SCSI Processor Device"
+DellQCProcessor       = "DELL PERC 3/QC SCSI Processor Device"
+DellDiProcessor       = "DELL PERC 4/Di SCSI Processor Device"
+DELL4DCProcessor      = "DELL PERC 4/DC SCSI Processor Device"
+DELL4EDCProcessor     = "DELL PERC 4e/DC SCSI Processor Device"
+NULL.DeviceDesc       = "DELL PERC RAID Virtual Device"
+virtual.DeviceDesc    = "DELL PERC RAID Adapter Component"
+
+;*******************************************
+;Handy macro substitutions (non-localizable)
+SPSVCINST_ASSOCSERVICE = 0x00000002
+
+[raid_addreg]
+HKR, "Parameters\virtualraid", "level", 0x00010001, 0x00000001

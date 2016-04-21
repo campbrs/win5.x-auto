@@ -1,0 +1,361 @@
+<!--
+
+    Program:           hardenos.wsf
+    Version:           3.0
+    Version by:        Richard Campbell
+    Version Date:      11/12/2005
+
+    Created by:        Richard Campbell
+    Creation Date:     12/08/2004
+
+    Inputs:            see parameter's section
+    Outputs:           see parameter's section
+
+    Description:       This script applys a Windows Security Policy to a Windows 2000 or 
+                       Windows 2003 Server provided the inf file.  A log file path may optionally 
+                       provided, if one is not provided the log is written to c:\.  
+
+                       A rollback inf is generated and written to the directory where tht inf file 
+                       is located. Format of the Rollback file name is:
+                        <inf-file-name>.RB.<computer-name>.<Time-Date-Tag>.<inf-file-ext>
+
+                       The Security Database is also modified to support additional hardening 
+                       parameters, such as TCP/IP hardening, Terminal Services settings, etc.
+                       These new settings all one to modify the local policy through the security
+                       policy editor, and also allow for the rollback of these settings if needed.
+
+    Revision History:  3.0beta2  11/10/2005 - Added Quiet option using the jlibIO.js library
+                                            - Removed IIS hardening as not needed anymore (use IIS install script to harden IIS)
+                       3.0beta1  08/28/2005 - Converted to WSF file format and library based
+                                            - Added V2 BETA policies for Windows 2003 
+                       2.1       03/01/2005 - Added Windows 2003 Policy Verify Support
+                       2.0       01/12/2005 - Added robust command Line support and cleaned up code
+                                            - added Policy template customization support (Terminal Services, enhanced networking hardening, etc)
+                       1.0a      12/08/2004 - First Revision with single INF file support
+
+-->
+
+<job>
+   <runtime>
+      <description>
+This script applys a Windows Security Policy to a Windows 2000 or Windows 2003 
+Server provided the inf file.  A log file path may optionally provided, if one 
+is not provided the log is written to c:\</description>
+      <named
+          name="inf"
+          helpstring= "Hardening INF File (default: security\scpolicy%OSVER%.inf)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="tempf"
+          helpstring= "Template File (default: security\scregvl%OSVER%.new)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="regtf"
+          helpstring= "Registry tweaks file (default: security\win%OSVER%.reg)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="bpath"
+          helpstring= "Path where Hardening Backup Files are created in (default: c:\)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="lpath"
+          helpstring= "Path where Hardening Log Files are created in (default: %TEMP%)"
+          type = "string"
+          required="false"
+      />
+      <named
+          name="q"
+          helpstring= "Quiet Install (no output)"
+          type = "simple"
+          required="false"
+      />
+    <example>
+Example:
+
+hardenos.wsf /inf:c:\myinf.inf /tempf:"c:\mytemp.new" /lpath:"e:\log files\security"
+    </example>
+ </runtime>
+
+ <!--
+   Add needed includes
+  -->
+
+  <script language="JScript" src="include/jlibIO.js"></script>
+  <script language="JScript" src="include/jlibHelper.js"></script>
+  <script language="JScript" src="include/jlibFile.js"></script>
+  <script language="JScript" src="include/jlibOSHarden.js"></script>
+
+  <script language="JScript">
+  /*\
+   *  Function:		jArgParser
+   *  Version:		0.1
+   *  Date:		1/11/2005
+   *
+   *  sInput:
+   *  Output:		Parsed Arg Object (note: if no args are passed just the initialized object is passed out)
+   *
+   *  Description:	Function to parse arguments passed into the host script.
+   *  
+  \*/
+
+  function jArgParser(objConfig) {
+    var objFS = new ActiveXObject("Scripting.FileSystemObject");
+    var objWinCmd = new ActiveXObject("WScript.Shell");
+    var PROCENV = objWinCmd.Environment("PROCESS");
+    var TEMP = PROCENV("TEMP");
+
+    var sInput;
+
+    // The following code should be customized per application
+
+
+    // 2000 = 2195; XP = 2600; 2003 = 3790
+    var OSVer = objWinCmd.RegRead("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\CurrentBuildNumber");
+
+    if ( OSVer == "2195" ) objConfig["OSVer"] = "2000";
+    if ( OSVer == "2600" ) objConfig["OSVer"] = "XP";
+    if ( OSVer == "3790" ) objConfig["OSVer"] = "2003";
+
+    objConfig["Quiet"] = false;
+
+    var strDefault00HardenINF = WScript.ScriptFullName.split("\\").slice(0,-1).join("\\") + "\\security" + "\\scpolicy" + objConfig["OSVer"] + "v2.inf";
+    var strDefault01HardenINF = WScript.ScriptFullName.split("\\").slice(0,-1).join("\\") + "\\security" + "\\scpolicy" + objConfig["OSVer"] + ".inf";
+    var strDefaultTemplateFile = WScript.ScriptFullName.split("\\").slice(0,-1).join("\\") + "\\security" + "\\sceregvl" + objConfig["OSVer"] + ".new";
+    var strDefaultRegTweakFile = WScript.ScriptFullName.split("\\").slice(0,-1).join("\\") + "\\security" + "\\win" + objConfig["OSVer"] + ".reg";
+
+    // Read in Arguments
+
+    // see if the INF file was specified and exists
+    if ( WScript.Arguments.Named.Exists("inf") && objFS.FileExists(WScript.Arguments.Named("inf")) ) {
+      objConfig["INFFile"] = WScript.Arguments.Named("inf");
+    } else if ( objFS.FileExists(strDefault00HardenINF) ) {
+      objConfig["INFFile"] = strDefault00HardenINF;
+    } else if ( objFS.FileExists(strDefault01HardenINF) ) {
+      objConfig["INFFile"] = strDefault01HardenINF;
+    } else {
+      objConfig["INFFile"] = null;
+    }
+
+    // see if the Template file was specified and exists
+    if ( WScript.Arguments.Named.Exists("tempf") && objFS.FileExists(WScript.Arguments.Named("tempf")) ) {
+      objConfig["TPLFile"] = WScript.Arguments.Named("tempf");
+    } else if ( objFS.FileExists(strDefaultTemplateFile) ) {
+      objConfig["TPLFile"] = strDefaultTemplateFile;
+    } else {
+      objConfig["TPLFile"] = null;
+    }
+
+    // see if the Registry Tweaks file was specified and exists
+    if ( WScript.Arguments.Named.Exists("regtf") && objFS.FileExists(WScript.Arguments.Named("regtf")) ) {
+      objConfig["RegTFile"] = WScript.Arguments.Named("regtf");
+    } else if ( objFS.FileExists(strDefaultTemplateFile) ) {
+      objConfig["RegTFile"] = strDefaultRegTweakFile;
+    } else {
+      objConfig["RegTFile"] = null;
+    }
+
+    // see if the Backup path was specified
+    if ( WScript.Arguments.Named.Exists("bpath") && objFS.FolderExists(WScript.Arguments.Named("bpath")) ) {
+      objConfig["BUPath"] = WScript.Arguments.Named("bpath");
+    } else {
+      objConfig["BUPath"] = TEMP;
+    }
+
+    // see if the log path was specified
+    if ( WScript.Arguments.Named.Exists("lpath") && objFS.FolderExists(WScript.Arguments.Named("lpath")) ) {
+      objConfig["LOGPath"] = WScript.Arguments.Named("lpath");
+    } else {
+      objConfig["LOGPath"] = TEMP;
+    }
+
+    // see if quiet install
+    if ( WScript.Arguments.Named.Exists("q") )
+      objConfig["Quiet"] = true;
+
+    return (objConfig);
+  }
+  </script>
+
+  <script language="JScript">
+  /*\
+   *   Function:        HardenOS
+   *   Version:         0.1
+   *   Date:            12/04/2004
+   *
+   *   Input:           objConfig object (contains parsed cmd line arguments)
+   *   Output:
+   *
+   *   Description:     Applies provided or default local Windows hardening polices to a system.
+   *                    For Windows 2003 a rollback file is generated to all rollback to previous
+   *                    policies.
+   *                    For Windows 2000 a export (limited rollback) of the current polices are created
+   *                    Windows XP is currently not supported
+   *   
+  \*/
+
+  function jHardenOS() {
+    var objWinCmd = new ActiveXObject("WScript.Shell");
+    var objFS = new ActiveXObject("Scripting.FileSystemObject");
+
+    var PROCENV = objWinCmd.Environment("PROCESS");
+    var strSYSTEMROOT = PROCENV("SYSTEMROOT");
+    var strCOMPUTERNAME = PROCENV("COMPUTERNAME");
+
+    var objConfig = new Object();
+    var i, re_a, fsLogFileOut, sOutputLine;
+    var aMisMatches = new Array();
+    var strTDTag = jHelpGetTimeDateTag();
+
+    objConfig = jArgParser(objConfig);
+
+    if ( objConfig["INFFile"] != null )
+    {
+      jPrint(objConfig, "Performing OS Hardening...");
+
+      // if a new security template exists then update the local security template
+      if ( objConfig["TPLFile"] != null ) {
+        jUpdateSecTemplate(objConfig["TPLFile"]);
+        jPrint(objConfig, "Updating the Local Security Database with template:\n  " + objConfig["TPLFile"]);
+      }
+
+
+      jPrint(objConfig, "Applying the security policy defined in:\n  " + objConfig["INFFile"]);
+
+      // Apply the INF in the method supported by the OS
+      switch ( objConfig["OSVer"] )
+      {
+
+        case "2000" :
+
+          // backup the current policy
+          jPrint(objConfig, "Backing up the current policy to:\n  " + objConfig["BUPath"] + "\\scpolicy" + objConfig["OSVer"] + ".RB.HDB." + strCOMPUTERNAME + "." + strTDTag + ".inf");
+
+          // If server has been hardened once then use this database for backup else use the default databse for backup
+          if ( objFS.FileExists(strSYSTEMROOT + "\\security\\Database\\winhardened.sdb")) {
+            jShExec("secedit /export /db " + strSYSTEMROOT + "\\security\\Database\\winhardened.sdb  /cfg " + objConfig["BUPath"] + "\\scpolicy" + objConfig["OSVer"] + ".RB.HDB." + strCOMPUTERNAME + "." + strTDTag + ".inf /log " + objConfig["LOGPath"] + "\\sec_policy." + strTDTag + ".log /quiet");
+          } else if ( objFS.FileExists(strSYSTEMROOT + "\\security\\Database\\secedit.sdb") ) {
+            jShExec("secedit /export /db " + strSYSTEMROOT + "\\security\\Database\\secedit.sdb  /cfg " + objConfig["BUPath"] + "\\scpolicy" + objConfig["OSVer"] + ".RB.SDB." + strCOMPUTERNAME + "." + strTDTag + ".inf /log " + objConfig["LOGPath"] + "\\sec_policy." + strTDTag + ".log /quiet");
+          }
+  
+          // apply the new policy
+          jPrint(objConfig, "Applying the new policy...");
+          jShExec("secedit /configure /db " + strSYSTEMROOT + "\\security\\Database\\winhardened.sdb  /cfg " + objConfig["INFFile"] + " /log " + objConfig["LOGPath"] + "\\sec_policy." + strTDTag + ".log");
+
+          // refresh the policy
+          jPrint(objConfig, "Refreshing the system security policy...");
+          jShExec("secedit /refreshpolicy machine_policy /enforce");
+
+          break;
+
+        case "XP" :
+
+          // backup the current policy
+          jPrint(objConfig, "Backing up the current policy to:\n  " + objConfig["BUPath"] + "\\scpolicy" + objConfig["OSVer"] + ".RB.HDB." + strCOMPUTERNAME + "." + strTDTag + ".inf");
+
+          // If server has been hardened once then use this database for backup else use the default databse for backup
+          if ( objFS.FileExists(strSYSTEMROOT + "\\security\\Database\\winhardened.sdb")) {
+            jShExec("secedit /export /db " + strSYSTEMROOT + "\\security\\Database\\winhardened.sdb  /cfg " + objConfig["BUPath"] + "\\scpolicy" + objConfig["OSVer"] + ".RB.HDB." + strCOMPUTERNAME + "." + strTDTag + ".inf /log " + objConfig["LOGPath"] + "\\sec_policy." + strTDTag + ".log /quiet");
+          } else if ( objFS.FileExists(strSYSTEMROOT + "\\security\\Database\\secedit.sdb") ) {
+            jShExec("secedit /export /db " + strSYSTEMROOT + "\\security\\Database\\secedit.sdb  /cfg " + objConfig["BUPath"] + "\\scpolicy" + objConfig["OSVer"] + ".RB.SDB." + strCOMPUTERNAME + "." + strTDTag + ".inf /log " + objConfig["LOGPath"] + "\\sec_policy." + strTDTag + ".log /quiet");
+          }
+  
+          // apply the new policy
+          jPrint(objConfig, "Applying the new policy...");
+          jShExec("secedit /configure /db " + strSYSTEMROOT + "\\security\\Database\\winhardened.sdb  /cfg " + objConfig["INFFile"] + " /log " + objConfig["LOGPath"] + "\\sec_policy." + strTDTag + ".log");
+
+          // refresh the policy
+          jPrint(objConfig, "Refreshing the system security policy...");
+          jShExec("gpupdate /force");
+
+          // verify the policy
+          jPrint(objConfig, "Verifying the installation of the new system security policy...");
+          jShExec("secedit /analyze /db " + strSYSTEMROOT + "\\security\\Database\\winhardened.sdb /cfg " + objConfig["INFFile"] + " /log \"" + objConfig["LOGPath"] + "\\secpolicy." + strTDTag + ".verify.log\"");
+          fsLogFileOut = jShExec("find \"Mismatch       - \" \"" + objConfig["LOGPath"] + "\\sec_policy." + strTDTag + ".verify.log\"");
+
+          re_a=/(Mismatch       - )/;
+
+          while (! fsLogFileOut.StdOut.AtEndofStream) {
+            sOutputLine = fsLogFileOut.StdOut.Readline()
+	    if (re_a.test(sOutputLine))
+              aMisMatches.push(sOutputLine);
+          }
+
+          if (aMisMatches.length > 0) {
+            jPrint(objConfig, "WARNING: " + aMisMatches.length + " found when verifying policy install!");
+            for (i = 0; i < misMatches.length; i++) jPrint(objConfig, "  Mismatch Found: " + aMisMatches[i].replace(re_a, ""));
+          }
+
+          break;
+
+        case "2003" :
+
+          // backup the current policy
+          jPrint(objConfig, "Backing up the current policy to:\n  " + objConfig["BUPath"] + "\\secpolicy" + objConfig["OSVer"] + ".RB." + strCOMPUTERNAME + "." + strTDTag + ".inf");
+          jShExec("secedit /GenerateRollback /cfg " + objConfig["INFFile"] + " /rbk " + objConfig["BUPath"] + "\\secpolicy" + objConfig["OSVer"] + ".RB." + strCOMPUTERNAME + "." + strTDTag + ".inf /log " + objConfig["LOGPath"] + "\\secpolicy." + strTDTag + ".rb.log /quiet");
+
+          // apply the new policy
+          jPrint(objConfig, "Applying the new policy...");
+          jShExec("secedit /configure /db " + strSYSTEMROOT + "\\security\\Database\\winhardened.sdb  /cfg " + objConfig["INFFile"] + " /log " + objConfig["LOGPath"] + "\\secpolicy." + strTDTag + ".log");
+
+          // refresh the policy
+          jPrint(objConfig, "Refreshing the system security policy...");
+          jShExec("gpupdate /force");
+
+          // verify the policy
+          jPrint(objConfig, "Verifying the installation of the new system security policy...");
+          jShExec("secedit /analyze /db " + strSYSTEMROOT + "\\security\\Database\\winhardened.sdb /cfg " + objConfig["INFFile"] + " /log \"" + objConfig["LOGPath"] + "\\secpolicy." + strTDTag + ".verify.log\"");
+          fsLogFileOut = jShExec("find \"Mismatch       - \" \"" + objConfig["LOGPath"] + "\\sec_policy." + strTDTag + ".verify.log\"");
+
+          re_a=/(Mismatch       - )/;
+
+          while (! fsLogFileOut.StdOut.AtEndofStream) {
+            sOutputLine = fsLogFileOut.StdOut.Readline()
+	    if (re_a.test(sOutputLine))
+              aMisMatches.push(sOutputLine);
+          }
+
+          if (aMisMatches.length > 0) {
+            jPrint(objConfig, "WARNING: " + aMisMatches.length + " found when verifying policy install!");
+            for (i = 0; i < misMatches.length; i++) jPrint(objConfig, "  Mismatch Found: " + aMisMatches[i].replace(re_a, ""));
+          }
+
+          break;
+
+      }
+ 
+      jPrint(objConfig, "\nPerforming Additional OS Hardening Tweaks...");
+
+      // If found perform Registry tweaks
+
+      if ( objConfig["RegTFile"] != null )
+      {
+        jPrint(objConfig, "Performing Registry Tweaks...");
+        jShExec("regedit /s " + objConfig["RegTFile"]);
+      }
+
+      jPrint(objConfig, "\nPerforming OS Component Hardening...");
+        
+      // Harden IIS - Removed as not needed - hardened via IIS install/harden script
+
+      jPrint(objConfig, "Finished Hardening OS...");
+    }
+    else
+    {
+       jPrint(objConfig, "ERROR: No INFs Found! No Hardening performed! Exiting!");
+    }
+  }
+  </script>
+
+  <script language="JScript">
+  jHardenOS();
+  </script>
+
+</job>

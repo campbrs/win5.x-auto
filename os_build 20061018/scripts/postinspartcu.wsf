@@ -1,0 +1,105 @@
+<!--
+  
+      Program:		postinspartcu
+      Version:		1.0 beta
+      Date:		2006/08/06
+      Creation Date:	2006/08/06
+   
+      Arguments:		See Display Usage Function
+   
+      Description:      Run within cmdlines.txt to fix drive letters post OS installation.  Requires WSH 5.6
+
+      Revision History: 
+                        1.0 beta   2005/08/06   First version
+   					    
+  
+-->
+<job>
+   <runtime>
+      <description>This script realigns partitioning after an installation.</description>
+      <named
+          name="removableletters"
+          helpstring= "List of letters to be used by removable drives (seperated by ;)"
+          type = "string"
+          required="true"
+      />
+    <example>
+Example:
+
+patchos.wsf /removableletters:"r;s;t;u;v"
+    </example>
+  </runtime>
+  
+ <!--
+   Add needed includes
+  -->
+
+  <script language="JScript" src="include/jlibIO.js"></script>
+  <script language="JScript" src="include/jlibHelper.js"></script>
+  <script language="JScript" src="include/jlibFile.js"></script>
+  <script language="JScript" src="include/jlibDisk.js"></script>
+  <script language="JScript" src="include/jlibDiskpart.js"></script>
+
+
+  <script language="JScript">
+  /*\
+   *  Function:		jArgParser
+   *  Version:		0.1
+   *  Date:		1/11/2005
+   *
+   *  sInput:
+   *  Output:		Parsed Arg Object (note: if no args are passed just the initialized object is passed out)
+   *
+   *  Description:	Function to parse arguments passed into the host script.
+   *  
+  \*/
+
+  function jArgParser(oConfig) {
+    var oFS = new ActiveXObject("Scripting.FileSystemObject");
+    var oWinCmd = new ActiveXObject("WScript.Shell");
+    var PROCENV = oWinCmd.Environment("PROCESS");
+    var sSYSTEMDRIVE = PROCENV("SYSTEMDRIVE");
+
+
+    // The following code should be customized per application
+
+    // 2000 = 2195; XP = 2600; 2003 = 3790
+    oConfig["OSBuildVer"] = oWinCmd.RegRead("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\CurrentBuildNumber");
+
+    oConfig["Loaded"] = true;
+    oConfig["Quiet"] = false;
+
+
+    // Read in Arguments
+
+    // see if the patch path was specified
+    if ( WScript.Arguments.Named.Exists("removableletters") ) {
+      oConfig["RemovableLetters"] = WScript.Arguments.Named("removableletters");
+    } else {
+      oConfig["RemovableLetters"] = "r;s;t;u;v";
+    }
+
+    // see if quiet install
+    if ( WScript.Arguments.Named.Exists("q") )
+      oConfig["Quiet"] = true;
+
+    return (oConfig);
+  }
+  </script>
+
+  <script language="JScript"> 
+  function jMainProgram(oConfig)
+  {
+    if ( oConfig["Loaded"] )
+    {
+      jDPPOSTFixPartitions(oConfig["RemovableLetters"]));
+    }
+  }
+  </script>
+
+  <script language="JScript">
+  var oConfig = new Object();
+  jMainProgram(jArgParser(oConfig));
+  </script>
+
+</job>
